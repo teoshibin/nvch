@@ -26,8 +26,8 @@ M.ui = {
     separator_style = "round",
   },
 
-  theme = "kanagawa",
-  theme_toggle = { "kanagawa", "one_light" },
+  theme = "tokyodark",
+  theme_toggle = { "tokyodark", "one_light" },
 
   hl_override = highlights.override,
   hl_add = highlights.add,
