@@ -7,7 +7,16 @@ local highlights = require "custom.highlights"
 M.ui = {
   nvdash = {
     load_on_startup = true,
-    header = require("custom.lib.ascii_arts").randomArt()
+    header = require("custom.lib.ascii_arts").randomArt(),
+    buttons = {
+      { "  Search File", "Spc s f", "Telescope find_files" },
+      { "󰈚  Recent Files", "Spc s o", "Telescope oldfiles" },
+      { "󰈭  Find Word", "Spc s w", "Telescope live_grep" },
+      { "  Bookmarks", "Spc s a", "Telescope marks" },
+      { "  Themes", "Spc t h", "Telescope themes" },
+      { "  Search keymaps", "Spc s k", "Telescope keymaps" },
+      { "  Mappings", "Spc c h", "NvCheatsheet" },
+    },
   },
 
   statusline = {
@@ -17,11 +26,13 @@ M.ui = {
     separator_style = "round",
   },
 
-  theme = "catppuccin",
-  theme_toggle = { "catppuccin", "one_light" },
+  theme = "kanagawa",
+  theme_toggle = { "kanagawa", "one_light" },
 
   hl_override = highlights.override,
   hl_add = highlights.add,
+
+  telescope = { style = "bordered" }, -- borderless / bordered
 }
 
 M.plugins = "custom.plugins"

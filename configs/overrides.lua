@@ -7,26 +7,30 @@ M.treesitter = {
     "lua",
     "markdown",
     "markdown_inline",
-    "bash", 
-    "c", 
+    "bash",
+    "c",
     "html",
+    -- powershell not supported
   },
   auto_install = true,
-  -- highlight = { enable = true },
   indent = {
     enable = true,
-    disable = { "c", "cpp" },
-    -- disable = {
-    --   "python"
-    -- },
+    disable = {
+      "c",
+      "cpp", --[["python"]]
+    },
   },
 }
 
+-- NOTE: See :Mason to check for server name
+-- https://github.com/williamboman/mason-lspconfig.nvim/blob/main/doc/server-mapping.md
 M.mason = {
   ensure_installed = {
     -- lua
     "lua-language-server",
     "stylua",
+    -- powershell
+    "powershell-editor-services",
   },
 }
 
@@ -40,7 +44,6 @@ M.nvimtree = {
     enable = true,
     ignore = false,
   },
-  -- disable_netrw = false,
   renderer = {
     highlight_git = true,
     indent_markers = {

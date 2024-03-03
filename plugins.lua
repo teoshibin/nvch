@@ -1,5 +1,22 @@
 local overrides = require "custom.configs.overrides"
 
+--[[
+    mini.nvim
+    auto-save
+    harphoon.nvim
+    numb.nvim
+    ecthelionvi/NeoComposer.nvim
+    hbac.nvim
+    diffview (commit)
+    neogit / lazygit (general)
+    octo (PR)
+    git-conflict (merge)
+    nvim-tinygit (git all in one)
+    netrw-gx replacement
+    dressing.nvim (make select options to use telescope)
+    nvim-lsp-file-opreations (for refactoring filenames and imports)
+--]]
+
 ---@type NvPluginSpec[]
 local plugins = {
 
@@ -8,7 +25,7 @@ local plugins = {
   {
     "neovim/nvim-lspconfig",
     -- dependencies = {
-      -- { 'j-hui/fidget.nvim', opts = {} },
+    -- { 'j-hui/fidget.nvim', opts = {} },
     -- },
     config = function()
       require "plugins.configs.lspconfig"
@@ -32,13 +49,14 @@ local plugins = {
       -- Trobleshoot:
       --  1. Install compilers as mentioned by treesitter page
       --  2. Restart terminal if needed
-      --  3. Delete any mason and treesitter related folders in nvim `*-data` folder 
+      --  3. Delete any mason and treesitter related folders in nvim `*-data` folder
       --  4. TSInstall if needed
-      if require('custom.lib.os').isWindows() then
-        require('nvim-treesitter.install').compilers = { 'clang' }
+      if require("custom.lib.os").isWindows() then
+        require("nvim-treesitter.install").compilers = { "clang" }
       end
+      -- require'treesitter-context'.setup() -- TODO: is this working? (https://github.com/nvim-treesitter/nvim-treesitter-context)
       return overrides.treesitter
-    end
+    end,
   },
 
   {
@@ -80,19 +98,38 @@ local plugins = {
 
   ---- MY PLUGINS ----
 
-  -- Highlight todo, notes, etc in comments
+  -- Highlight todo, notes etc. comments
   {
     "folke/todo-comments.nvim",
     dependencies = { "nvim-lua/plenary.nvim" },
     opts = { signs = false },
     lazy = false,
   },
-
   {
+    -- Surround motion
     "kylechui/nvim-surround",
     version = "*", -- Use for stability; omit to use `main` branch for the latest features
     event = "VeryLazy",
-    opts = {}
+    opts = {},
+  },
+  {
+    -- Indentation virtical guide line
+    "lukas-reineke/indent-blankline.nvim",
+    main = "ibl",
+    opts = {},
+    lazy = false,
+  },
+  {
+    -- Auto update indentation size
+    "NMAC427/guess-indent.nvim",
+    opts = {},
+    lazy = false,
+  },
+  {
+    -- Sticky line on top of the editor
+    "nvim-treesitter/nvim-treesitter-context",
+    opts = {},
+    lazy = false,
   },
 }
 
