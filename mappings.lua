@@ -24,6 +24,24 @@ M.disabled = {
     ["<leader>rh"] = "",
     ["<leader>ph"] = "",
     ["<leader>gb"] = "",
+
+    -- [[ Terminal ]]
+    -- TODO: fix new terminal
+    ["<leader>h"] = "",
+    ["<leader>v"] = "",
+    -- ["<leader>h"] = {
+    --   function()
+    --     require("nvterm.terminal").new "horizontal"
+    --   end,
+    --   "New horizontal term",
+    -- },
+    --
+    -- ["<leader>v"] = {
+    --   function()
+    --     require("nvterm.terminal").new "vertical"
+    --   end,
+    --   "New vertical term",
+    -- },
   },
 }
 
@@ -206,6 +224,70 @@ M.gitsigns = {
         require("gitsigns").reset_hunk { vim.fn.line ".", vim.fn.line "v" }
       end,
       "Git reset selected hunk",
+    },
+  },
+}
+
+M.harpoon = {
+  -- TODO: usage
+  -- you can go up and down the list, enter, delete or reorder. q and <ESC> exit and save the menu
+  -- from the quickmenu, open a file in: a vertical split with control+v, a horizontal split with control+x, a new tab with control+t
+  --
+  -- lua require("harpoon.term").gotoTerminal(1)             -- navigates to term 1
+  -- lua require("harpoon.term").sendCommand(1, "ls -La")    -- sends ls -La to tmux window 1
+  -- lua require('harpoon.cmd-ui').toggle_quick_menu()       -- shows the commands menu
+  -- lua require("harpoon.term").sendCommand(1, 1)           -- sends command 1 to term 1
+  -- plugin = true,
+  n = {
+    ["<leader>ha"] = {
+      function()
+        require("harpoon.mark").add_file()
+        print("⇁ harpooned")
+      end,
+      "Harpoon add",
+    },
+    ["<leader>sl"] = {"<cmd> Telescope harpoon marks <CR>", "Telescope harpoon list" },
+    ["<leader>hl"] = {
+      function()
+        require("harpoon.ui").toggle_quick_menu()
+      end,
+      "Harpooned list",
+    },
+    ["<leader>hs"] = {
+      function()
+        require("harpoon.ui").nav_file(1)
+      end,
+      "Harpoon s",
+    },
+    ["<leader>hd"] = {
+      function()
+        require("harpoon.ui").nav_file(2)
+      end,
+      "Harpoon d",
+    },
+    ["<leader>hf"] = {
+      function()
+        require("harpoon.ui").nav_file(3)
+      end,
+      "Harpoon f",
+    },
+    ["<leader>hg"] = {
+      function()
+        require("harpoon.ui").nav_file(4)
+      end,
+      "Harpoon g",
+    },
+    ["<M-p>"] = {
+      function()
+        require("harpoon.ui").nav_prev()
+      end,
+      "Harpoon previous",
+    },
+    ["<M-n>"] = {
+      function()
+        require("harpoon.ui").nav_next()
+      end,
+      "Harpoon next",
     },
   },
 }

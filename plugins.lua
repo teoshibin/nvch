@@ -112,14 +112,14 @@ local plugins = {
       --   behavior = cmp.ConfirmBehavior.Insert,
       --   select = true,
       -- }
-      config.mapping["<C-y>"] = cmp.mapping.confirm({
+      config.mapping["<C-y>"] = cmp.mapping.confirm {
         behavior = cmp.ConfirmBehavior.Insert,
         select = true,
-      })
-      config.mapping["<Tab>"] = cmp.mapping.confirm({
+      }
+      config.mapping["<Tab>"] = cmp.mapping.confirm {
         behavior = cmp.ConfirmBehavior.Insert,
         select = true,
-      })
+      }
       config.mapping["<S-Tab>"] = nil
 
       -- Jump to different placeholder location of the snippet
@@ -138,7 +138,10 @@ local plugins = {
       return config
     end,
   },
-
+  {
+    "nvim-telescope/telescope.nvim",
+    opts = overrides.telescope
+  },
   {
     -- NOTE: override opts
     "lewis6991/gitsigns.nvim",
@@ -147,7 +150,7 @@ local plugins = {
       current_line_blame_opts = {
         delay = 500,
       },
-    }
+    },
   },
 
   ---- MY PLUGINS ----
@@ -192,23 +195,11 @@ local plugins = {
     -- File Navigation
     "ThePrimeagen/harpoon",
     dependencies = {
-      "nvim-lua/plenary.nvim"
+      "nvim-lua/plenary.nvim",
     },
+    lazy = false,
     opts = {},
-    event = "VeryLazy",
-    -- TODO: usage
-    -- :lua require("harpoon.mark").add_file()
-    -- :lua require("harpoon.ui").toggle_quick_menu()
-    -- :lua require("harpoon.ui").nav_file(3) -- navigates without opening menu
-    -- :lua require("harpoon.ui").nav_next() -- navigates to next mark
-    -- :lua require("harpoon.ui").nav_prev() -- navigates to previous mark
-    -- you can go up and down the list, enter, delete or reorder. q and <ESC> exit and save the menu
-    -- from the quickmenu, open a file in: a vertical split with control+v, a horizontal split with control+x, a new tab with control+t
-    -- lua require("harpoon.term").gotoTerminal(1)             -- navigates to term 1
-    -- lua require("harpoon.term").sendCommand(1, "ls -La")    -- sends ls -La to tmux window 1
-    -- lua require('harpoon.cmd-ui').toggle_quick_menu()       -- shows the commands menu
-    -- lua require("harpoon.term").sendCommand(1, 1)           -- sends command 1 to term 1
-  }
+  },
 }
 
 return plugins

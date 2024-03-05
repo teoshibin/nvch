@@ -52,4 +52,8 @@ M.nvimtree = {
   },
 }
 
+M.telescope = {
+  extensions_list = { "harpoon" },
+}
+
 return M
