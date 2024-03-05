@@ -1,19 +1,29 @@
 local overrides = require "custom.configs.overrides"
 
 --[[
-    mini.nvim
+    FILE
+    oil.nvim
     auto-save
-    numb.nvim
+    nvim-lsp-file-opreations (for refactoring filenames and imports)
+
+    MACRO
     ecthelionvi/NeoComposer.nvim
-    hbac.nvim
+
+    GIT
     diffview (commit)
     neogit / lazygit (general)
     octo (PR)
     git-conflict (merge)
     nvim-tinygit (git all in one)
+
+    NAVIGATION
     netrw-gx replacement
+
+    IDK
+    numb.nvim
+    mini.nvim
+    hbac.nvim
     dressing.nvim (make select options to use telescope)
-    nvim-lsp-file-opreations (for refactoring filenames and imports)
     beauwilliams/focus.nvim
 --]]
 
