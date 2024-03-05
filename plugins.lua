@@ -3,7 +3,6 @@ local overrides = require "custom.configs.overrides"
 --[[
     mini.nvim
     auto-save
-    harphoon.nvim
     numb.nvim
     ecthelionvi/NeoComposer.nvim
     hbac.nvim
@@ -149,29 +148,6 @@ local plugins = {
         delay = 500,
       },
     }
-    -- TODO: map functions
-    -- 
-    -- map('n', '<leader>hp', gs.preview_hunk, { desc = '[h]unk [p]review' })
-    -- map('n', '<leader>hs', gs.stage_hunk, { desc = '[h]unk [s]tage' })
-    -- map('n', '<leader>hu', gs.undo_stage_hunk, { desc = '[h]unk [u]nstage' })
-    -- map('n', '<leader>hS', gs.stage_buffer, { desc = 'buffer [h]unks [S]tage' })
-    -- map('n', '<leader>hr', gs.reset_hunk, { desc = '[h]unk [r]eset' })
-    -- map('n', '<leader>hR', gs.reset_buffer, { desc = 'buffer [h]unk [R]eset' })
-    -- map('n', '<leader>hd', gs.diffthis, { desc = 'buffer [h]unk [d]iff' })
-    --
-    -- -- Toggle commit message at the end of cursor line (enabled)
-    -- -- map('n', '<leader>tb', gs.toggle_current_line_blame, { desc = ''})
-    --
-    -- -- Toggle show deleted hunks
-    -- -- map('n', '<leader>td', gs.toggle_deleted, { desc = ''})
-    --
-    -- map('v', '<leader>hs', function()
-    --   gs.stage_hunk { vim.fn.line '.', vim.fn.line 'v' }
-    -- end, { desc = '[h]unk [s]tage selected lines' })
-    --
-    -- map('v', '<leader>hr', function()
-    --   gs.reset_hunk { vim.fn.line '.', vim.fn.line 'v' }
-    -- end, { desc = '[h]unk [r]eset selected lines' })
   },
 
   ---- MY PLUGINS ----
@@ -212,6 +188,27 @@ local plugins = {
     },
     event = "BufReadPost",
   },
+  {
+    -- File Navigation
+    "ThePrimeagen/harpoon",
+    dependencies = {
+      "nvim-lua/plenary.nvim"
+    },
+    opts = {},
+    event = "VeryLazy",
+    -- TODO: usage
+    -- :lua require("harpoon.mark").add_file()
+    -- :lua require("harpoon.ui").toggle_quick_menu()
+    -- :lua require("harpoon.ui").nav_file(3) -- navigates without opening menu
+    -- :lua require("harpoon.ui").nav_next() -- navigates to next mark
+    -- :lua require("harpoon.ui").nav_prev() -- navigates to previous mark
+    -- you can go up and down the list, enter, delete or reorder. q and <ESC> exit and save the menu
+    -- from the quickmenu, open a file in: a vertical split with control+v, a horizontal split with control+x, a new tab with control+t
+    -- lua require("harpoon.term").gotoTerminal(1)             -- navigates to term 1
+    -- lua require("harpoon.term").sendCommand(1, "ls -La")    -- sends ls -La to tmux window 1
+    -- lua require('harpoon.cmd-ui').toggle_quick_menu()       -- shows the commands menu
+    -- lua require("harpoon.term").sendCommand(1, 1)           -- sends command 1 to term 1
+  }
 }
 
 return plugins

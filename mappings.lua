@@ -3,7 +3,7 @@ local M = {}
 
 M.disabled = {
   n = {
-    -- [[ Telescope Remap ]]
+    -- [[ Telescope ]]
     -- pick hiden term
     ["<leader>pt"] = "",
     -- marks
@@ -19,6 +19,11 @@ M.disabled = {
     -- git
     ["<leader>cm"] = "",
     ["<leader>gt"] = "",
+
+    -- [[ GitSigns ]]
+    ["<leader>rh"] = "",
+    ["<leader>ph"] = "",
+    ["<leader>gb"] = "",
   },
 }
 
@@ -131,7 +136,6 @@ M.gitsigns = {
       "Jump to next hunk",
       opts = { expr = true },
     },
-
     ["[c"] = {
       function()
         if vim.wo.diff then
@@ -146,36 +150,63 @@ M.gitsigns = {
       "Jump to prev hunk",
       opts = { expr = true },
     },
-
-    -- Actions
-    -- ["<leader>rh"] = {
-    --   function()
-    --     require("gitsigns").reset_hunk()
-    --   end,
-    --   "Reset hunk",
-    -- },
-    --
-    -- ["<leader>ph"] = {
-    --   function()
-    --     require("gitsigns").preview_hunk()
-    --   end,
-    --   "Preview hunk",
-    -- },
-    --
-    -- ["<leader>gb"] = {
-    --   function()
-    --     package.loaded.gitsigns.blame_line()
-    --   end,
-    --   "Blame line",
-    -- },
-    --
-    -- ["<leader>td"] = {
-    --   function()
-    --     require("gitsigns").toggle_deleted()
-    --   end,
-    --   "Toggle deleted",
-    -- },
+    -- Custom gitsigns keymaps
+    ["<leader>gh"] = {
+      function()
+        require("gitsigns").preview_hunk()
+      end,
+      "Git preview hunk",
+    },
+    ["<leader>gah"] = {
+      function()
+        require("gitsigns").stage_hunk()
+      end,
+      "Git add (stage) hunk",
+    },
+    ["<leader>guh"] = {
+      function()
+        require("gitsigns").undo_stage_hunk()
+      end,
+      "Git unstage hunk",
+    },
+    ["<leader>grh"] = {
+      function()
+        require("gitsigns").reset_hunk()
+      end,
+      "Git reset hunk",
+    },
+    ["<leader>gab"] = {
+      function()
+        require("gitsigns").stage_buffer()
+      end,
+      "Git add (stage) buffer",
+    },
+    ["<leader>grb"] = {
+      function()
+        require("gitsigns").reset_buffer()
+      end,
+      "Git reset buffer",
+    },
+    ["<leader>gdh"] = {
+      function()
+        require("gitsigns").diffthis()
+      end,
+      "Git diff hunk",
+    },
+  },
+  v = {
+    ["<leader>gah"] = {
+      function()
+        require("gitsigns").stage_hunk { vim.fn.line ".", vim.fn.line "v" }
+      end,
+      "Git add (stage) selected hunk",
+    },
+    ["<leader>grh"] = {
+      function()
+        require("gitsigns").reset_hunk { vim.fn.line ".", vim.fn.line "v" }
+      end,
+      "Git reset selected hunk",
+    },
   },
 }
-
 return M
