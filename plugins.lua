@@ -259,6 +259,7 @@ local plugins = {
     end,
   },
   {
+    -- git
     "tpope/vim-fugitive",
     opts = {},
     lazy = false,
