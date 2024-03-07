@@ -9,13 +9,13 @@ M.ui = {
     load_on_startup = true,
     header = require("custom.lib.ascii_arts").randomArt(),
     buttons = {
+      { "󰈭  Search Word", "Spc s w", "Telescope live_grep" },
       { "  Search File", "Spc s f", "Telescope find_files" },
-      { "󰈚  Recent Files", "Spc s o", "Telescope oldfiles" },
-      { "󰈭  Find Word", "Spc s w", "Telescope live_grep" },
+      { "  Search Keymaps", "Spc s k", "Telescope keymaps" },
+      { "  Harpoon", "Spc h l", "require(\"harpoon.ui\").toggle_quick_menu()" },
       { "  Bookmarks", "Spc s a", "Telescope marks" },
+      { "  Cheetsheet", "Spc c h", "NvCheatsheet" },
       { "  Themes", "Spc t h", "Telescope themes" },
-      { "  Search keymaps", "Spc s k", "Telescope keymaps" },
-      { "  Mappings", "Spc c h", "NvCheatsheet" },
     },
   },
 
@@ -23,7 +23,7 @@ M.ui = {
     theme = "minimal", -- default/vscode/vscode_colored/minimal
     -- default/round/block/arrow separators work only for default statusline theme
     -- round and block will work for minimal theme only
-    separator_style = "round",
+    separator_style = "block",
   },
 
   theme = "tokyodark",
@@ -36,6 +36,10 @@ M.ui = {
 }
 
 M.plugins = "custom.plugins"
+
+M.lazy_nvim = {
+  lockfile = vim.fn.stdpath("config") .. "lua/custom/lazy-lock.json",
+}
 
 -- check core.mappings for table structure
 M.mappings = require "custom.mappings"
