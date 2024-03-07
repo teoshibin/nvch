@@ -2,9 +2,9 @@ local overrides = require "custom.configs.overrides"
 
 --[[
     FILE
-    oil.nvim
-    auto-save
+    oil.nvim (sort of defeats the purpose of nvim tree)
     nvim-lsp-file-opreations (for refactoring filenames and imports)
+    hbac.nvim
 
     MACRO
     ecthelionvi/NeoComposer.nvim
@@ -16,13 +16,9 @@ local overrides = require "custom.configs.overrides"
     git-conflict (merge)
     nvim-tinygit (git all in one)
 
-    NAVIGATION
-    netrw-gx replacement
-
     IDK
     numb.nvim
     mini.nvim
-    hbac.nvim
     dressing.nvim (make select options to use telescope)
     beauwilliams/focus.nvim
 --]]
@@ -80,6 +76,7 @@ local plugins = {
   },
 
   {
+    -- TODO: deal with conform at some point
     "stevearc/conform.nvim",
     --  for users those who want auto-save conform + lazyloading!
     -- event = "BufWritePre"
@@ -150,7 +147,7 @@ local plugins = {
   },
   {
     "nvim-telescope/telescope.nvim",
-    opts = overrides.telescope
+    opts = overrides.telescope,
   },
   {
     -- NOTE: override opts
@@ -208,8 +205,64 @@ local plugins = {
       "nvim-lua/plenary.nvim",
     },
     lazy = false,
+    event = "BufReadPost",
     opts = {},
   },
+  -- {
+  --   -- file manager
+  --   "stevearc/oil.nvim",
+  --   opts = {},
+  --   dependencies = { "nvim-tree/nvim-web-devicons" },
+  --   lazy = false,
+  -- },
+  {
+    --  auto save
+    -- :ASToggle
+    "Pocco81/auto-save.nvim",
+    event = "BufReadPost",
+    opts = {
+      execution_message = {
+        message = function()
+          local filename = vim.fn.expand('%')
+          return (vim.fn.strftime "[%H:%M:%S] saved " .. filename)
+        end,
+        cleaning_interval = 3000,
+      },
+    },
+  },
+  {
+    -- gx for opening url as netrw got disabled by nvchad
+    "chrishrb/gx.nvim",
+    keys = { { "gx", "<cmd>Browse<cr>", mode = { "n", "x" } } },
+    dependencies = { "nvim-lua/plenary.nvim" },
+    config = function()
+      local os = require "custom.lib.os"
+      local browser
+      if os.isMac() then
+        browser = "open"
+      elseif os.isLinux() then
+        browser = "xdg-open"
+      elseif os.isWindows() then
+        browser = "powershell.exe"
+      elseif os.isWSL() then
+        browser = "powershell.exe" --"wslview"
+      else
+        print "Can't identify os platform for opening url."
+      end
+      require("gx").setup {
+        open_browser_app = browser,
+        open_browser_args = os.isMac() and { "--background" } or {},
+        handler_options = {
+          search_engine = "google",
+        },
+      }
+    end,
+  },
+  {
+    "tpope/vim-fugitive",
+    opts = {},
+    lazy = false,
+  }
 }
 
 return plugins

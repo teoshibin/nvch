@@ -242,7 +242,7 @@ M.harpoon = {
     ["<leader>ha"] = {
       function()
         require("harpoon.mark").add_file()
-        print("⇁ harpooned")
+        print("harpooned " .. vim.fn.expand("%"))
       end,
       "Harpoon add",
     },
@@ -291,4 +291,5 @@ M.harpoon = {
     },
   },
 }
+
 return M
