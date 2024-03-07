@@ -242,11 +242,13 @@ M.harpoon = {
     ["<leader>ha"] = {
       function()
         require("harpoon.mark").add_file()
-        print("harpooned " .. vim.fn.expand("%"))
+        local osLib = require "custom.lib.os"
+        local msgLib = require "custom.lib.print"
+        msgLib.msg("Harpoon " .. osLib.cwdPath())
       end,
       "Harpoon add",
     },
-    ["<leader>sl"] = {"<cmd> Telescope harpoon marks <CR>", "Telescope harpoon list" },
+    ["<leader>sl"] = { "<cmd> Telescope harpoon marks <CR>", "Telescope harpoon list" },
     ["<leader>hl"] = {
       function()
         require("harpoon.ui").toggle_quick_menu()

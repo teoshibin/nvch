@@ -6,9 +6,6 @@ local overrides = require "custom.configs.overrides"
     nvim-lsp-file-opreations (for refactoring filenames and imports)
     hbac.nvim
 
-    MACRO
-    ecthelionvi/NeoComposer.nvim
-
     GIT
     diffview (commit)
     neogit / lazygit (general)
@@ -17,7 +14,6 @@ local overrides = require "custom.configs.overrides"
     nvim-tinygit (git all in one)
 
     IDK
-    numb.nvim
     mini.nvim
     dressing.nvim (make select options to use telescope)
     beauwilliams/focus.nvim
@@ -205,7 +201,6 @@ local plugins = {
       "nvim-lua/plenary.nvim",
     },
     lazy = false,
-    event = "BufReadPost",
     opts = {},
   },
   -- {
@@ -221,10 +216,13 @@ local plugins = {
     "Pocco81/auto-save.nvim",
     event = "BufReadPost",
     opts = {
+      -- enabled = false,
+      -- debounce_delay = 5000,
       execution_message = {
         message = function()
-          local filename = vim.fn.expand('%')
-          return (vim.fn.strftime "[%H:%M:%S] saved " .. filename)
+          local osLib = require "custom.lib.os"
+          local msgLib = require "custom.lib.print"
+          return msgLib.msgStr("AutoSave " .. osLib.cwdPath())
         end,
         cleaning_interval = 3000,
       },
@@ -262,7 +260,35 @@ local plugins = {
     -- git
     "tpope/vim-fugitive",
     lazy = false,
-  }
+  },
+
+  -- QOL
+
+  {
+    -- peek line using :<number> without jumping to it
+    "nacro90/numb.nvim",
+    opts = {},
+    event = "BufReadPost",
+  },
+  {
+    "axkirillov/hbac.nvim",
+    opts = {
+      -- autoclose = false,
+      -- NOTE: require('telescope').extensions.hbac.buffers()
+      -- :Telescope hbac buffers
+      threshold = 5,
+      close_command = function(bufnr)
+        local osLib = require "custom.lib.os"
+        local msgLib = require "custom.lib.print"
+        local filename = osLib.cwdPath(bufnr)
+        if filename ~= "" then
+          msgLib.msg("AutoClose " .. filename)
+        end
+        vim.api.nvim_buf_delete(bufnr, {})
+      end,
+    },
+    event = "BufReadPost",
+  },
 }
 
 return plugins
