@@ -269,10 +269,10 @@ local plugins = {
     event = "InsertEnter",
     opts = {},
   },
-  {
-    "mg979/vim-visual-multi",
-    lazy = false,
-  }
+  -- {
+  --   "mg979/vim-visual-multi",
+  --   lazy = false,
+  -- }
 }
 
 return plugins

@@ -1,6 +1,19 @@
 ---@type MappingsTable
 local M = {}
 
+---- Help ----
+
+-- NOTE: do the following to prevent it from auto loaded 
+--
+-- M.some_plugin_name = {
+--   plugin = true, -- Important
+--   n = {
+--     ...
+--   }
+-- }
+
+---- Mappings ----
+
 M.disabled = {
   n = {
 
