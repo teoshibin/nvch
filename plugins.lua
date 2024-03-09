@@ -272,6 +272,7 @@ local plugins = {
     dependencies = { "nvim-lua/plenary.nvim" },
     config = function()
       -- NOTE: fix color after auto-session restore
+      -- possible fix https://nvchad.com/docs/config/theming
       require("base46").load_all_highlights()
       require("todo-comments").setup { signs = false }
     end,
