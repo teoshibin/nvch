@@ -6,6 +6,8 @@ local lspconfig = require "lspconfig"
 -- if you just want default config for the servers then put them in a table
 -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
 local os = require "custom.lib.os"
+-- TODO: create a function that will add string into table based on condition
+-- instead of using an additional `install_condition` field
 local servers = {
   ["tsserver"] = {},
   ["clangd"] = {},

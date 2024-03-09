@@ -33,6 +33,8 @@ M.ui = {
   hl_add = highlights.add,
 
   telescope = { style = "bordered" }, -- borderless / bordered
+
+  transparency = true,
 }
 
 M.plugins = "custom.plugins"

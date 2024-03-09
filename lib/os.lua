@@ -69,6 +69,7 @@ function M.cwdPath(value)
   return string.gsub(filePath, pattern, "")
 end
 
+-- TODO: could be replaced with vim.fs.normalize()
 ---Joins arbitrary number of paths together.
 ---@param ... string The paths to join.
 ---@return string

@@ -52,8 +52,17 @@ M.nvimtree = {
   },
 }
 
+-- enable integrations
 M.telescope = {
   extensions_list = { "harpoon", "hbac" },
+}
+
+-- enable inline git blame
+M.gitsigns = {
+  current_line_blame = true,
+  current_line_blame_opts = {
+    delay = 500,
+  },
 }
 
 return M

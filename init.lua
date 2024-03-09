@@ -4,9 +4,11 @@ local g = vim.g
 -------------------------------------- options ------------------------------------------
 
 --[[
+
+  NOTE: Options that exist in default nvchad config are commentted  
   See :help vim.opt
   See :help option-list
-  NOTE: Options that exist in default nvchad config are commentted  
+
 --]]
 
 -- Leader Key
@@ -43,7 +45,7 @@ opt.breakindent = true
 
 -- Decrease update time
 -- opt.updatetime = 250
-opt.timeoutlen = 300
+opt.timeoutlen = 350
 
 -- Configure how new splits should be opened
 -- opt.splitright = true
@@ -70,8 +72,11 @@ opt.scrolloff = 8
 -- tab size
 opt.shiftwidth = 4
 
+-- Make the jump-list behave like the tag list or a web browser.
+opt.jumpoptions = "stack"
+
+-- Change terminal shell, See :h shell-powershell
 if require("custom.lib.os").isWindows() then
-  -- See :h shell-powershell
   -- Check if pwsh (PowerShell Core) is available (online), otherwise use 'powershell' (builtin)
   local shell = vim.fn.executable "pwsh" == 1 and "pwsh" or "powershell"
   -- Set the shell to use
@@ -98,10 +103,11 @@ if require("custom.lib.os").isWindows() then
 end
 
 -------------------------------------- autocmds ------------------------------------------
+
 -- [[ Basic Autocommands ]]
 --  See :help lua-guide-autocommands
 
--- local autocmd = vim.api.nvim_create_autocmd
+local autocmd = vim.api.nvim_create_autocmd
 
 -- Auto resize panes when resizing nvim window
 -- autocmd("VimResized", {
@@ -113,7 +119,7 @@ end
 --  Try it with `yap` in normal mode
 --  See `:help vim.highlight.on_yank()`
 --  Callback is called when the post yank event occurs
-vim.api.nvim_create_autocmd("TextYankPost", {
+autocmd("TextYankPost", {
   desc = "Highlight when copying text",
   group = vim.api.nvim_create_augroup("highlight-yank", { clear = true }),
   callback = function()
@@ -121,11 +127,11 @@ vim.api.nvim_create_autocmd("TextYankPost", {
   end,
 })
 
--- Auto create parent directories when writing new file
+-- Auto create parent directories when writing new file using :e command
 -- :help ++p
 -- " Auto-create parent directories (except for URIs "://").
 -- au BufWritePre,FileWritePre * if @% !~# '\(://\)' | call mkdir(expand('<afile>:p:h'), 'p') | endif
-vim.api.nvim_create_autocmd({ "BufWritePre" }, {
+autocmd({ "BufWritePre" }, {
   callback = function(event)
     if event.match:match "^%w%w+://" then
       return
@@ -134,3 +140,17 @@ vim.api.nvim_create_autocmd({ "BufWritePre" }, {
     vim.fn.mkdir(vim.fn.fnamemodify(file, ":p:h"), "p")
   end,
 })
+
+-- NOTE: fix nvimtree buffer layout for auto-session
+-- https://github.com/NvChad/ui/issues/132
+autocmd({ "BufEnter" }, {
+  pattern = "NvimTree*",
+  callback = function()
+    local api = require "nvim-tree.api"
+    local view = require "nvim-tree.view"
+    if not view.is_visible() then
+      api.tree.open()
+    end
+  end,
+})
+

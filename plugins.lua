@@ -1,19 +1,23 @@
 local overrides = require "custom.configs.overrides"
 
 --[[
-    FILE
-    oil.nvim (sort of defeats the purpose of nvim tree)
+    file
     nvim-lsp-file-opreations (for refactoring filenames and imports)
-    hbac.nvim
 
-    GIT
+    git
     diffview (commit)
     neogit / lazygit (general)
     octo (PR)
     git-conflict (merge)
     nvim-tinygit (git all in one)
 
-    IDK
+    color
+    https://neovimcraft.com/plugin/RRethy/vim-illuminate
+
+    formatting
+    https://neovimcraft.com/plugin/stevearc/conform.nvim
+
+    misc
     mini.nvim
     dressing.nvim (make select options to use telescope)
     beauwilliams/focus.nvim
@@ -22,7 +26,23 @@ local overrides = require "custom.configs.overrides"
 ---@type NvPluginSpec[]
 local plugins = {
 
-  -- Override plugin definition options
+  ---- Help ----
+
+  -- To make a plugin not be loaded
+  -- {
+  --   "NvChad/nvim-colorizer.lua",
+  --   enabled = false
+  -- },
+
+  -- All NvChad plugins are lazy-loaded by default
+  -- For a plugin to be loaded, you will need to set either `ft`, `cmd`, `keys`, `event`, or set `lazy = false`
+  -- If you want a plugin to load on startup, add `lazy = false` to a plugin spec, for example
+  -- {
+  --   "mg979/vim-visual-multi",
+  --   lazy = false,
+  -- }
+
+  ---- Overrides ----
 
   {
     "neovim/nvim-lspconfig",
@@ -31,13 +51,10 @@ local plugins = {
       require "custom.configs.lspconfig"
     end, -- Override to setup mason-lspconfig
   },
-
-  -- override plugin configs
   {
     "williamboman/mason.nvim",
     opts = overrides.mason,
   },
-
   {
     "nvim-treesitter/nvim-treesitter",
     -- We shouldn't place the following in lazy.nvim `config` attribute
@@ -56,47 +73,12 @@ local plugins = {
       return overrides.treesitter
     end,
   },
-
   {
     "nvim-tree/nvim-tree.lua",
     opts = overrides.nvimtree,
   },
-
-  -- Install a plugin
   {
-    "max397574/better-escape.nvim",
-    event = "InsertEnter",
-    config = function()
-      require("better_escape").setup()
-    end,
-  },
-
-  {
-    -- TODO: deal with conform at some point
-    "stevearc/conform.nvim",
-    --  for users those who want auto-save conform + lazyloading!
-    -- event = "BufWritePre"
-    config = function()
-      require "custom.configs.conform"
-    end,
-  },
-
-  -- To make a plugin not be loaded
-  -- {
-  --   "NvChad/nvim-colorizer.lua",
-  --   enabled = false
-  -- },
-
-  -- All NvChad plugins are lazy-loaded by default
-  -- For a plugin to be loaded, you will need to set either `ft`, `cmd`, `keys`, `event`, or set `lazy = false`
-  -- If you want a plugin to load on startup, add `lazy = false` to a plugin spec, for example
-  -- {
-  --   "mg979/vim-visual-multi",
-  --   lazy = false,
-  -- }
-
-  {
-    -- NOTE: override opts
+    -- override completion keybinds
     "hrsh7th/nvim-cmp",
     opts = function()
       local config = require "plugins.configs.cmp"
@@ -146,24 +128,19 @@ local plugins = {
     opts = overrides.telescope,
   },
   {
-    -- NOTE: override opts
     "lewis6991/gitsigns.nvim",
-    opts = {
-      current_line_blame = true,
-      current_line_blame_opts = {
-        delay = 500,
-      },
-    },
+    opts = overrides.gitsigns,
   },
 
   ---- MY PLUGINS ----
 
-  -- Highlight todo, notes etc. comments
   {
-    "folke/todo-comments.nvim",
-    dependencies = { "nvim-lua/plenary.nvim" },
-    opts = { signs = false },
-    event = "BufReadPost",
+    "stevearc/conform.nvim",
+    --  for users those who want auto-save conform + lazyloading!
+    -- event = "BufWritePre"
+    config = function()
+      require "custom.configs.conform"
+    end,
   },
   {
     -- Surround motion
@@ -203,21 +180,12 @@ local plugins = {
     lazy = false,
     opts = {},
   },
-  -- {
-  --   -- file manager
-  --   "stevearc/oil.nvim",
-  --   opts = {},
-  --   dependencies = { "nvim-tree/nvim-web-devicons" },
-  --   lazy = false,
-  -- },
   {
-    --  auto save
-    -- :ASToggle
+    -- Auto save :ASToggle
     "Pocco81/auto-save.nvim",
     event = "BufReadPost",
     opts = {
-      -- enabled = false,
-      -- debounce_delay = 5000,
+      enabled = true,
       execution_message = {
         message = function()
           local osLib = require "custom.lib.os"
@@ -261,9 +229,6 @@ local plugins = {
     "tpope/vim-fugitive",
     lazy = false,
   },
-
-  -- QOL
-
   {
     -- peek line using :<number> without jumping to it
     "nacro90/numb.nvim",
@@ -271,6 +236,7 @@ local plugins = {
     event = "BufReadPost",
   },
   {
+    -- auto close buffers
     "axkirillov/hbac.nvim",
     opts = {
       -- autoclose = false,
@@ -289,6 +255,38 @@ local plugins = {
     },
     event = "BufReadPost",
   },
+  {
+    -- resume with previous buffers
+    "rmagatti/auto-session",
+    lazy = false,
+    config = function()
+      require("auto-session").setup {
+        log_level = "error",
+        auto_session_suppress_dirs = { "~/", "~/Projects", "~/Downloads", "/" },
+      }
+    end,
+  },
+  {
+    -- Highlight todo, notes etc. comments
+    "folke/todo-comments.nvim",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    config = function()
+      -- NOTE: fix color after auto-session restore
+      require("base46").load_all_highlights()
+      require("todo-comments").setup { signs = false }
+    end,
+    event = "BufReadPost",
+  },
+  {
+    -- Type j without delay due to jj or jk  
+    "max397574/better-escape.nvim",
+    event = "InsertEnter",
+    opts = {},
+  },
+  -- {
+  --   "mg979/vim-visual-multi",
+  --   lazy = false,
+  -- }
 }
 
 return plugins

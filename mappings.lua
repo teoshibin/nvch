@@ -3,7 +3,9 @@ local M = {}
 
 M.disabled = {
   n = {
-    -- [[ Telescope ]]
+
+    ---- Telescope ----
+
     -- pick hiden term
     ["<leader>pt"] = "",
     -- marks
@@ -20,12 +22,14 @@ M.disabled = {
     ["<leader>cm"] = "",
     ["<leader>gt"] = "",
 
-    -- [[ GitSigns ]]
+    ---- GitSigns ----
+
     ["<leader>rh"] = "",
     ["<leader>ph"] = "",
     ["<leader>gb"] = "",
 
-    -- [[ Terminal ]]
+    ---- Terminal ----
+
     -- TODO: fix new terminal
     ["<leader>h"] = "",
     ["<leader>v"] = "",
@@ -42,51 +46,50 @@ M.disabled = {
     --   end,
     --   "New vertical term",
     -- },
+
   },
 }
 
 M.general = {
   n = {
-    -- [";"] = { ":", "enter command mode", opts = { nowait = true } },
-    --  format with conform
-    ["<leader>fm"] = {
-      function()
-        require("conform").format()
-      end,
-      "formatting",
-    },
-    -- [[ My Custom ]] --
     -- Specials
     ["<leader>."] = { "@@", "Quick marco" },
     ["<leader>n"] = { ":nohl<CR>", "Hide highlights" },
+
     -- Marks
     ["<leader>m"] = { ":marks<Cr>", "Show marks" },
     ["<leader>dm"] = { ":delmarks a-zA-Z0-9<Cr>", "Delete all marks" },
+
     -- Move Lines
     ["<A-j>"] = { ":m .+1<CR>==", "Move line down" },
     ["<A-k>"] = { ":m .-2<CR>==", "Move line up" },
+
     -- New Line
     ["<leader>o"] = { 'o<Esc>0"_D', "Add newline below" },
     ["<leader>O"] = { 'O<Esc>0"_D', "Add newline above" },
+
     -- Reselect Pasted
     ["gp"] = { "`[v`]", "[g]o reselect [p]asted in visual mode" },
     ["gP"] = { "`[V`]", "[g]o reselect [P]asted in Visual line mode" },
+
     -- Centered Jump
     ["<C-d>"] = { "<C-d>zz" },
     ["<C-u>"] = { "<C-u>zz" },
+
     -- Centered Find
     ["n"] = { "nzz" },
     ["N"] = { "Nzz" },
+
     -- Centered Function Jump
     ["[m"] = { "[mzz" },
     ["]m"] = { "]mzz" },
 
-    -- [[ Existing Keybinds ]]
-    --
+    ---- Existing Keybinds ----
+
     -- Quick Escape
     -- map('i', 'jj', '<Esc>', { desc = 'Quick Escape' })
     -- map('i', 'jk', '<Esc>', { desc = 'Quick Escape 2' })
-    --
+
     -- Paste on top
     -- map("v", "p", "pgvy"),
   },
@@ -94,9 +97,11 @@ M.general = {
     -- Move Lines
     ["<A-k>"] = { ":m '<-2<CR>gv=gv", "Move selected lines up" },
     ["<A-j>"] = { ":m '>+1<CR>gv=gv", "Move selected lines down" },
+
     -- Reslect Indented Lines
     [">"] = { ">gv", "Visual line indent right" },
     ["<"] = { "<gv", "Visual line indent left" },
+
     -- Select Current Line
     -- ["<leader>v"] = { "^vg_", "Visual select current line" },
   },
@@ -104,7 +109,6 @@ M.general = {
 
 M.telescope = {
   n = {
-
     -- pick a hidden term
     ["<leader>st"] = { "<cmd> Telescope terms <CR>", "Pick hidden term" },
 
@@ -154,6 +158,7 @@ M.gitsigns = {
       "Jump to next hunk",
       opts = { expr = true },
     },
+
     ["[c"] = {
       function()
         if vim.wo.diff then
@@ -168,6 +173,7 @@ M.gitsigns = {
       "Jump to prev hunk",
       opts = { expr = true },
     },
+
     -- Custom gitsigns keymaps
     ["<leader>gh"] = {
       function()
@@ -231,13 +237,12 @@ M.gitsigns = {
 M.harpoon = {
   -- TODO: usage
   -- you can go up and down the list, enter, delete or reorder. q and <ESC> exit and save the menu
-  -- from the quickmenu, open a file in: a vertical split with control+v, a horizontal split with control+x, a new tab with control+t
-  --
+  -- quickmenu: vertical split <C-v>, horizontal split <C-x>, a new tab with <C-t>
+  -- 
   -- lua require("harpoon.term").gotoTerminal(1)             -- navigates to term 1
   -- lua require("harpoon.term").sendCommand(1, "ls -La")    -- sends ls -La to tmux window 1
   -- lua require('harpoon.cmd-ui').toggle_quick_menu()       -- shows the commands menu
   -- lua require("harpoon.term").sendCommand(1, 1)           -- sends command 1 to term 1
-  -- plugin = true,
   n = {
     ["<leader>ha"] = {
       function()
@@ -248,7 +253,7 @@ M.harpoon = {
       end,
       "Harpoon add",
     },
-    ["<leader>sl"] = { "<cmd> Telescope harpoon marks <CR>", "Telescope harpoon list" },
+    -- ["<leader>sl"] = { "<cmd> Telescope harpoon marks <CR>", "Telescope harpoon list" },
     ["<leader>hl"] = {
       function()
         require("harpoon.ui").toggle_quick_menu()
@@ -290,6 +295,39 @@ M.harpoon = {
         require("harpoon.ui").nav_next()
       end,
       "Harpoon next",
+    },
+  },
+}
+
+M.auto_session = {
+  n = {
+    ["<leader>sl"] = {
+      function()
+        require("auto-session.session-lens").search_session()
+      end,
+      "Session list"
+    },
+  },
+}
+
+M.base46 = {
+  n = {
+    ["<leader>tt"] = {
+      function()
+        require("base46").toggle_transparency()
+      end,
+      "Toggle transparency"
+    },
+  },
+}
+
+M.conform = {
+  n = {
+    ["<leader>fm"] = {
+      function()
+        require("conform").format()
+      end,
+      "formatting",
     },
   },
 }
