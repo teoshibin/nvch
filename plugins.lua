@@ -259,6 +259,8 @@ local plugins = {
       -- NOTE: fix color after auto-session restore
       -- possible fix https://nvchad.com/docs/config/theming
       require("base46").load_all_highlights()
+      -- TODO: can be fixed in v2.5
+      -- dofile(vim.g.base46_cache .. "todo")
       require("todo-comments").setup { signs = false }
     end,
     event = "BufReadPost",
