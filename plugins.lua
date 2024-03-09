@@ -199,30 +199,15 @@ local plugins = {
   {
     -- gx for opening url as netrw got disabled by nvchad
     "chrishrb/gx.nvim",
-    keys = { { "gx", "<cmd>Browse<cr>", mode = { "n", "x" } } },
+    keys = {
+      { "gx", "<cmd>Browse<cr>", mode = { "n", "x" } },
+    },
     dependencies = { "nvim-lua/plenary.nvim" },
-    config = function()
-      local os = require "custom.lib.os"
-      local browser
-      if os.isMac() then
-        browser = "open"
-      elseif os.isLinux() then
-        browser = "xdg-open"
-      elseif os.isWindows() then
-        browser = "powershell.exe"
-      elseif os.isWSL() then
-        browser = "powershell.exe" --"wslview"
-      else
-        print "Can't identify os platform for opening url."
-      end
-      require("gx").setup {
-        open_browser_app = browser,
-        open_browser_args = os.isMac() and { "--background" } or {},
-        handler_options = {
-          search_engine = "google",
-        },
-      }
-    end,
+    opts = {
+      handler_options = {
+        search_engine = "google",
+      },
+    },
   },
   {
     -- git
@@ -279,7 +264,7 @@ local plugins = {
     event = "BufReadPost",
   },
   {
-    -- Type j without delay due to jj or jk  
+    -- Type j without delay due to jj or jk
     "max397574/better-escape.nvim",
     event = "InsertEnter",
     opts = {},
