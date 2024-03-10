@@ -31,6 +31,9 @@ M.mason = {
     "stylua",
     -- powershell
     "powershell-editor-services",
+    -- markdown
+    "marksman",
+    "markdownlint",
   },
 }
 

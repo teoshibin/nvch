@@ -155,7 +155,7 @@ return {
     --  for users those who want auto-save conform + lazyloading!
     -- event = "BufWritePre"
     config = function()
-      require("custom.configs.conform")
+      require("configs.conform")
     end,
   },
   {

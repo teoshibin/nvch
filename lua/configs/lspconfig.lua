@@ -18,6 +18,7 @@ local servers = {
     install_condition = os.isWindows(),
     bundle_path = vim.fn.stdpath "data" .. "/mason/packages/powershell-editor-services/",
   },
+  ["marksman"] = {},
 }
 
 

@@ -4,6 +4,7 @@ local options = {
   formatters_by_ft = {
     lua = { "stylua" },
 		sh = { "shfmt" },
+    markdown = { "markdownlint" },
   },
 }
 -- adding same formatter for multiple filetypes can look too much work for some
