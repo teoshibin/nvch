@@ -16,6 +16,20 @@ local overrides = require("configs.overrides")
 
 return {
 
+  ---- Useless plugins ----
+  
+  {
+    -- :VimBeGood
+    "ThePrimeagen/vim-be-good",
+    event = "VeryLazy",
+  },
+  {
+    -- :CellularAutomaton make_it_rain
+    -- :CellularAutomaton game_of_life
+    "eandrju/cellular-automaton.nvim",
+    event = "VeryLazy",
+  },
+
   ---- Overrides ----
 
     -- In order to override please the source code of Nvchad, specifically 
@@ -122,7 +136,7 @@ return {
     opts = function ()
       local options = require("nvchad.configs.gitsigns")
       return vim.tbl_deep_extend("force", options, overrides.gitsigns)
-    end ,
+    end,
   },
 
   ---- MY PLUGINS ----
@@ -283,6 +297,10 @@ return {
   --     },
   --   },
   -- },
+  {
+    "dstein64/nvim-scrollview",
+    event = "BufReadPost",
+  }
 }
 
 --[[

@@ -75,6 +75,9 @@ opt.shiftwidth = 4
 -- Make the jump-list behave like the tag list or a web browser.
 opt.jumpoptions = "stack"
 
+-- Max char line
+opt.colorcolumn = { 80, 120 }
+
 -- Change terminal shell, See :h shell-powershell
 if require("lib.os").isWindows() then
 	-- Check if pwsh (PowerShell Core) is available (online), otherwise use 'powershell' (builtin)
