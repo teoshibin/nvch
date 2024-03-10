@@ -83,13 +83,6 @@ map("n", "N", "Nzz")
 map("n", "[m", "[mzz")
 map("n", "]m", "]mzz")
 
----- Existing Keybinds ----
--- TODO turn these off later
-
--- Quick Escape
-map("i", "jj", "<Esc>", { desc = "Quick Escape" })
-map("i", "jk", "<Esc>", { desc = "Quick Escape 2" })
-
 -- Paste on top
 map("v", "p", "pgvy")
 
@@ -100,6 +93,12 @@ map("v", "<A-j>", ":m '>+1<CR>gv=gv", { desc = "Move selected lines down" })
 -- Reslect Indented Lines
 map("v", ">", ">gv", { desc = "Visual line indent right" })
 map("v", "<", "<gv", { desc = "Visual line indent left" })
+
+---- Existing Keybinds ----
+
+-- Quick Escape
+-- map("i", "jj", "<Esc>", { desc = "Quick Escape" })
+-- map("i", "jk", "<Esc>", { desc = "Quick Escape 2" })
 
 -- Select Current Line
 -- ["<leader>v"] = { "^vg_", "Visual select current line" },
