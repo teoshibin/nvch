@@ -2,15 +2,29 @@ local M = {}
 
 M.treesitter = {
   ensure_installed = {
+    -- vim
     "vim",
     "vimdoc",
+
+    --lua
     "lua",
+
+    -- markdown
     "markdown",
     "markdown_inline",
+
+    -- bash
     "bash",
+
+    -- c
     "c",
+
+    -- html
     "html",
-    -- powershell not supported
+    -- powershell (not supported)
+
+    -- python
+    "pyright",
   },
   auto_install = true,
   indent = {
@@ -23,6 +37,7 @@ M.treesitter = {
 }
 
 -- NOTE: See :Mason to check for server name
+-- lSP server name and mason package name mapping
 -- https://github.com/williamboman/mason-lspconfig.nvim/blob/main/doc/server-mapping.md
 M.mason = {
   ensure_installed = {
@@ -34,6 +49,11 @@ M.mason = {
     -- markdown
     "marksman",
     "markdownlint",
+    -- python
+    "pyright",          -- lsp server
+    -- TODO: "debugpy"  -- debugger
+    -- "black",         -- formatter
+    "ruff",             -- linter, formatter
   },
 }
 

@@ -5,6 +5,7 @@ local options = {
     lua = { "stylua" },
 		sh = { "shfmt" },
     markdown = { "markdownlint" },
+    python = { "ruff" },
   },
 }
 -- adding same formatter for multiple filetypes can look too much work for some
