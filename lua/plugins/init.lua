@@ -1,97 +1,68 @@
---[[
-  file
-  nvim-lsp-file-opreations (for refactoring filenames and imports)
-
-  git
-  diffview (commit)
-  neogit / lazygit (general)
-  octo (PR)
-  git-conflict (merge)
-  nvim-tinygit (git all in one)
-
-  color
-  https://neovimcraft.com/plugin/RRethy/vim-illuminate
-
-  formatting
-  https://neovimcraft.com/plugin/stevearc/conform.nvim
-
-  misc
-  mini.nvim
-  dressing.nvim (make select options to use telescope)
-  beauwilliams/focus.nvim
-
- ---- Help ----
-
- To make a plugin not be loaded
- {
-  "NvChad/nvim-colorizer.lua",
-  enabled = false
- },
-
- All NvChad plugins are lazy-loaded by default
- For a plugin to be loaded, you will need to set either `ft`, `cmd`, `keys`, `event`, or set `lazy = false`
- If you want a plugin to load on startup, add `lazy = false` to a plugin spec, for example
- {
-  "mg979/vim-visual-multi",
-  lazy = false,
- }
-
-
---]]
+-- To make a plugin not be loaded
+-- {
+--  "NvChad/nvim-colorizer.lua",
+--  enabled = false
+-- },
+--
+-- All NvChad plugins are lazy-loaded by default
+-- For a plugin to be loaded, you will need to set either `ft`, `cmd`, `keys`, `event`, or set `lazy = false`
+-- If you want a plugin to load on startup, add `lazy = false` to a plugin spec, for example
+-- {
+--  "mg979/vim-visual-multi",
+--  lazy = false,
+-- }
 
 local overrides = require("configs.overrides")
 
 return {
 
-  ---- defaults ----
-  {
-    "stevearc/conform.nvim",
-    config = function()
-      require("configs.conform")
-    end,
-  },
-
-  {
-    "nvim-tree/nvim-tree.lua",
-    opts = {
-      git = { enable = true },
-    },
-  },
-
   ---- Overrides ----
+
+    -- In order to override please the source code of Nvchad, specifically 
+    -- the plugin folder. The reason being that otherwise we might be overriding
+    -- configurations that we want 
 
   {
     "neovim/nvim-lspconfig",
     config = function()
       require("nvchad.configs.lspconfig").defaults()
       require "configs.lspconfig"
-    end, -- Override to setup mason-lspconfig
+    end,
   },
   {
     "williamboman/mason.nvim",
-    opts = overrides.mason,
+    opts = function()
+      local options = require("nvchad.configs.mason")
+      return vim.tbl_deep_extend("force", options, overrides.mason)
+    end,
   },
   {
     "nvim-treesitter/nvim-treesitter",
-    -- We shouldn't place the following in lazy.nvim `config` attribute
-    -- as that will override existing configuration of nvchad
     opts = function()
-      -- NOTE: (custom) fix uv_dlopen treesitter error on windows
+
+      -- NOTE: fix uv_dlopen treesitter error on windows
       -- https://github.com/nvim-treesitter/nvim-treesitter/wiki/Windows-support#llvm-clang
-      -- Trobleshoot:
+      -- 
+      -- Troubleshooting:
       --  1. Install compilers as mentioned by treesitter page
       --  2. Restart terminal if needed
       --  3. Delete any mason and treesitter related folders in nvim `*-data` folder
       --  4. TSInstall if needed
+
       if require("lib.os").isWindows() then
         require("nvim-treesitter.install").compilers = { "clang" }
       end
-      return overrides.treesitter
+
+      local options = require("nvchad.configs.treesitter")
+      return vim.tbl_deep_extend("force", options, overrides.treesitter)
     end,
   },
   {
     "nvim-tree/nvim-tree.lua",
-    opts = overrides.nvimtree,
+    opts = function()
+      local options = require("nvchad.configs.nvimtree")
+      return vim.tbl_deep_extend("force", options, overrides.nvimtree)
+    end,
   },
   {
     -- override completion keybinds
@@ -141,11 +112,17 @@ return {
   },
   {
     "nvim-telescope/telescope.nvim",
-    opts = overrides.telescope,
+    opts = function()
+      local options = require("nvchad.configs.telescope")
+      return vim.tbl_deep_extend("force", options, overrides.telescope)
+    end,
   },
   {
     "lewis6991/gitsigns.nvim",
-    opts = overrides.gitsigns,
+    opts = function ()
+      local options = require("nvchad.configs.gitsigns")
+      return vim.tbl_deep_extend("force", options, overrides.gitsigns)
+    end ,
   },
 
   ---- MY PLUGINS ----
@@ -276,7 +253,6 @@ return {
       -- NOTE: fix color after auto-session restore
       -- possible fix https://nvchad.com/docs/config/theming
       require("base46").load_all_highlights()
-      -- TODO: can be fixed in v2.5
       -- dofile(vim.g.base46_cache .. "todo")
       require("todo-comments").setup({ signs = false })
     end,
@@ -290,6 +266,7 @@ return {
   },
   -- {
   --   -- TODO: https://github.com/smoka7/multicursors.nvim?tab=readme-ov-file
+  --
   --   "smoka7/multicursors.nvim",
   --   event = "VeryLazy",
   --   dependencies = {
@@ -307,3 +284,30 @@ return {
   --   },
   -- },
 }
+
+--[[
+
+  Plugins to look into
+
+  FILE
+  nvim-lsp-file-opreations (for refactoring filenames and imports)
+
+  GIT
+  diffview (commit)
+  neogit / lazygit (general)
+  octo (PR)
+  git-conflict (merge)
+  nvim-tinygit (git all in one)
+
+  COLOR
+  https://neovimcraft.com/plugin/RRethy/vim-illuminate
+
+  FORMATTING
+  https://neovimcraft.com/plugin/stevearc/conform.nvim
+
+  MISC
+  mini.nvim
+  dressing.nvim (make select options to use telescope)
+  beauwilliams/focus.nvim
+
+--]]

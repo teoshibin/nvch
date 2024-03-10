@@ -20,12 +20,12 @@ local servers = {
   },
   ["marksman"] = {},
   ["pyright"] = {},
-  ["kotlin-language-server"] = {},
+  ["kotlin_language_server"] = {},
   ["jdtls"] = {},
 }
 
 
--- if you just want default config for the servers then put them in a table
+-- NOTE: if you just want default config for the servers then put them in a table
 -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
 
 for lsp, mods in pairs(servers) do

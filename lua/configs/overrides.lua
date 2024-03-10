@@ -4,12 +4,13 @@ local M = {}
 -- https://github.com/nvim-treesitter/nvim-treesitter?tab=readme-ov-file#supported-languages
 M.treesitter = {
   ensure_installed = {
-    -- vim
-    "vim",
-    "vimdoc",
 
     --lua
     "lua",
+
+    -- vim
+    "vim",
+    "vimdoc",
 
     -- markdown
     "markdown",
@@ -17,9 +18,6 @@ M.treesitter = {
 
     -- bash
     "bash",
-
-    -- c
-    "c",
 
     -- html
     "html",
