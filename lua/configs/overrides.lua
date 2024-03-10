@@ -1,5 +1,7 @@
 local M = {}
 
+-- NOTE: supported language
+-- https://github.com/nvim-treesitter/nvim-treesitter?tab=readme-ov-file#supported-languages
 M.treesitter = {
   ensure_installed = {
     -- vim
@@ -21,10 +23,17 @@ M.treesitter = {
 
     -- html
     "html",
+
     -- powershell (not supported)
 
     -- python
-    "pyright",
+    "python",
+
+    -- java
+    "java",
+
+    -- kotlin
+    "kotlin",
   },
   auto_install = true,
   indent = {
@@ -41,19 +50,34 @@ M.treesitter = {
 -- https://github.com/williamboman/mason-lspconfig.nvim/blob/main/doc/server-mapping.md
 M.mason = {
   ensure_installed = {
+
     -- lua
-    "lua-language-server",
-    "stylua",
+    "lua-language-server", -- lsp
+    "stylua",              -- formatter
+
     -- powershell
-    "powershell-editor-services",
+    "powershell-editor-services", -- lsp
+
     -- markdown
-    "marksman",
-    "markdownlint",
+    "marksman",     -- lsp
+    "markdownlint", -- linter
+
     -- python
-    "pyright",          -- lsp server
-    -- TODO: "debugpy"  -- debugger
-    -- "black",         -- formatter
-    "ruff",             -- linter, formatter
+    "pyright",    -- lsp server
+    -- "debugpy", -- debugger 
+    -- "black",   -- formatter
+    "ruff",       -- linter, formatter
+
+    -- kotlin
+    "kotlin-language-server",  -- lsp
+    -- "kotlin-debug-adapter", -- debugger
+    "ktlint",                  -- linter, formatter
+
+    -- java
+    "jdtls",                  -- lsp
+    -- "java-debug-adapter",  -- debugger
+    "checkstyle",             -- linter
+    "google-java-format",     -- formatter
   },
 }
 

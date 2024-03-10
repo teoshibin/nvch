@@ -6,6 +6,8 @@ local options = {
 		sh = { "shfmt" },
     markdown = { "markdownlint" },
     python = { "ruff" },
+    kotlin = { "ktlint" },
+    java = { "google-java-format" },
   },
 }
 -- adding same formatter for multiple filetypes can look too much work for some

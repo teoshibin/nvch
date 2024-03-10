@@ -20,6 +20,8 @@ local servers = {
   },
   ["marksman"] = {},
   ["pyright"] = {},
+  ["kotlin-language-server"] = {},
+  ["jdtls"] = {},
 }
 
 
