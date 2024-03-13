@@ -301,6 +301,7 @@ return {
         event = "BufReadPost",
     },
     {
+        -- TODO: make this work
         -- max char line
         "Bekaboo/deadcolumn.nvim",
     },
