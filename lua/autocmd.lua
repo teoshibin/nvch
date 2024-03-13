@@ -1,4 +1,3 @@
-
 -- [[ Basic Autocommands ]]
 --  See :help lua-guide-autocommands
 
@@ -15,11 +14,11 @@ local autocmd = vim.api.nvim_create_autocmd
 --  See `:help vim.highlight.on_yank()`
 --  Callback is called when the post yank event occurs
 autocmd("TextYankPost", {
-  desc = "Highlight when copying text",
-  group = vim.api.nvim_create_augroup("highlight-yank", { clear = true }),
-  callback = function()
-    vim.highlight.on_yank()
-  end,
+    desc = "Highlight when copying text",
+    group = vim.api.nvim_create_augroup("highlight-yank", { clear = true }),
+    callback = function()
+        vim.highlight.on_yank()
+    end,
 })
 
 -- Auto create parent directories when writing new file using :e command
@@ -27,13 +26,13 @@ autocmd("TextYankPost", {
 -- " Auto-create parent directories (except for URIs "://").
 -- au BufWritePre,FileWritePre * if @% !~# '\(://\)' | call mkdir(expand('<afile>:p:h'), 'p') | endif
 autocmd({ "BufWritePre" }, {
-  callback = function(event)
-    if event.match:match "^%w%w+://" then
-      return
-    end
-    local file = vim.loop.fs_realpath(event.match) or event.match
-    vim.fn.mkdir(vim.fn.fnamemodify(file, ":p:h"), "p")
-  end,
+    callback = function(event)
+        if event.match:match("^%w%w+://") then
+            return
+        end
+        local file = vim.loop.fs_realpath(event.match) or event.match
+        vim.fn.mkdir(vim.fn.fnamemodify(file, ":p:h"), "p")
+    end,
 })
 
 -- -- NOTE: fix nvimtree buffer layout for auto-session
@@ -48,4 +47,3 @@ autocmd({ "BufWritePre" }, {
 --     end
 --   end,
 -- })
-

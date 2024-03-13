@@ -61,7 +61,7 @@ opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
 opt.inccommand = "split"
 
 -- Show which line your cursor is on
--- opt.cursorline = true
+opt.cursorline = true
 
 -- Minimal number of screen lines to keep above and below the cursor.
 opt.scrolloff = 8
@@ -75,32 +75,32 @@ opt.shiftwidth = 4
 -- Make the jump-list behave like the tag list or a web browser.
 opt.jumpoptions = "stack"
 
--- Max char line
-opt.colorcolumn = { 80, 120 }
+-- Max char line (not transparent)
+opt.colorcolumn = { 80 }
 
 -- Change terminal shell, See :h shell-powershell
 if require("lib.os").isWindows() then
-	-- Check if pwsh (PowerShell Core) is available (online), otherwise use 'powershell' (builtin)
-	local shell = vim.fn.executable("pwsh") == 1 and "pwsh" or "powershell"
-	-- Set the shell to use
-	vim.o.shell = shell
-	-- Set shell flags for command execution
-	vim.o.shellcmdflag = "-NoLogo -ExecutionPolicy RemoteSigned -Command "
-		.. "[Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.UTF8Encoding]::new();"
-		.. "$PSDefaultParameterValues['Out-File:Encoding']='utf8';"
-	-- Set shell redirection
-	vim.o.shellredir = '2>&1 | %{"$(_)" } | Out-File %s; exit $LastExitCode'
-	-- Set shell pipe
-	vim.o.shellpipe = '2>&1 | %{"$(_)" } | Tee-Object %s; exit $LastExitCode'
-	-- Unset shellquote and shellxquote
-	vim.o.shellquote = ""
-	vim.o.shellxquote = ""
+    -- Check if pwsh (PowerShell Core) is available (online), otherwise use 'powershell' (builtin)
+    local shell = vim.fn.executable("pwsh") == 1 and "pwsh" or "powershell"
+    -- Set the shell to use
+    vim.o.shell = shell
+    -- Set shell flags for command execution
+    vim.o.shellcmdflag = "-NoLogo -ExecutionPolicy RemoteSigned -Command "
+        .. "[Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.UTF8Encoding]::new();"
+        .. "$PSDefaultParameterValues['Out-File:Encoding']='utf8';"
+    -- Set shell redirection
+    vim.o.shellredir = '2>&1 | %{"$(_)" } | Out-File %s; exit $LastExitCode'
+    -- Set shell pipe
+    vim.o.shellpipe = '2>&1 | %{"$(_)" } | Tee-Object %s; exit $LastExitCode'
+    -- Unset shellquote and shellxquote
+    vim.o.shellquote = ""
+    vim.o.shellxquote = ""
 
-	-- Some random snippets I found online
-	-- shell=powershell.exe
-	-- set shellxquote=
-	-- let &shellcmdflag = '-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command '
-	-- let &shellquote   = ''
-	-- let &shellpipe    = '| Out-File -Encoding UTF8 %s'
-	-- let &shellredir   = '| Out-File -Encoding UTF8 %s'
+    -- Some random snippets I found online
+    -- shell=powershell.exe
+    -- set shellxquote=
+    -- let &shellcmdflag = '-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command '
+    -- let &shellquote   = ''
+    -- let &shellpipe    = '| Out-File -Encoding UTF8 %s'
+    -- let &shellredir   = '| Out-File -Encoding UTF8 %s'
 end

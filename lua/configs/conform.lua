@@ -1,14 +1,14 @@
 local options = {
-  lsp_fallback = true,
+    lsp_fallback = true,
 
-  formatters_by_ft = {
-    lua = { "stylua" },
-		sh = { "shfmt" },
-    markdown = { "markdownlint" },
-    python = { "ruff" },
-    kotlin = { "ktlint" },
-    java = { "google-java-format" },
-  },
+    formatters_by_ft = {
+        lua = { "stylua" },
+        sh = { "shfmt" },
+        markdown = { "markdownlint" },
+        python = { "ruff" },
+        kotlin = { "ktlint" },
+        java = { "google-java-format" },
+    },
 }
 -- adding same formatter for multiple filetypes can look too much work for some
 -- instead of the above code you could just use a loop! the config is just a table after all!

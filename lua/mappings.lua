@@ -1,8 +1,9 @@
 require("nvchad.mappings")
 
----- Disable mappings ----
-
 local nomap = vim.keymap.del
+local map = vim.keymap.set
+
+---- Disable mappings ----
 
 --- Telescope
 -- pick hiden term
@@ -25,30 +26,28 @@ nomap("n", "<leader>gt")
 -- nomap("n", "<leader>ph")
 -- nomap("n", "<leader>gb")
 
---- Terminal
--- TODO: fix new terminal
+-- New Terminals
 nomap("n", "<leader>h")
 nomap("n", "<leader>v")
--- ["<leader>h"] = {
---   function()
---     require("nvterm.terminal").new "horizontal"
---   end,
---   "New horizontal term",
--- },
---
--- ["<leader>v"] = {
---   function()
---     require("nvterm.terminal").new "vertical"
---   end,
---   "New vertical term",
--- },
+
+map("n", "<leader>;", function()
+  require("nvchad.term").new { pos = "sp", size = 0.3 }
+end, { desc = "Terminal New horizontal term" })
+
+map("n", "<leader>:", function()
+  require("nvchad.term").new { pos = "vsp", size = 0.3 }
+end, { desc = "Terminal New vertical window" })
+
+-- TODO: see https://github.com/NvChad/NvChad/blob/v2.5/lua/nvchad/configs/lspconfig.lua
+-- the problem being that the key is set on attach
+-- Remap conflicted keymap
+-- nomap("n", "<leader>sh")
+-- map("n", "<leader>ls", vim.lsp.buf.signature_help, opts "Lsp Show signature help")
 
 ---- Bind mappings ----
 
-local map = vim.keymap.set
-
 map("n", "<leader>fm", function()
-	require("conform").format()
+    require("conform").format()
 end, { desc = "File Format with conform" })
 
 -- Specials
@@ -124,8 +123,8 @@ map("n", "<leader>gs", "<cmd> Telescope git_status <CR>", { desc = "Git status" 
 
 -- telescope nvim config
 map("n", "<leader>sn", function()
-	local builtin = require("telescope.builtin")
-	builtin.find_files({ cwd = vim.fn.stdpath("config") })
+    local builtin = require("telescope.builtin")
+    builtin.find_files({ cwd = vim.fn.stdpath("config") })
 end, { desc = "[S]earch [N]eovim files" })
 
 ---- harpoon ----
@@ -141,118 +140,118 @@ end, { desc = "[S]earch [N]eovim files" })
 -- ["<leader>sl"] = { "<cmd> Telescope harpoon marks <CR>", "Telescope harpoon list" },
 
 map("n", "<leader>ha", function()
-	require("harpoon.mark").add_file()
-	local osLib = require("lib.os")
-	local msgLib = require("lib.print")
-	msgLib.msg("Harpoon " .. osLib.cwdPath())
+    require("harpoon.mark").add_file()
+    local osLib = require("lib.os")
+    local msgLib = require("lib.print")
+    msgLib.msg("Harpoon " .. osLib.cwdPath())
 end, { desc = "Harpoon add" })
 
 map("n", "<leader>hl", function()
-	require("harpoon.ui").toggle_quick_menu()
+    require("harpoon.ui").toggle_quick_menu()
 end, { desc = "Harpooned list" })
 
 map("n", "<M-p>", function()
-	require("harpoon.ui").nav_prev()
+    require("harpoon.ui").nav_prev()
 end, { desc = "Harpoon previous" })
 
 map("n", "<M-n>", function()
-	require("harpoon.ui").nav_next()
+    require("harpoon.ui").nav_next()
 end, { desc = "Harpoon next" })
 
 map("n", "<leader>hs", function()
-	require("harpoon.ui").nav_file(1)
+    require("harpoon.ui").nav_file(1)
 end, { desc = "Harpoon 1" })
 
 map("n", "<leader>hd", function()
-	require("harpoon.ui").nav_file(2)
+    require("harpoon.ui").nav_file(2)
 end, { desc = "Harpoon 2" })
 
 map("n", "<leader>hf", function()
-	require("harpoon.ui").nav_file(3)
+    require("harpoon.ui").nav_file(3)
 end, { desc = "Harpoon 3" })
 
 map("n", "<leader>hg", function()
-	require("harpoon.ui").nav_file(4)
+    require("harpoon.ui").nav_file(4)
 end, { desc = "Harpoon 4" })
 
 ---- GitSigns ----
 
 -- Navigation through hunks (add zz after execution)
 map("n", "]c", function()
-	if vim.wo.diff then
-		return "]c"
-	end
-	vim.schedule(function()
-		require("gitsigns").next_hunk()
-		vim.api.nvim_feedkeys("zz", "n", true) -- Added this
-	end)
-	return "<Ignore>"
+    if vim.wo.diff then
+        return "]c"
+    end
+    vim.schedule(function()
+        require("gitsigns").next_hunk()
+        vim.api.nvim_feedkeys("zz", "n", true) -- Added this
+    end)
+    return "<Ignore>"
 end, { desc = "Jump to next hunk", expr = true })
 
 map("n", "[c", function()
-	if vim.wo.diff then
-		return "[c"
-	end
-	vim.schedule(function()
-		require("gitsigns").prev_hunk()
-		vim.api.nvim_feedkeys("zz", "n", true) -- Added this
-	end)
-	return "<Ignore>"
+    if vim.wo.diff then
+        return "[c"
+    end
+    vim.schedule(function()
+        require("gitsigns").prev_hunk()
+        vim.api.nvim_feedkeys("zz", "n", true) -- Added this
+    end)
+    return "<Ignore>"
 end, { desc = "Jump to prev hunk", expr = true })
 
 -- Custom gitsigns keymaps
 map("n", "<leader>gh", function()
-	require("gitsigns").preview_hunk()
+    require("gitsigns").preview_hunk()
 end, { desc = "Git preview hunk" })
 
 map("n", "<leader>gah", function()
-	require("gitsigns").stage_hunk()
+    require("gitsigns").stage_hunk()
 end, { desc = "Git add (stage) hunk" })
 
 map("n", "<leader>guh", function()
-	require("gitsigns").undo_stage_hunk()
+    require("gitsigns").undo_stage_hunk()
 end, { desc = "Git unstage hunk" })
 
 map("n", "<leader>grh", function()
-	require("gitsigns").reset_hunk()
+    require("gitsigns").reset_hunk()
 end, { desc = "Git reset hunk" })
 
 map("n", "<leader>gab", function()
-	require("gitsigns").stage_buffer()
+    require("gitsigns").stage_buffer()
 end, { desc = "Git add (stage) buffer" })
 
 map("n", "<leader>grb", function()
-	require("gitsigns").reset_buffer()
+    require("gitsigns").reset_buffer()
 end, { desc = "Git reset buffer" })
 
 map("n", "<leader>gdh", function()
-	require("gitsigns").diffthis()
+    require("gitsigns").diffthis()
 end, { desc = "Git diff hunk" })
 
 map("n", "<leader>gah", function()
-	require("gitsigns").stage_hunk({ vim.fn.line("."), vim.fn.line("v") })
+    require("gitsigns").stage_hunk({ vim.fn.line("."), vim.fn.line("v") })
 end, { desc = "Git add (stage) selected hunk" })
 
 map("n", "<leader>grh", function()
-	require("gitsigns").reset_hunk({ vim.fn.line("."), vim.fn.line("v") })
+    require("gitsigns").reset_hunk({ vim.fn.line("."), vim.fn.line("v") })
 end, { desc = "Git reset selected hunk" })
 
 ---- Auto-session ----
 
 map("n", "<leader>sl", function()
-	require("auto-session.session-lens").search_session()
+    require("auto-session.session-lens").search_session()
 end, { desc = "Session list" })
 
 ---- Nvchad color ----
 
 map("n", "<leader>tt", function()
-	require("base46").toggle_transparency()
+    require("base46").toggle_transparency()
 end, { desc = "Toggle transparency" })
 
 ---- conform ----
 
 map("n", "<leader>fm", function()
-	require("conform").format()
+    require("conform").format()
 end, { desc = "formatting" })
 
 return {}
