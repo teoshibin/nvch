@@ -300,11 +300,11 @@ return {
         "dstein64/nvim-scrollview",
         event = "BufReadPost",
     },
-    {
-        -- TODO: make this work
-        -- max char line
-        "Bekaboo/deadcolumn.nvim",
-    },
+    -- {
+    --     -- TODO: make this work
+    --     -- max char line
+    --     "Bekaboo/deadcolumn.nvim",
+    -- },
 }
 
 --[[
