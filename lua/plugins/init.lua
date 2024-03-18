@@ -1,31 +1,27 @@
--- To make a plugin not be loaded
--- {
---  "NvChad/nvim-colorizer.lua",
---  enabled = false
--- },
---
--- All NvChad plugins are lazy-loaded by default
--- For a plugin to be loaded, you will need to set either `ft`, `cmd`, `keys`, `event`, or set `lazy = false`
--- If you want a plugin to load on startup, add `lazy = false` to a plugin spec, for example
--- {
---  "mg979/vim-visual-multi",
---  lazy = false,
--- }
+--[[
+    To make a plugin not be loaded 
+
+    { "NvChad/nvim-colorizer.lua",
+     enabled = false
+    },
+
+    All NvChad plugins are lazy-loaded by default For a plugin to be loaded, 
+    you will need to set either `ft`, `cmd`, `keys`, `event`, or set 
+    `lazy = false`. If you want a plugin to load on startup, add `lazy = false` 
+    to a plugin spec, for example
+
+    {
+     "mg979/vim-visual-multi",
+     lazy = false,
+    }
+
+    Refer to source code of nvchad to see api that shouldn't be overwritten
+
+--]]
 
 local overrides = require("configs.overrides")
 
 return {
-
-    ---- Existing UI Plugins ----
-    --[[
-        Nvchad/base46                        color
-        Nvchad/ui                            all ui related stuff
-        Nvchad/nvim-colorizer.lua            idk
-        nvim-tree/nvim-web-devicons          icons
-        lukas-reineke/indent-blankline.nvim  indentation line
-        nvim-tree/nvim-tree.lua              file tree sidebar
-        folke/which-key.nvim                 midway keybind pop up
-    --]]
 
     ---- Fun Plugins ----
 
@@ -41,26 +37,78 @@ return {
         event = "VeryLazy",
     },
 
-    ---- Overrides ----
-
-    -- In order to override please the source code of Nvchad, specifically
-    -- the plugin folder. The reason being that otherwise we might be overriding
-    -- configurations that we want
+    ---- Existing Nvchad UI Plugins ----
+    --[[
+        Nvchad/base46                         color
+        Nvchad/ui                             all ui related stuff
+        Nvchad/nvim-colorizer.lua             idk
+        nvim-tree/nvim-web-devicons           icons
+        lukas-reineke/indent-blankline.nvim   indentation line
+        nvim-tree/nvim-tree.lua               file tree sidebar
+        folke/which-key.nvim                  midway keybind pop up
+    --]]
 
     {
-        "neovim/nvim-lspconfig",
-        config = function()
-            require("nvchad.configs.lspconfig").defaults()
-            require("configs.lspconfig")
-        end,
+        -- Indentation line
+        -- TODO: remove underline
+        "lukas-reineke/indent-blankline.nvim",
+        main = "ibl",
+        opts = {},
+        event = "BufReadPost",
     },
     {
-        "williamboman/mason.nvim",
+        "nvim-tree/nvim-tree.lua",
         opts = function()
-            local options = require("nvchad.configs.mason")
-            return vim.tbl_deep_extend("force", options, overrides.mason)
+            local defaults = require("nvchad.configs.nvimtree")
+            local configs =  {
+                filters = {
+                    dotfiles = false,
+                    exclude = {},
+                },
+                git = {
+                    enable = true,
+                    ignore = false,
+                },
+                renderer = {
+                    highlight_git = true,
+                    indent_markers = {
+                        enable = true,
+                    },
+                },
+            }
+            return vim.tbl_deep_extend("force", defaults, configs)
         end,
     },
+
+    ---- Existing Nvchad Editing Plugins ----
+    --[[
+        nvim-lua/plenary.nvim               idk
+        stevearc/conform.nvim               format engine
+        nvim-treesitter/nvim-treesitter     syntax tree parser
+        lewis6991/gitsigns.nvim             git glyphs
+        williamboman/mason.nvim             language server installer
+        neovim/nvim-lspconfig               language server configuration
+        hrsh7th/nvim-cmp                    completion engine
+        windwp/nvim-autopairs               autopair
+
+        saadparwaiz1/cmp_luasnip            snippet engine
+        hrsh7th/cmp-nvim-lua                completion
+        hrsh7th/cmp-nvim-lsp                completion
+        hrsh7th/cmp-buffer                  completion
+        hrsh7th/cmp-path                    path completion
+
+        numToStr/Comment.nvim               commenting
+        nvim-telescope/telescope.nvim       fuzzy search
+    --]]
+
+    -- {
+    --     "stevearc/conform.nvim",
+    --     --  for users those who want auto-save conform + lazyloading!
+    --     -- event = "BufWritePre"
+    --     config = function()
+    --         require("configs.conform")
+    --     end,
+    -- },
     {
         "nvim-treesitter/nvim-treesitter",
         opts = function()
@@ -77,27 +125,41 @@ return {
                 require("nvim-treesitter.install").compilers = { "clang" }
             end
 
-            local options = require("nvchad.configs.treesitter")
-            return vim.tbl_deep_extend("force", options, overrides.treesitter)
+            local defaults = require("nvchad.configs.treesitter")
+            return vim.tbl_deep_extend("force", defaults, overrides.treesitter)
         end,
     },
     {
-        "nvim-tree/nvim-tree.lua",
+        "lewis6991/gitsigns.nvim",
         opts = function()
-            local options = require("nvchad.configs.nvimtree")
-            return vim.tbl_deep_extend("force", options, overrides.nvimtree)
+            local defaults = require("nvchad.configs.gitsigns")
+            return vim.tbl_deep_extend("force", defaults, overrides.gitsigns)
+        end,
+    },
+    {
+        "williamboman/mason.nvim",
+        opts = function()
+            local defaults = require("nvchad.configs.mason")
+            return vim.tbl_deep_extend("force", defaults, overrides.mason)
+        end,
+    },
+    {
+        "neovim/nvim-lspconfig",
+        config = function()
+            require("nvchad.configs.lspconfig").defaults()
+            require("configs.lspconfig")
         end,
     },
     {
         -- override completion keybinds
         "hrsh7th/nvim-cmp",
         opts = function()
-            local config = require("nvchad.configs.cmp")
+            local defaults = require("nvchad.configs.cmp")
             local cmp = require("cmp")
             local luasnip = require("luasnip")
 
             -- NOTE: Overriding insertion behavior (insert when accepted)
-            config.completion = {
+            defaults.completion = {
                 completeopt = "menu,menuone,noinsert",
             }
 
@@ -108,70 +170,48 @@ return {
             --   behavior = cmp.ConfirmBehavior.Insert,
             --   select = true,
             -- }
-            config.mapping["<C-y>"] = cmp.mapping.confirm({
+            defaults.mapping["<C-y>"] = cmp.mapping.confirm({
                 behavior = cmp.ConfirmBehavior.Insert,
                 select = true,
             })
-            config.mapping["<Tab>"] = cmp.mapping.confirm({
+            defaults.mapping["<Tab>"] = cmp.mapping.confirm({
                 behavior = cmp.ConfirmBehavior.Insert,
                 select = true,
             })
-            config.mapping["<S-Tab>"] = nil
+            defaults.mapping["<S-Tab>"] = nil
 
             -- Jump to different placeholder location of the snippet
-            config.mapping["<C-l>"] = cmp.mapping(function()
+            defaults.mapping["<C-l>"] = cmp.mapping(function()
                 if luasnip.expand_or_locally_jumpable() then
                     luasnip.expand_or_jump()
                 end
             end, { "i", "s" })
 
-            config.mapping["<C-h>"] = cmp.mapping(function()
+            defaults.mapping["<C-h>"] = cmp.mapping(function()
                 if luasnip.locally_jumpable(-1) then
                     luasnip.jump(-1)
                 end
             end, { "i", "s" })
 
-            return config
+            return defaults
         end,
     },
     {
         "nvim-telescope/telescope.nvim",
         opts = function()
-            local options = require("nvchad.configs.telescope")
-            return vim.tbl_deep_extend("force", options, overrides.telescope)
-        end,
-    },
-    {
-        "lewis6991/gitsigns.nvim",
-        opts = function()
-            local options = require("nvchad.configs.gitsigns")
-            return vim.tbl_deep_extend("force", options, overrides.gitsigns)
+            local defaults = require("nvchad.configs.telescope")
+            return vim.tbl_deep_extend("force", defaults, overrides.telescope)
         end,
     },
 
     ---- MY PLUGINS ----
 
     {
-        "stevearc/conform.nvim",
-        --  for users those who want auto-save conform + lazyloading!
-        -- event = "BufWritePre"
-        config = function()
-            require("configs.conform")
-        end,
-    },
-    {
         -- Surround motion
         "kylechui/nvim-surround",
         version = "*", -- Use for stability; omit to use `main` branch for the latest features
         event = "VeryLazy",
         opts = {},
-    },
-    {
-        -- Indentation virtical guide line
-        "lukas-reineke/indent-blankline.nvim",
-        main = "ibl",
-        opts = {},
-        event = "BufReadPost",
     },
     {
         -- Auto update indentation size
@@ -257,18 +297,6 @@ return {
         },
         event = "BufReadPost",
     },
-    -- FIX: re-enable this at some point
-    -- {
-    --  -- resume with previous buffers
-    --  "rmagatti/auto-session",
-    --  lazy = false,
-    --  config = function()
-    --   require("auto-session").setup({
-    --    log_level = "error",
-    --    auto_session_suppress_dirs = { "~/", "~/Projects", "~/Downloads", "/" },
-    --   })
-    --  end,
-    -- },
     {
         -- Highlight todo, notes etc. comments
         "folke/todo-comments.nvim",
@@ -288,6 +316,22 @@ return {
         event = "InsertEnter",
         opts = {},
     },
+    {
+        "dstein64/nvim-scrollview",
+        event = "BufReadPost",
+    },
+    -- FIX: re-enable this at some point
+    -- {
+    --  -- resume with previous buffers
+    --  "rmagatti/auto-session",
+    --  lazy = false,
+    --  config = function()
+    --   require("auto-session").setup({
+    --    log_level = "error",
+    --    auto_session_suppress_dirs = { "~/", "~/Projects", "~/Downloads", "/" },
+    --   })
+    --  end,
+    -- },
     -- {
     --   -- TODO: https://github.com/smoka7/multicursors.nvim?tab=readme-ov-file
     --
@@ -307,10 +351,6 @@ return {
     --     },
     --   },
     -- },
-    {
-        "dstein64/nvim-scrollview",
-        event = "BufReadPost",
-    },
     -- {
     --     -- TODO: make this work
     --     -- max char line
