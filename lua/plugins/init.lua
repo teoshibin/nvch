@@ -60,7 +60,7 @@ return {
         "nvim-tree/nvim-tree.lua",
         opts = function()
             local defaults = require("nvchad.configs.nvimtree")
-            local configs =  {
+            local configs = {
                 filters = {
                     dotfiles = false,
                     exclude = {},
@@ -101,14 +101,10 @@ return {
         nvim-telescope/telescope.nvim       fuzzy search
     --]]
 
-    -- {
-    --     "stevearc/conform.nvim",
-    --     --  for users those who want auto-save conform + lazyloading!
-    --     -- event = "BufWritePre"
-    --     config = function()
-    --         require("configs.conform")
-    --     end,
-    -- },
+    {
+        "stevearc/conform.nvim",
+        opts = require("configs.formatter"),
+    },
     {
         "nvim-treesitter/nvim-treesitter",
         opts = function()

@@ -31,11 +31,11 @@ nomap("n", "<leader>h")
 nomap("n", "<leader>v")
 
 map("n", "<leader>;", function()
-  require("nvchad.term").new { pos = "sp", size = 0.3 }
+    require("nvchad.term").new({ pos = "sp", size = 0.3 })
 end, { desc = "Terminal New horizontal term" })
 
 map("n", "<leader>:", function()
-  require("nvchad.term").new { pos = "vsp", size = 0.3 }
+    require("nvchad.term").new({ pos = "vsp", size = 0.3 })
 end, { desc = "Terminal New vertical window" })
 
 -- TODO: see https://github.com/NvChad/NvChad/blob/v2.5/lua/nvchad/configs/lspconfig.lua

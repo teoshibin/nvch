@@ -70,7 +70,10 @@ opt.scrolloff = 8
 -- opt.hlsearch = true
 
 -- tab size
+opt.expandtab = true
 opt.shiftwidth = 4
+opt.tabstop = 4
+opt.softtabstop = 4
 
 -- Make the jump-list behave like the tag list or a web browser.
 opt.jumpoptions = "stack"
