@@ -18,10 +18,16 @@ return {
 
     ---- Existing UI Plugins ----
     --[[
-        Nvchad/base46
+        Nvchad/base46                        color
+        Nvchad/ui                            all ui related stuff
+        Nvchad/nvim-colorizer.lua            idk
+        nvim-tree/nvim-web-devicons          icons
+        lukas-reineke/indent-blankline.nvim  indentation line
+        nvim-tree/nvim-tree.lua              file tree sidebar
+        folke/which-key.nvim                 midway keybind pop up
     --]]
 
-    ---- Useless plugins ----
+    ---- Fun Plugins ----
 
     {
         -- :VimBeGood
@@ -336,5 +342,8 @@ return {
   mini.nvim
   dressing.nvim (make select options to use telescope)
   beauwilliams/focus.nvim
+
+  TODO List
+  disable nvimtree from opening files within .git directory
 
 --]]
