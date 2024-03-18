@@ -16,6 +16,11 @@ local overrides = require("configs.overrides")
 
 return {
 
+    ---- Existing UI Plugins ----
+    --[[
+        Nvchad/base46
+    --]]
+
     ---- Useless plugins ----
 
     {

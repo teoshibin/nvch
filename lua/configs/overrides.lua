@@ -38,7 +38,8 @@ M.treesitter = {
         enable = true,
         disable = {
             "c",
-            "cpp", --[["python"]]
+            "cpp",
+            "python",
         },
     },
 }
