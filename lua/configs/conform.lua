@@ -1,6 +1,4 @@
-local M = {}
-
-M.options = {
+return {
     lsp_fallback = true,
 
     -- formatters by filetype
@@ -13,5 +11,3 @@ M.options = {
         java = { "google-java-format" },
     },
 }
-
-return M

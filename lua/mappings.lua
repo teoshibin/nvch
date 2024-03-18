@@ -141,8 +141,8 @@ end, { desc = "[S]earch [N]eovim files" })
 
 map("n", "<leader>ha", function()
     require("harpoon.mark").add_file()
-    local osLib = require("lib.os")
-    local msgLib = require("lib.print")
+    local osLib = require("custom.os")
+    local msgLib = require("custom.print")
     msgLib.msg("Harpoon " .. osLib.cwdPath())
 end, { desc = "Harpoon add" })
 

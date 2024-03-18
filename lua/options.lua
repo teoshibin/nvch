@@ -82,7 +82,7 @@ opt.jumpoptions = "stack"
 opt.colorcolumn = { 80 }
 
 -- Change terminal shell, See :h shell-powershell
-if require("lib.os").isWindows() then
+if require("custom.os").isWindows() then
     -- Check if pwsh (PowerShell Core) is available (online), otherwise use 'powershell' (builtin)
     local shell = vim.fn.executable("pwsh") == 1 and "pwsh" or "powershell"
     -- Set the shell to use

@@ -103,7 +103,7 @@ return {
 
     {
         "stevearc/conform.nvim",
-        opts = require("configs.formatter"),
+        opts = require("configs.conform"),
     },
     {
         "nvim-treesitter/nvim-treesitter",
@@ -117,26 +117,34 @@ return {
             --  3. Delete any mason and treesitter related folders in nvim `*-data` folder
             --  4. TSInstall if needed
 
-            if require("lib.os").isWindows() then
+            if require("custom.os").isWindows() then
                 require("nvim-treesitter.install").compilers = { "clang" }
             end
 
             local defaults = require("nvchad.configs.treesitter")
-            return vim.tbl_deep_extend("force", defaults, overrides.treesitter)
+            local configs = require("configs.treesitter")
+            return vim.tbl_deep_extend("force", defaults, configs)
         end,
     },
     {
         "lewis6991/gitsigns.nvim",
         opts = function()
             local defaults = require("nvchad.configs.gitsigns")
-            return vim.tbl_deep_extend("force", defaults, overrides.gitsigns)
+            local configs = {
+                current_line_blame = true,
+                current_line_blame_opts = {
+                    delay = 500,
+                },
+            }
+            return vim.tbl_deep_extend("force", defaults, configs)
         end,
     },
     {
         "williamboman/mason.nvim",
         opts = function()
             local defaults = require("nvchad.configs.mason")
-            return vim.tbl_deep_extend("force", defaults, overrides.mason)
+            local configs = require("configs.mason")
+            return vim.tbl_deep_extend("force", defaults, configs)
         end,
     },
     {
@@ -196,7 +204,10 @@ return {
         "nvim-telescope/telescope.nvim",
         opts = function()
             local defaults = require("nvchad.configs.telescope")
-            return vim.tbl_deep_extend("force", defaults, overrides.telescope)
+            local configs = {
+                extensions_list = { "harpoon", "hbac" },
+            }
+            return vim.tbl_deep_extend("force", defaults, configs)
         end,
     },
 
@@ -241,8 +252,8 @@ return {
             enabled = true,
             execution_message = {
                 message = function()
-                    local osLib = require("lib.os")
-                    local msgLib = require("lib.print")
+                    local osLib = require("custom.os")
+                    local msgLib = require("custom.print")
                     return msgLib.msgStr("AutoSave " .. osLib.cwdPath())
                 end,
                 cleaning_interval = 3000,
@@ -282,8 +293,8 @@ return {
             -- :Telescope hbac buffers
             threshold = 5,
             close_command = function(bufnr)
-                local osLib = require("lib.os")
-                local msgLib = require("lib.print")
+                local osLib = require("custom.os")
+                local msgLib = require("custom.print")
                 local filename = osLib.cwdPath(bufnr)
                 if filename ~= "" then
                     msgLib.msg("AutoClose " .. filename)

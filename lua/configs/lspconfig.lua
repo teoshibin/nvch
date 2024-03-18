@@ -4,7 +4,7 @@ local on_attach = configs.on_attach
 local on_init = configs.on_init
 local capabilities = configs.capabilities
 
-local os = require("lib.os")
+local os = require("custom.os")
 -- TODO: create a function that will add string into table based on condition
 -- instead of using an additional `install_condition` field
 
