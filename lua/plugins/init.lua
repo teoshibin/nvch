@@ -48,11 +48,21 @@ return {
 
     {
         -- Indentation line
-        -- TODO: remove underline
+        -- NOTE: Underline fix discussion
+        -- https://github.com/lukas-reineke/indent-blankline.nvim/issues/686
         "lukas-reineke/indent-blankline.nvim",
-        main = "ibl",
-        opts = {},
-        event = "BufReadPost",
+        opts = {
+            indent = {
+                -- char = "▏",
+                highlight = "IblChar",
+            },
+            scope = {
+                -- char = "▏",
+                highlight = "IblScopeChar",
+                show_start = false,
+                show_end = false,
+            },
+        },
     },
     {
         "nvim-tree/nvim-tree.lua",

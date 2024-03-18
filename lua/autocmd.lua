@@ -25,13 +25,21 @@ autocmd("TextYankPost", {
 -- :help ++p
 -- " Auto-create parent directories (except for URIs "://").
 -- au BufWritePre,FileWritePre * if @% !~# '\(://\)' | call mkdir(expand('<afile>:p:h'), 'p') | endif
-autocmd({ "BufWritePre" }, {
+autocmd("BufWritePre", {
     callback = function(event)
         if event.match:match("^%w%w+://") then
             return
         end
         local file = vim.loop.fs_realpath(event.match) or event.match
         vim.fn.mkdir(vim.fn.fnamemodify(file, ":p:h"), "p")
+    end,
+})
+
+-- auto vert split help doc
+autocmd("FileType", {
+    pattern = "help",
+    callback = function()
+        vim.cmd("wincmd L")
     end,
 })
 
