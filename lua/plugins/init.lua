@@ -19,8 +19,6 @@
 
 --]]
 
-local overrides = require("configs.overrides")
-
 return {
 
     ---- Fun Plugins ----
