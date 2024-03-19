@@ -377,6 +377,9 @@ return {
 
   Plugins to look into
 
+  Editing
+  https://github.com/karb94/neoscroll.nvim
+
   FILE
   nvim-lsp-file-opreations (for refactoring filenames and imports)
 
