@@ -74,6 +74,10 @@ map("n", "gP", "`[V`]", { desc = "[g]o reselect [P]asted in Visual line mode" })
 map("n", "<C-d>", "<C-d>zz")
 map("n", "<C-u>", "<C-u>zz")
 
+-- Centered Stack Jump
+map("n", "<C-o>", "<C-o>zz")
+map("n", "<C-i>", "<C-i>zz")
+
 -- Centered Find
 map("n", "n", "nzz")
 map("n", "N", "Nzz")
