@@ -400,5 +400,6 @@ return {
 
   TODO List
   disable nvimtree from opening files within .git directory
+  
 
 --]]
