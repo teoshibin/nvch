@@ -387,6 +387,10 @@ return {
   git-conflict (merge)
   nvim-tinygit (git all in one)
 
+  native git mergetool
+  diffconflict
+  conflict-marker
+
   COLOR
   https://neovimcraft.com/plugin/RRethy/vim-illuminate
 
@@ -400,6 +404,5 @@ return {
 
   TODO List
   disable nvimtree from opening files within .git directory
-  
 
 --]]
