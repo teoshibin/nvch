@@ -20,6 +20,11 @@ local servers = {
     ["pyright"] = {},
     ["kotlin_language_server"] = {},
     ["jdtls"] = {},
+
+    -- work
+    -- ["perl_language_server"] = {
+    --   install_condition = os.isMac(), 
+    -- },
 }
 
 -- NOTE: if you just want default config for the servers then put them in a table
