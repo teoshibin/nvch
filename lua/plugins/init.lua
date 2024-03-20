@@ -21,29 +21,16 @@
 
 return {
 
-    ---- Fun Plugins ----
-
-    {
-        -- :VimBeGood
-        "ThePrimeagen/vim-be-good",
-        event = "VeryLazy",
-    },
-    {
-        -- :CellularAutomaton make_it_rain
-        -- :CellularAutomaton game_of_life
-        "eandrju/cellular-automaton.nvim",
-        event = "VeryLazy",
-    },
-
-    ---- Existing Nvchad UI Plugins ----
     --[[
-        Nvchad/base46                         color
-        Nvchad/ui                             all ui related stuff
-        Nvchad/nvim-colorizer.lua             idk
-        nvim-tree/nvim-web-devicons           icons
-        lukas-reineke/indent-blankline.nvim   indentation line
-        nvim-tree/nvim-tree.lua               file tree sidebar
-        folke/which-key.nvim                  midway keybind pop up
+        ---- Nvchad UI Plugins ----
+
+        Nvchad/base46                        color theme
+        Nvchad/ui                            nvchad UI
+        Nvchad/nvim-colorizer.lua            color code colorizer
+        nvim-tree/nvim-web-devicons          icons
+        lukas-reineke/indent-blankline.nvim  indentation line
+        nvim-tree/nvim-tree.lua              file tree
+        folke/which-key.nvim                 keybind pop up
     --]]
 
     {
@@ -88,25 +75,24 @@ return {
         end,
     },
 
-    ---- Existing Nvchad Editing Plugins ----
     --[[
-        nvim-lua/plenary.nvim               idk
-        stevearc/conform.nvim               format engine
-        nvim-treesitter/nvim-treesitter     syntax tree parser
-        lewis6991/gitsigns.nvim             git glyphs
-        williamboman/mason.nvim             language server installer
-        neovim/nvim-lspconfig               language server configuration
-        hrsh7th/nvim-cmp                    completion engine
-        windwp/nvim-autopairs               autopair
+        ---- Nvchad Editing Plugins ----
 
-        saadparwaiz1/cmp_luasnip            snippet engine
-        hrsh7th/cmp-nvim-lua                completion
-        hrsh7th/cmp-nvim-lsp                completion
-        hrsh7th/cmp-buffer                  completion
-        hrsh7th/cmp-path                    path completion
-
-        numToStr/Comment.nvim               commenting
-        nvim-telescope/telescope.nvim       fuzzy search
+        nvim-lua/plenary.nvim            coroutine library
+        stevearc/conform.nvim            formatter
+        nvim-treesitter/nvim-treesitter  syntax tree parser
+        lewis6991/gitsigns.nvim          git glyph
+        williamboman/mason.nvim          language server installer
+        neovim/nvim-lspconfig            language server configuration
+        hrsh7th/nvim-cmp                 completion engine
+        windwp/nvim-autopairs            autopair
+        saadparwaiz1/cmp_luasnip         snippet engine
+        hrsh7th/cmp-nvim-lua             completion
+        hrsh7th/cmp-nvim-lsp             completion
+        hrsh7th/cmp-buffer               completion
+        hrsh7th/cmp-path                 path completion
+        numToStr/Comment.nvim            commenting
+        nvim-telescope/telescope.nvim    fuzzy search
     --]]
 
     {
@@ -213,7 +199,7 @@ return {
         opts = function()
             local defaults = require("nvchad.configs.telescope")
             local configs = {
-                extensions_list = { "harpoon", "hbac" },
+                extensions_list = { "harpoon" },
             }
             return vim.tbl_deep_extend("force", defaults, configs)
         end,
@@ -293,26 +279,6 @@ return {
         event = "BufReadPost",
     },
     {
-        -- auto close buffers
-        "axkirillov/hbac.nvim",
-        opts = {
-            -- autoclose = false,
-            -- NOTE: require('telescope').extensions.hbac.buffers()
-            -- :Telescope hbac buffers
-            threshold = 5,
-            close_command = function(bufnr)
-                local osLib = require("custom.os")
-                local msgLib = require("custom.print")
-                local filename = osLib.cwdPath(bufnr)
-                if filename ~= "" then
-                    msgLib.msg("AutoClose " .. filename)
-                end
-                vim.api.nvim_buf_delete(bufnr, {})
-            end,
-        },
-        event = "BufReadPost",
-    },
-    {
         -- Highlight todo, notes etc. comments
         "folke/todo-comments.nvim",
         dependencies = { "nvim-lua/plenary.nvim" },
@@ -335,9 +301,8 @@ return {
         "dstein64/nvim-scrollview",
         event = "BufReadPost",
     },
-    -- FIX: re-enable this at some point
+    -- FIX: auto session
     -- {
-    --  -- resume with previous buffers
     --  "rmagatti/auto-session",
     --  lazy = false,
     --  config = function()
@@ -366,11 +331,20 @@ return {
     --     },
     --   },
     -- },
-    -- {
-    --     -- TODO: make this work
-    --     -- max char line
-    --     "Bekaboo/deadcolumn.nvim",
-    -- },
+
+    ---- Fun Plugins ----
+
+    {
+        -- :VimBeGood
+        "ThePrimeagen/vim-be-good",
+        event = "VeryLazy",
+    },
+    {
+        -- :CellularAutomaton make_it_rain
+        -- :CellularAutomaton game_of_life
+        "eandrju/cellular-automaton.nvim",
+        event = "VeryLazy",
+    },
 }
 
 --[[
@@ -379,6 +353,7 @@ return {
 
   Editing
   https://github.com/karb94/neoscroll.nvim
+  https://neovimcraft.com/plugin/folke/zen-mode.nvim
 
   FILE
   nvim-lsp-file-opreations (for refactoring filenames and imports)
