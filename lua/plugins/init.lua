@@ -252,11 +252,7 @@ return {
         opts = {
             enabled = true,
             execution_message = {
-                message = function()
-                    local osLib = require("custom.os")
-                    local msgLib = require("custom.print")
-                    return msgLib.msgStr("AutoSave " .. osLib.cwdPath())
-                end,
+                message = print("Autosave" .. require("custom.os").cwdPath()),
                 cleaning_interval = 3000,
             },
         },
