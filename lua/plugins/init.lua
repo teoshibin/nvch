@@ -57,17 +57,24 @@ return {
             local defaults = require("nvchad.configs.nvimtree")
             local configs = {
                 filters = {
-                    dotfiles = false,
-                    exclude = {},
-                },
-                git = {
-                    enable = true,
-                    ignore = false,
+                    git_ignored = false,
+                    custom = {
+                        "^.git$",
+                    },
                 },
                 renderer = {
-                    highlight_git = true,
-                    indent_markers = {
-                        enable = true,
+                    icons = {
+                        glyphs = {
+                            git = {
+                                unstaged = "",
+                                staged = "",
+                                unmerged = "",
+                                renamed = "",
+                                untracked = "",
+                                deleted = "",
+                                ignored = "",
+                            },
+                        },
                     },
                 },
             }
