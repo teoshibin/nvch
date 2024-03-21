@@ -356,37 +356,27 @@ return {
 
 --[[
 
-  Plugins to look into
+    TODOs
+    - refactoring
+    - keybind map on plugin attach
+    - fix <leader>sh  :Telescope help overwritten by Nvchad
 
-  Editing
-  https://github.com/karb94/neoscroll.nvim
-  https://neovimcraft.com/plugin/folke/zen-mode.nvim
+    - git
+        - neogit (fugitive replacement)
+        - diffview (commiting)
+        - git-conflict (merging) / diffconflict / native git mergetool
+        - octo (PR)
 
-  FILE
-  nvim-lsp-file-opreations (for refactoring filenames and imports)
+    - editing
+        - https://neovimcraft.com/plugin/folke/zen-mode.nvim
 
-  GIT
-  diffview (commit)
-  neogit / lazygit (general)
-  octo (PR)
-  git-conflict (merge)
-  nvim-tinygit (git all in one)
+    - file
+        - nvim-lsp-file-opreations (for refactoring filenames and imports)
 
-  native git mergetool
-  diffconflict
-  conflict-marker
-
-  COLOR
-  https://neovimcraft.com/plugin/RRethy/vim-illuminate
-
-  FORMATTING
-  https://neovimcraft.com/plugin/stevearc/conform.nvim
-
-  MISC
-  mini.nvim
-  dressing.nvim (make select options to use telescope)
-  beauwilliams/focus.nvim
-
-  TODO List
+    - misc
+        - mini.nvim
+        - dressing.nvim (make select options to use telescope)
+        - beauwilliams/focus.nvim
+        - noice
 
 --]]
