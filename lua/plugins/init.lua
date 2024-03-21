@@ -388,6 +388,5 @@ return {
   beauwilliams/focus.nvim
 
   TODO List
-  disable nvimtree from opening files within .git directory
 
 --]]
