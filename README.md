@@ -3,6 +3,10 @@
 
 Neovim configuration based on nvchad plugin.
 
+## Plugin Details
+
+See [details](./lua/plugins/README.md)
+
 ## Installation
 
 Windows
