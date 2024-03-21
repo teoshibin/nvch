@@ -46,5 +46,10 @@ New-Alias -Name nv -Value Get-Nvim-Chad -Force -Option AllScope
 ```
 
 ```fish
-# TODO
+function nvim_config -a config_name
+    set -x NVIM_APPNAME $config_name
+    nvim
+end
+
+alias nv='nvim_config "nvch"'
 ```
