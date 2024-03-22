@@ -83,19 +83,15 @@ opt.colorcolumn = { 80 }
 
 -- Change terminal shell, See :h shell-powershell
 if require("custom.os").isWindows() then
-    -- Check if pwsh (PowerShell Core) is available (online), otherwise use 'powershell' (builtin)
     local shell = vim.fn.executable("pwsh") == 1 and "pwsh" or "powershell"
-    -- Set the shell to use
     vim.o.shell = shell
-    -- Set shell flags for command execution
-    vim.o.shellcmdflag = "-NoLogo -ExecutionPolicy RemoteSigned -Command "
-        .. "[Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.UTF8Encoding]::new();"
-        .. "$PSDefaultParameterValues['Out-File:Encoding']='utf8';"
-    -- Set shell redirection
-    vim.o.shellredir = '2>&1 | %{"$(_)" } | Out-File %s; exit $LastExitCode'
-    -- Set shell pipe
+    -- NOTE: this broke neogit for some reason
+    -- vim.o.shellcmdflag = "-NoLogo -ExecutionPolicy RemoteSigned -Command "
+    --     .. "[Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.UTF8Encoding]::new();"
+    --     .. "$PSDefaultParameterValues['Out-File:Encoding']='utf8';"
+    vim.o.shellcmdflag = "-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command "
+    vim.o.shellredir = '2>&1 | %{"$(_)" } | Out-File -Encoding UTF8 %s; exit $LastExitCode'
     vim.o.shellpipe = '2>&1 | %{"$(_)" } | Tee-Object %s; exit $LastExitCode'
-    -- Unset shellquote and shellxquote
     vim.o.shellquote = ""
     vim.o.shellxquote = ""
 
