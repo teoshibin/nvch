@@ -67,11 +67,5 @@ local plugins = {
         },
     },
 }
---
--- local autosave =
---
--- if not require("custom.path").is_config() then
---     table.insert(plugins, autosave)
--- end
 
 return plugins

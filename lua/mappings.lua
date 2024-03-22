@@ -97,6 +97,9 @@ map("v", "<A-j>", ":m '>+1<CR>gv=gv", { desc = "Move selected lines down" })
 map("v", ">", ">gv", { desc = "Visual line indent right" })
 map("v", "<", "<gv", { desc = "Visual line indent left" })
 
+-- close other buffers
+map("n", "<leader>X", "<cmd> w|%bd|e#|bd# <CR>", { silent = true, desc = "Buffer close other buffers", noremap = true })
+
 ---- Existing Keybinds ----
 
 -- Quick Escape
@@ -241,9 +244,9 @@ end, { desc = "Git reset selected hunk" })
 
 ---- Auto-session ----
 
-map("n", "<leader>sl", function()
-    require("auto-session.session-lens").search_session()
-end, { desc = "Session list" })
+-- map("n", "<leader>sl", function()
+--     require("auto-session.session-lens").search_session()
+-- end, { desc = "Session list" })
 
 ---- Nvchad color ----
 
