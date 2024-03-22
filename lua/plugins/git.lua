@@ -6,7 +6,10 @@ return {
             "sindrets/diffview.nvim",
             "nvim-telescope/telescope.nvim",
         },
-        config = true,
+        config = function()
+            dofile(vim.g.base46_cache .. "git")
+            require("neogit").setup({})
+        end,
         lazy = false,
     },
     {
@@ -22,9 +25,4 @@ return {
             return vim.tbl_deep_extend("force", defaults, configs)
         end,
     },
-    -- {
-    --     -- git
-    --     "tpope/vim-fugitive",
-    --     lazy = false,
-    -- },
 }
