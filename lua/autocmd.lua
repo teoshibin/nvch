@@ -1,7 +1,8 @@
--- [[ Basic Autocommands ]]
 --  See :help lua-guide-autocommands
 
 local autocmd = vim.api.nvim_create_autocmd
+
+---- Auto Commands ----
 
 -- Auto resize panes when resizing nvim window
 -- autocmd("VimResized", {
@@ -41,6 +42,14 @@ autocmd("FileType", {
     callback = function()
         vim.cmd("wincmd L")
     end,
+})
+
+---- Plugin Specific ----
+
+-- refresh nvim-tree after neogit action
+autocmd("User", {
+  pattern = "NeogitStatusRefreshed",
+  command = "NvimTreeRefresh"
 })
 
 -- -- NOTE: fix nvimtree buffer layout for auto-session
