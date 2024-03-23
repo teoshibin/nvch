@@ -76,7 +76,7 @@ opt.tabstop = 4
 opt.softtabstop = 4
 
 -- Make the jump-list behave like the tag list or a web browser.
-opt.jumpoptions = "stack"
+opt.jumpoptions = "view"
 
 -- Max char line (not transparent)
 opt.colorcolumn = { 80 }

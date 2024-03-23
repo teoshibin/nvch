@@ -49,7 +49,11 @@ autocmd("FileType", {
 -- refresh nvim-tree after neogit action
 autocmd("User", {
   pattern = "NeogitStatusRefreshed",
-  command = "NvimTreeRefresh"
+    callback = function()
+        if vim.fn.exists(":NvimTreeRefresh") ~= 0 then
+            vim.cmd("NvimTreeRefresh")
+        end
+    end
 })
 
 -- -- NOTE: fix nvimtree buffer layout for auto-session

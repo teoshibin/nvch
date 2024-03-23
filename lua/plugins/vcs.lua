@@ -6,11 +6,12 @@ return {
             "sindrets/diffview.nvim",
             "nvim-telescope/telescope.nvim",
         },
+        event = "User FilePost",
         config = function()
             dofile(vim.g.base46_cache .. "git")
             require("neogit").setup({})
+            require("mappings").neogit()
         end,
-        lazy = false,
     },
     {
         "lewis6991/gitsigns.nvim",
@@ -21,6 +22,9 @@ return {
                 current_line_blame_opts = {
                     delay = 500,
                 },
+                on_attach = function(buffer)
+                    require("mappings").gitsigns(buffer)
+                end,
             }
             return vim.tbl_deep_extend("force", defaults, configs)
         end,

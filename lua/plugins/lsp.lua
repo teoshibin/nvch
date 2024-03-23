@@ -1,7 +1,10 @@
 return {
     {
         "stevearc/conform.nvim",
-        opts = require("configs.conform"),
+        opts = function ()
+            require("mappings").conform()
+            return require("configs.conform")
+        end
     },
     {
         "nvim-treesitter/nvim-treesitter",

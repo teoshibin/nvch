@@ -54,8 +54,11 @@ return {
         dependencies = {
             "nvim-lua/plenary.nvim",
         },
-        lazy = false,
-        opts = {},
+        event = "User FilePost",
+        config = function()
+            require("harpoon").setup({})
+            require("mappings").harpoon()
+        end
     },
     {
         "dstein64/nvim-scrollview",
