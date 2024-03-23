@@ -3,7 +3,6 @@
 
 ## TODOs
 
-- refactoring
 - keybind map on plugin attach
 - fix `<leader>sh` `:Telescope help` overwritten by Nvchad
 
