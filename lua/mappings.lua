@@ -168,7 +168,7 @@ function M.gitsigns(buffer)
             vim.api.nvim_feedkeys("zz", "n", true) -- Added this
         end)
         return "<Ignore>"
-    end, { buffer = buffer, desc = "Gitsign Next hunk", expr = true })
+    end, { buffer = buffer, desc = "Git Jump next hunk", expr = true })
 
     -- Navigate previous hunk (added zz)
     map("n", "[c", function()
@@ -180,42 +180,42 @@ function M.gitsigns(buffer)
             vim.api.nvim_feedkeys("zz", "n", true) -- Added this
         end)
         return "<Ignore>"
-    end, { buffer = buffer, desc = "Gitsign Previous hunk", expr = true })
+    end, { buffer = buffer, desc = "Git Jump previous hunk", expr = true })
 
     -- preview hunk
     map("n", "<leader>hp", function()
         gs.preview_hunk()
-    end, { buffer = buffer, desc = "Gitsign Preview hunk" })
+    end, { buffer = buffer, desc = "Git Preview hunk" })
 
     -- stage hunk
     map("n", "<leader>hs", function()
         gs.stage_hunk()
-    end, { buffer = buffer, desc = "Gitsign Stage Hunk" })
+    end, { buffer = buffer, desc = "Git Stage Hunk" })
 
     -- unstage hunk
     map("n", "<leader>hu", function()
         gs.undo_stage_hunk()
-    end, { buffer = buffer, desc = "Gitsign Unstage hunk" })
+    end, { buffer = buffer, desc = "Git Unstage hunk" })
 
     -- reset hunk
     map("n", "<leader>hr", function()
         gs.reset_hunk()
-    end, { buffer = buffer, desc = "Gitsign Reset hunk" })
+    end, { buffer = buffer, desc = "Git Reset hunk" })
 
     -- diff hunk
     map("n", "<leader>hd", function()
         gs.diffthis()
-    end, { buffer = buffer, desc = "Gitsign Diff hunk" })
+    end, { buffer = buffer, desc = "Git Diff hunk" })
 
     -- stage selected hunk
     map("v", "<leader>hs", function()
         gs.stage_hunk({ vim.fn.line("."), vim.fn.line("v") })
-    end, { buffer = buffer, desc = "Gitsign Stage selected hunk" })
+    end, { buffer = buffer, desc = "Git Stage selected hunk" })
 
     -- unstage selected hunk
     map("v", "<leader>hr", function()
         gs.reset_hunk({ vim.fn.line("."), vim.fn.line("v") })
-    end, { buffer = buffer, desc = "Gitsign Reset selected hunk" })
+    end, { buffer = buffer, desc = "Git Reset selected hunk" })
 
     -- Use neogit instead
     -- map("n", "<leader>hS", function()
@@ -282,16 +282,10 @@ end
 
 function M.neogit()
     map("n", "<leader>gg", "<cmd> Neogit <CR>", { desc = "Git Open neogit" })
-    map("n", "<leader>gd", "<cmd> DiffviewOpen <CR>", { desc = "Git Open diff view" })
+    map("n", "<leader>gd", "<cmd> DiffviewOpen <CR>", { desc = "Git Open project diffs" })
 end
 
 function M.telescope()
-    -- TODO: see https://github.com/NvChad/NvChad/blob/v2.5/lua/nvchad/configs/lspconfig.lua
-    -- the problem being that the key is set on attach
-    -- Remap conflicted keymap
-    -- nomap("n", "<leader>sh")
-    -- map("n", "<leader>ls", vim.lsp.buf.signature_help, opts "Lsp Show signature help")
-
     -- hiden term
     nomap("n", "<leader>pt")
     map("n", "<leader>st", "<cmd> Telescope terms <CR>", { desc = "Telescope Search terminals" })
