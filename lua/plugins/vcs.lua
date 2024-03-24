@@ -1,13 +1,30 @@
 return {
     {
         "NeogitOrg/neogit",
+        cmd = "Neogit",
+        keys = "<leader>gs",
         dependencies = {
             "nvim-lua/plenary.nvim",
-            "sindrets/diffview.nvim",
+            {
+                "sindrets/diffview.nvim",
+                keys = { "<leader>gd", "<leader>gl" },
+                cmd = {
+                    "DiffviewClose",
+                    "DiffviewOpen",
+                    "DiffviewFileHistory",
+                    "DiffviewFocusFiles",
+                    "DiffviewLog",
+                    "DiffviewRefresh",
+                    "DiffviewToggleFiles",
+                },
+                config = function(_, opts)
+                    dofile(vim.g.base46_cache .. "git")
+                    require("diffview").setup(opts)
+                    require('mappings').diffview()
+                end
+            },
             "nvim-telescope/telescope.nvim",
         },
-        cmd = "Neogit",
-        keys = "<leader>gg",
         config = function()
             dofile(vim.g.base46_cache .. "git")
             require("neogit").setup({})

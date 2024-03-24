@@ -281,8 +281,31 @@ function M.harpoon()
 end
 
 function M.neogit()
-    map("n", "<leader>gg", "<cmd> Neogit <CR>", { desc = "Git Open neogit" })
-    map("n", "<leader>gd", "<cmd> DiffviewOpen <CR>", { desc = "Git Open project diffs" })
+    -- open neogit
+    map("n", "<leader>gs", "<cmd>Neogit<CR>", { desc = "Git Open neogit" })
+end
+
+function M.diffview()
+    -- toggle diff view
+    map("n", "<leader>gd", function()
+        local lib = require("diffview.lib")
+        local view = lib.get_current_view()
+        if view then
+            vim.cmd.DiffviewClose()
+        else
+            vim.cmd.DiffviewOpen()
+        end
+    end, { desc = "Git Open diff view" })
+
+    map("n", "<leader>gl", function()
+        local lib = require("diffview.lib")
+        local view = lib.get_current_view()
+        if view then
+            vim.cmd.DiffviewClose()
+        else
+            vim.cmd.DiffviewFileHistory()
+        end
+    end, { desc = "Git Open diff history" })
 end
 
 function M.telescope()
@@ -333,7 +356,7 @@ function M.telescope()
 
     -- search git commits
     nomap("n", "<leader>cm")
-    map("n", "<leader>sc", "<cmd> Telescope git_commits <CR>", { desc = "Telescope Search git commits" })
+    map("n", "<leader>sl", "<cmd> Telescope git_commits <CR>", { desc = "Telescope Search git commits" })
 
     -- search git diffs
     nomap("n", "<leader>gt")
