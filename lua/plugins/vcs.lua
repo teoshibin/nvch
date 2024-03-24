@@ -21,6 +21,7 @@ return {
                     dofile(vim.g.base46_cache .. "git")
                     require("diffview").setup(opts)
                     require('mappings').diffview()
+                    dofile(vim.g.base46_cache .. "git")
                 end
             },
             "nvim-telescope/telescope.nvim",
