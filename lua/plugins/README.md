@@ -3,9 +3,6 @@
 
 ## TODOs
 
-- keybind map on plugin attach
-- fix `<leader>sh` `:Telescope help` overwritten by Nvchad
-
 - git
   - octo (PR)
 
@@ -16,10 +13,7 @@
   - nvim-lsp-file-opreations (for refactoring filenames and imports)
 
 - misc
-  - mini.nvim
-  - dressing.nvim (make select options to use telescope)
   - beauwilliams/focus.nvim
-  - noice
 
 ## Nvhcad UI Plugins
 
@@ -77,3 +71,4 @@ for example
 ```
 
 Refer to source code of nvchad to see api that shouldn't be overwritten
+
