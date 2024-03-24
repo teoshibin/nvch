@@ -23,7 +23,7 @@ Nvchad/base46                       color theme
 Nvchad/ui                           nvchad UI
 Nvchad/nvim-colorizer.lua           color code colorizer
 nvim-tree/nvim-web-devicons         icons
-lukas-reineke/indent-blankline.nvim indentation line     ./editing.lua
+lukas-reineke/indent-blankline.nvim indentation line     ./edit.lua
 nvim-tree/nvim-tree.lua             file tree            ./ui.lua
 folke/which-key.nvim                keybind pop up
 ```
@@ -32,12 +32,12 @@ folke/which-key.nvim                keybind pop up
 
 ```txt
 nvim-lua/plenary.nvim           coroutine library
-stevearc/conform.nvim           formatter                ./language.lua
-nvim-treesitter/nvim-treesitter syntax tree parser       ./language.lua
-lewis6991/gitsigns.nvim         git glyph                ./git.lua
-williamboman/mason.nvim         server installer         ./language.lua
-neovim/nvim-lspconfig           server configuration     ./language.lua
-hrsh7th/nvim-cmp                completion engine        ./language.lua
+stevearc/conform.nvim           formatter                ./lsp.lua
+nvim-treesitter/nvim-treesitter syntax tree parser       ./lsp.lua
+lewis6991/gitsigns.nvim         git glyph                ./vcs.lua
+williamboman/mason.nvim         server installer         ./lsp.lua
+neovim/nvim-lspconfig           server configuration     ./lsp.lua
+hrsh7th/nvim-cmp                completion engine        ./lsp.lua
 windwp/nvim-autopairs           autopair
 saadparwaiz1/cmp_luasnip        snippet engine
 hrsh7th/cmp-nvim-lua            completion
