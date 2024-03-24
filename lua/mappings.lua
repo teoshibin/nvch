@@ -285,7 +285,7 @@ end
 
 function M.neogit()
     -- open neogit
-    map("n", "<leader>gs", "<cmd>Neogit<CR>", { desc = "Git Open neogit" })
+    map("n", "<leader>gs", "<cmd>:wa|Neogit<CR>", { desc = "Git Open neogit" })
 end
 
 function M.diffview()
@@ -376,7 +376,7 @@ function M.telescope()
 end
 
 function M.trouble()
-    map("n", "<leader>ex", function()
+    map("n", "<leader>ee", function()
         require("trouble").toggle()
     end, { desc = "Lsp Toggle trouble" })
     map("n", "<leader>ew", function()
