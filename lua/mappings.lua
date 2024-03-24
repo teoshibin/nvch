@@ -1,7 +1,11 @@
 local M = {}
 
 local nomap = vim.keymap.del
-local map = vim.keymap.set
+local function map(modes, lhs, rhs, opts)
+    local default_opts = { noremap = false }
+    opts = vim.tbl_extend("force", default_opts, opts)
+    vim.keymap.set(modes, lhs, rhs, opts)
+end
 
 function M.auto_session()
     map("n", "<leader>sl", function()
@@ -62,7 +66,7 @@ function M.general()
     ---- Custom ----
 
     -- Specials
-    map("n", "<leader>.", "@@", { desc = "Quick marco" })
+    map("n", "<leader>.", "@@", { desc = "General Repeat last marco" })
 
     nomap("n", "<leader>n")
     map("n", "<leader>n", "<cmd>nohl<CR>", { desc = "General Clear highlights" })
@@ -75,20 +79,20 @@ function M.general()
     map("n", "<leader>v", "^vg_", { desc = "General Select current line" })
 
     -- Marks
-    map("n", "<leader>m", ":marks<Cr>", { desc = "Show marks" })
-    map("n", "<leader>dm", ":delmarks a-zA-Z0-9<Cr>", { desc = "Delete all marks" })
+    map("n", "<leader>m", ":marks<Cr>", { desc = "General Show marks" })
+    map("n", "<leader>dm", ":delmarks a-zA-Z0-9<Cr>", { desc = "General Clear all marks" })
 
     -- Move Lines
-    map("n", "<A-j>", ":m .+1<CR>==", { desc = "Move line down" })
-    map("n", "<A-k>", ":m .-2<CR>==", { desc = "Move line up" })
+    map("n", "<A-j>", ":m .+1<CR>==", { desc = "General Move line down" })
+    map("n", "<A-k>", ":m .-2<CR>==", { desc = "General Move line up" })
 
     -- New Line
-    map("n", "<leader>o", 'o<Esc>0"_D', { desc = "Add newline below" })
-    map("n", "<leader>O", 'O<Esc>0"_D', { desc = "Add newline above" })
+    map("n", "<leader>o", 'o<Esc>0"_D', { desc = "General Add newline below" })
+    map("n", "<leader>O", 'O<Esc>0"_D', { desc = "General Add newline above" })
 
     -- Reselect Pasted
-    map("n", "gp", "`[v`]", { desc = "[g]o reselect [p]asted in visual mode" })
-    map("n", "gP", "`[V`]", { desc = "[g]o reselect [P]asted in Visual line mode" })
+    map("n", "gp", "`[v`]", { desc = "General Reselect pasted in visual mode" })
+    map("n", "gP", "`[V`]", { desc = "Genearal Reselect pasted in Visual line mode" })
 
     -- Centered Jump
     map("n", "<C-d>", "<C-d>zz")
@@ -118,41 +122,30 @@ function M.general()
     map("v", "<", "<gv", { desc = "Visual line indent left" })
 
     -- close other buffers
-    map(
-        "n",
-        "<leader>X",
-        "<cmd> w|%bd|e#|bd# <CR>",
-        { silent = true, desc = "Buffer close other buffers", noremap = true }
-    )
+    map("n", "<leader>X", "<cmd> w|%bd|e#|bd# <CR>", { desc = "Buffer close other buffers" })
 
     -- arrow keys window resize
-vim.g.resize_keymaps_enabled = false
+    vim.g.resize_keymaps_enabled = false
 
-local function toggleMotionResize()
-    if vim.g.resize_keymaps_enabled then
-        -- Remove resizing keymaps
-        vim.api.nvim_del_keymap("n", "h")
-        vim.api.nvim_del_keymap("n", "j")
-        vim.api.nvim_del_keymap("n", "k")
-        vim.api.nvim_del_keymap("n", "l")
-        vim.g.resize_keymaps_enabled = false
-    else
-        -- Set keymaps for resizing
-        vim.api.nvim_set_keymap("n", "h", "<C-w>5<", { desc = "Window Increase width", noremap = true, silent = true })
-        vim.api.nvim_set_keymap("n", "j", "<C-w>5+", { desc = "Window Increase height", noremap = true, silent = true })
-        vim.api.nvim_set_keymap("n", "k", "<C-w>5-", { desc = "Window Decrease height", noremap = true, silent = true })
-        vim.api.nvim_set_keymap("n", "l", "<C-w>5>", { desc = "Window Decrease width", noremap = true, silent = true })
-        vim.g.resize_keymaps_enabled = true
+    local function toggleMotionResize()
+        if vim.g.resize_keymaps_enabled then
+            nomap("n", "h")
+            nomap("n", "j")
+            nomap("n", "k")
+            nomap("n", "l")
+            vim.g.resize_keymaps_enabled = false
+        else
+            map("n", "h", "<C-w>5<", { desc = "Window Increase width" })
+            map("n", "j", "<C-w>5+", { desc = "Window Increase height" })
+            map("n", "k", "<C-w>5-", { desc = "Window Decrease height" })
+            map("n", "l", "<C-w>5>", { desc = "Window Decrease width" })
+            vim.g.resize_keymaps_enabled = true
+        end
     end
-end
 
-_G.toggleMotionResize = toggleMotionResize
-
--- Create a Vim command to toggle the hjkl resizing keymaps
-vim.cmd([[command! ToggleMotionResize lua _G.toggleMotionResize()]])
-
--- Setup a normal mode mapping to toggle the resizing keymaps
-vim.api.nvim_set_keymap("n", "<leader>tw", "<cmd>ToggleMotionResize<CR>", { noremap = true, silent = true, desc = "Toggle Window motion resize" })
+    _G.toggleMotionResize = toggleMotionResize
+    vim.cmd([[command! ToggleMotionResize lua _G.toggleMotionResize()]])
+    map("n", "<leader>tw", "<cmd>ToggleMotionResize<CR>", { desc = "Toggle Window motion resize" })
 
     ---- Existing Keybinds ----
 
@@ -285,8 +278,6 @@ function M.harpoon()
         require("harpoon.ui").nav_file(4)
     end, { desc = "Harpoon Navigate 4th buffer" })
 end
-
-function lsp() end
 
 function M.neogit()
     map("n", "<leader>gg", "<cmd> Neogit <CR>", { desc = "Git Open neogit" })
