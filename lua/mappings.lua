@@ -18,42 +18,61 @@ end
 function M.general()
     require("nvchad.mappings")
 
+    ---- Terminals ----
+
+    -- resize terminals
     nomap({ "n", "t" }, "<A-v>")
     nomap({ "n", "t" }, "<A-h>")
-    nomap({ "n", "t" }, "<A-i>")
 
-    map({ "n", "t" }, " <A-v>", function()
+    map({ "n", "t" }, "<A-V>", function()
         require("nvchad.term").toggle({ pos = "vsp", id = "vtoggleTerm", size = 0.4 })
-    end, { desc = "Terminal Toggleable vertical term" })
+    end, { desc = "Terminal Toggle vertical term" })
 
-    map({ "n", "t" }, "<A-h>", function()
+    map({ "n", "t" }, "<A-H>", function()
         require("nvchad.term").toggle({ pos = "sp", id = "htoggleTerm", size = 0.4 })
+    end, { desc = "Terminal Toggle horizontal term" })
+
+    -- new horizontal terminals
+    nomap("n", "<leader>h")
+    map("n", "<leader>H", function()
+        require("nvchad.term").new({ pos = "sp", size = 0.4 })
     end, { desc = "Terminal New horizontal term" })
 
-    map({ "n", "t" }, "<A-i>", function()
-        require("nvchad.term").toggle({ pos = "float", id = "floatTerm", size = 0.7 })
-    end, { desc = "Terminal Toggle Floating term" })
+    -- new vertical terminal
+    nomap("n", "<leader>v")
+    map("n", "<leader>V", function()
+        require("nvchad.term").new({ pos = "vsp", size = 0.4 })
+    end, { desc = "Terminal New vertical term" })
+
+    ---- UI ----
 
     -- nvchad toggle transparency
     map("n", "<leader>tt", function()
         require("base46").toggle_transparency()
     end, { desc = "Toggle Transparency" })
 
-    -- new horizontal terminals
-    nomap("n", "<leader>h")
-    map("n", "<leader>H", function()
-        require("nvchad.term").new({ pos = "sp", size = 0.3 })
-    end, { desc = "Terminal New horizontal terminal" })
+    map("n", "<A-l>", function()
+        require("nvchad.tabufline").next()
+    end, { desc = "Buffer Goto next" })
 
-    -- new vertical terminal
-    nomap("n", "<leader>v")
-    map("n", "<leader>V", function()
-        require("nvchad.term").new({ pos = "vsp", size = 0.3 })
-    end, { desc = "Terminal New vertical terminal" })
+    map("n", "<A-h>", function()
+        require("nvchad.tabufline").prev()
+    end, { desc = "Buffer Goto prev" })
+
+    ---- Custom ----
 
     -- Specials
     map("n", "<leader>.", "@@", { desc = "Quick marco" })
-    map("n", "<leader>n", ":nohl<CR>", { desc = "Hide highlights" })
+
+    nomap("n", "<leader>n")
+    map("n", "<leader>n", "<cmd>nohl<CR>", { desc = "General Clear highlights" })
+    map("n", "<leader>tln", "<cmd>set nu!<CR>", { desc = "Toggle Line number" })
+
+    nomap("n", "<leader>rn")
+    map("n", "<leader>trn", "<cmd>set rnu!<CR>", { desc = "Toggle Relative number" })
+
+    -- Select Current Line
+    map("n", "<leader>v", "^vg_", { desc = "General Select current line" })
 
     -- Marks
     map("n", "<leader>m", ":marks<Cr>", { desc = "Show marks" })
@@ -106,14 +125,40 @@ function M.general()
         { silent = true, desc = "Buffer close other buffers", noremap = true }
     )
 
+    -- arrow keys window resize
+vim.g.resize_keymaps_enabled = false
+
+local function toggleMotionResize()
+    if vim.g.resize_keymaps_enabled then
+        -- Remove resizing keymaps
+        vim.api.nvim_del_keymap("n", "h")
+        vim.api.nvim_del_keymap("n", "j")
+        vim.api.nvim_del_keymap("n", "k")
+        vim.api.nvim_del_keymap("n", "l")
+        vim.g.resize_keymaps_enabled = false
+    else
+        -- Set keymaps for resizing
+        vim.api.nvim_set_keymap("n", "h", "<C-w>5<", { desc = "Window Increase width", noremap = true, silent = true })
+        vim.api.nvim_set_keymap("n", "j", "<C-w>5+", { desc = "Window Increase height", noremap = true, silent = true })
+        vim.api.nvim_set_keymap("n", "k", "<C-w>5-", { desc = "Window Decrease height", noremap = true, silent = true })
+        vim.api.nvim_set_keymap("n", "l", "<C-w>5>", { desc = "Window Decrease width", noremap = true, silent = true })
+        vim.g.resize_keymaps_enabled = true
+    end
+end
+
+_G.toggleMotionResize = toggleMotionResize
+
+-- Create a Vim command to toggle the hjkl resizing keymaps
+vim.cmd([[command! ToggleMotionResize lua _G.toggleMotionResize()]])
+
+-- Setup a normal mode mapping to toggle the resizing keymaps
+vim.api.nvim_set_keymap("n", "<leader>tw", "<cmd>ToggleMotionResize<CR>", { noremap = true, silent = true, desc = "Toggle Window motion resize" })
+
     ---- Existing Keybinds ----
 
     -- Quick Escape
     -- map("i", "jj", "<Esc>", { desc = "Quick Escape" })
     -- map("i", "jk", "<Esc>", { desc = "Quick Escape 2" })
-
-    -- Select Current Line
-    -- ["<leader>v"] = { "^vg_", "Visual select current line" },
 end
 
 function M.gitsigns(buffer)
@@ -241,9 +286,11 @@ function M.harpoon()
     end, { desc = "Harpoon Navigate 4th buffer" })
 end
 
+function lsp() end
+
 function M.neogit()
-    map("n", "<leader>gg", "<cmd> Neogit <CR>", { desc = "Git Neogit window" })
-    map({ "n", "t" }, "<A-g>", "<cmd> Neogit kind=floating <CR>", { desc = "Git Neogit floating window" })
+    map("n", "<leader>gg", "<cmd> Neogit <CR>", { desc = "Git Open neogit" })
+    map("n", "<leader>gd", "<cmd> DiffviewOpen <CR>", { desc = "Git Open diff view" })
 end
 
 function M.telescope()

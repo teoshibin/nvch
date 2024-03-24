@@ -38,7 +38,9 @@ return {
     {
         "neovim/nvim-lspconfig",
         config = function()
-            require("nvchad.configs.lspconfig").defaults()
+            -- disabled nvchad default config 
+            -- require("nvchad.configs.lspconfig").defaults()
+            require("configs.nvchad_lspconfig").defaults()
             require("configs.lspconfig")
         end,
     },
