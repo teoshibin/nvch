@@ -90,4 +90,13 @@ return {
             return defaults
         end,
     },
+    {
+        "folke/trouble.nvim",
+        lazy = false,
+        dependencies = { "nvim-tree/nvim-web-devicons" },
+        config = function(_, opts)
+            require("trouble").setup(opts)
+            require("mappings").trouble()
+        end
+    },
 }

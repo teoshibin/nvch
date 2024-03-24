@@ -23,6 +23,9 @@ end
 function M.general()
     require("nvchad.mappings")
 
+    -- unmap for trouble
+    nomap("n", "<leader>e")
+
     ---- Terminals ----
 
     -- resize terminals
@@ -370,6 +373,27 @@ function M.telescope()
         local builtin = require("telescope.builtin")
         builtin.find_files({ cwd = vim.fn.stdpath("config") })
     end, { desc = "Telescope Search neovim configs" })
+end
+
+function M.trouble()
+    map("n", "<leader>ex", function()
+        require("trouble").toggle()
+    end, { desc = "Lsp Toggle trouble" })
+    map("n", "<leader>ew", function()
+        require("trouble").toggle("workspace_diagnostics")
+    end, { desc = "Lsp Toggle trouble workspace diagnostics" })
+    map("n", "<leader>ed", function()
+        require("trouble").toggle("document_diagnostics")
+    end, { desc = "Lsp Toggle trouble document diagnostics" })
+    map("n", "<leader>eq", function()
+        require("trouble").toggle("quickfix")
+    end, { desc = "Lsp Toggle trouble quickfix" })
+    map("n", "<leader>el", function()
+        require("trouble").toggle("loclist")
+    end, { desc = "Lsp Toggle trouble location list" })
+    map("n", "gR", function()
+        require("trouble").toggle("lsp_references")
+    end, { desc = "Lsp Toggle trouble lsp references" })
 end
 
 function M.zenMode()
