@@ -349,6 +349,10 @@ function M.telescope()
     end, { desc = "Telescope Search neovim configs" })
 end
 
+function M.zenMode()
+    map("n", "<leader>z", "<cmd>ZenMode<CR>", { desc = "ZenMode Toggle zen mode" })
+end
+
 function M.setup()
     M.general()
     M.telescope()

@@ -83,4 +83,13 @@ return {
         lazy = false,
         opts = {},
     },
+    {
+        "folke/zen-mode.nvim",
+        cmd = "ZenMode",
+        keys = "<leader>z",
+        config = function(opts)
+            require("zen-mode").setup(opts)
+            require("mappings").zenMode()
+        end
+    },
 }
