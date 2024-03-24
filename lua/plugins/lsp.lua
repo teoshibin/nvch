@@ -1,10 +1,10 @@
 return {
     {
         "stevearc/conform.nvim",
-        opts = function ()
+        opts = function()
             require("mappings").conform()
             return require("configs.conform")
-        end
+        end,
     },
     {
         "nvim-treesitter/nvim-treesitter",
@@ -38,7 +38,7 @@ return {
     {
         "neovim/nvim-lspconfig",
         config = function()
-            -- disabled nvchad default config 
+            -- disabled nvchad default config
             -- require("nvchad.configs.lspconfig").defaults()
             require("configs.nvchad_lspconfig").defaults()
             require("configs.lspconfig")

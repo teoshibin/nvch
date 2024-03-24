@@ -11,6 +11,7 @@
 
 - file
   - nvim-lsp-file-opreations (for refactoring filenames and imports)
+  - [better quick fix](https://github.com/kevinhwang91/nvim-bqf?tab=readme-ov-file)
 
 - misc
   - beauwilliams/focus.nvim

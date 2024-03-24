@@ -2,13 +2,13 @@ return {
     {
         -- :VimBeGood
         "ThePrimeagen/vim-be-good",
-        event = "VeryLazy",
+        cmd = "VimBeGood",
     },
     {
         -- :CellularAutomaton make_it_rain
         -- :CellularAutomaton game_of_life
         "eandrju/cellular-automaton.nvim",
-        event = "VeryLazy",
+        cmd = "CellularAutomaton",
     },
     {
         -- gx for opening url as netrw got disabled by nvchad

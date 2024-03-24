@@ -6,7 +6,8 @@ return {
             "sindrets/diffview.nvim",
             "nvim-telescope/telescope.nvim",
         },
-        event = "User FilePost",
+        cmd = "Neogit",
+        keys = "<leader>gg",
         config = function()
             dofile(vim.g.base46_cache .. "git")
             require("neogit").setup({})

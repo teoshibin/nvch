@@ -1,5 +1,18 @@
 return {
     {
+        -- workspace file rename with imports
+        -- integrated with nvim-tree
+        "antosha417/nvim-lsp-file-operations",
+        lazy = false,
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+            "nvim-tree/nvim-tree.lua",
+        },
+        config = function()
+            require("lsp-file-operations").setup()
+        end,
+    },
+    {
         "nvim-tree/nvim-tree.lua",
         opts = function()
             local defaults = require("nvchad.configs.nvimtree")
@@ -58,10 +71,16 @@ return {
         config = function()
             require("harpoon").setup({})
             require("mappings").harpoon()
-        end
+        end,
     },
     {
         "dstein64/nvim-scrollview",
         event = "BufReadPost",
+    },
+    {
+        -- extra ui, file rename, select option
+        "stevearc/dressing.nvim",
+        lazy = false,
+        opts = {},
     },
 }
