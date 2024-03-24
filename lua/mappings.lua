@@ -124,7 +124,7 @@ function M.general()
     -- close other buffers
     map("n", "<leader>X", "<cmd> w|%bd|e#|bd# <CR>", { desc = "Buffer close other buffers" })
 
-    -- arrow keys window resize
+    -- motion keys window resize
     vim.g.resize_keymaps_enabled = false
 
     local function toggleMotionResize()
