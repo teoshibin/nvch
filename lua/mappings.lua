@@ -2,8 +2,9 @@ local M = {}
 
 local nomap = vim.keymap.del
 local function map(modes, lhs, rhs, opts)
+    opts = opts or {}
     local default_opts = { noremap = false }
-    opts = vim.tbl_extend("force", default_opts, opts)
+    opts = vim.tbl_deep_extend("force", default_opts, opts)
     vim.keymap.set(modes, lhs, rhs, opts)
 end
 

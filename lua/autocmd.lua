@@ -56,11 +56,11 @@ autocmd("User", {
     end
 })
 
-autocmd('User', {
-  pattern = 'NeogitPushComplete',
-  group = vim.api.nvim_create_augroup('MyCustomNeogitEvents', { clear = true }),
-  callback = require('neogit').close,
-})
+-- autocmd('User', {
+--   pattern = 'NeogitPushComplete',
+--   group = vim.api.nvim_create_augroup('MyCustomNeogitEvents', { clear = true }),
+--   callback = require('neogit').close,
+-- })
 
 -- -- NOTE: fix nvimtree buffer layout for auto-session
 -- -- https://github.com/NvChad/ui/issues/132
