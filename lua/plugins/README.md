@@ -3,17 +3,10 @@
 
 ## TODOs
 
-- git
-  - octo (PR)
-
-- editing
-  - <https://neovimcraft.com/plugin/folke/zen-mode.nvim>
-
-- file
-  - [better quick fix](https://github.com/kevinhwang91/nvim-bqf?tab=readme-ov-file)
-
-- misc
-  - beauwilliams/focus.nvim
+- [kotlin lsp](https://github.com/lervag/dotnvim/blob/73c7659074b9210dd812bcc3600da68d466d83f5/plugin/lsp.lua#L260C7-L266C21)
+- git octo (PR)
+- [better quick fix](https://github.com/kevinhwang91/nvim-bqf?tab=readme-ov-file)
+- auto resize ui, beauwilliams/focus.nvim
 
 ## Nvhcad UI Plugins
 
