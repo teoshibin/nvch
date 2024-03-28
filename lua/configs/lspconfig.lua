@@ -1,68 +1,67 @@
-local configs = require("nvchad.configs.lspconfig")
-
-local on_attach = configs.on_attach
-local on_init = configs.on_init
-local capabilities = configs.capabilities
-
-local os = require("custom.os")
--- TODO: create a function that will add string into table based on condition
--- instead of using an additional `install_condition` field
-
-local lspconfig = require("lspconfig")
-local servers = {
-    ["tsserver"] = {},
-    ["clangd"] = {},
-    ["powershell_es"] = {
-        install_condition = os.isWindows(),
-        bundle_path = vim.fn.stdpath("data") .. "/mason/packages/powershell-editor-services/",
-    },
-    ["marksman"] = {},
-    ["pyright"] = {},
-    ["kotlin_language_server"] = {},
-    ["jdtls"] = {},
-
-    -- work
-    -- ["perl_language_server"] = {
-    --   install_condition = os.isMac(), 
-    -- },
-}
-
--- NOTE: if you just want default config for the servers then put them in a table
 -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
 
-for lsp, mods in pairs(servers) do
-    local install = vim.tbl_get(mods, "install_condition")
-    if install ~= nil and not install then
-        goto continue
-    end
+-- default was "nvchad.configs.lspconfig"
+local target_config = "configs.nvchad_lspconfig"
+local on_attach = require(target_config).on_attach
+local on_init = require(target_config).on_init
+local capabilities = require(target_config).capabilities
 
-    local defaults = {
-        on_init = on_init,
-        on_attach = on_attach,
-        capabilities = capabilities,
-    }
-    local opts = vim.tbl_deep_extend("force", defaults, mods)
-    lspconfig[lsp].setup(opts)
+local lspconfig = require("lspconfig")
+local util = require("lspconfig.util")
 
-    ::continue::
+local servers = {
+    "tsserver",
+    "clangd",
+    "marksman",
+    "pyright",
+    "jdtls",
+    -- "perl_language_server",
+}
+
+local defaults = {
+    on_init = on_init,
+    on_attach = on_attach,
+    capabilities = capabilities,
+}
+
+local function config(mods)
+    return vim.tbl_deep_extend("force", defaults, mods)
 end
 
--- for _, lsp in ipairs(servers) do
---   lspconfig[lsp].setup {
---     on_init = on_init,
---     on_attach = on_attach,
---     capabilities = capabilities,
---   }
--- end
+for _, lsp in ipairs(servers) do
+    lspconfig[lsp].setup(defaults)
+end
 
--- Without the loop, you would have to manually set up each LSP
---
--- lspconfig.html.setup {
---   on_attach = on_attach,
---   capabilities = capabilities,
--- }
---
--- lspconfig.cssls.setup {
---   on_attach = on_attach,
---   capabilities = capabilities,
--- }
+lspconfig.powershell_es.setup(config({
+    bundle_path = vim.fn.stdpath("data") .. "/mason/packages/powershell-editor-services/",
+}))
+
+-- https://github.com/fwcd/kotlin-language-server
+-- https://github.com/neovim/nvim-lspconfig/blob/master/lua/lspconfig/server_configurations/kotlin_language_server.lua
+-- Doesn't work very well, slow as fuck
+lspconfig.kotlin_language_server.setup(config({
+    root_dir = function(fname)
+        local root = util.root_pattern(unpack({
+            "settings.gradle", -- Gradle (multi-project)
+            "settings.gradle.kts", -- Gradle (multi-project)
+            "build.xml", -- Ant
+            "pom.xml", -- Maven
+            "build.gradle", -- Gradle
+            "build.gradle.kts", -- Gradle
+        }))(fname)
+        if root then
+            return root
+        end
+        return util.find_git_ancestor(fname)
+    end,
+    single_file_support = true,
+    cmd = { "kotlin-language-server" },
+    settings = {},
+    init_options = {
+        -- storagePath = kt_root_dir(vim.fn.expand("%:p:h")),
+        -- provideFormatter = true,
+        embeddedLanguages = { css = true, javascript = true },
+        configurationSection = { "html", "css", "javascript" },
+    },
+}))
+

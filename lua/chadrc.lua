@@ -16,7 +16,7 @@ M.ui = {
 
     nvdash = {
         load_on_startup = true,
-        header = require("custom.art").randomArt(),
+        header = require("custom.art").getArt("neovim"),
         buttons = {
             { "󰈭  Search Word", "Spc s w", "Telescope live_grep" },
             { "  Search File", "Spc s f", "Telescope find_files" },
