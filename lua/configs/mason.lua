@@ -31,5 +31,8 @@ return {
         -- "java-debug-adapter",  -- debugger
         "checkstyle", -- linter
         "google-java-format", -- formatter
+
+        -- rust
+        "rust-analyzer",
     },
 }

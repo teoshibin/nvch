@@ -30,6 +30,9 @@ return {
 
         -- kotlin
         "kotlin",
+
+        -- rust
+        "rust",
     },
     auto_install = true,
     indent = {
