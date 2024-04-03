@@ -33,6 +33,7 @@ return {
         "google-java-format", -- formatter
 
         -- rust
-        "rust-analyzer",
+        -- "rust-analyzer", (see ../plugins/rust.lua)
+        "codelldbl", -- debugger
     },
 }

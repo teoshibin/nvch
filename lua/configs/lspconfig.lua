@@ -27,7 +27,7 @@ local servers = {
     "pyright",
     "jdtls",
     -- "perl_language_server",
-    "rust_analyzer",
+    -- "rust_analyzer", -- See ../plugins/rust.lua
 }
 
 for _, lsp in ipairs(servers) do

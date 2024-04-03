@@ -97,6 +97,9 @@ return {
         config = function(_, opts)
             require("trouble").setup(opts)
             require("mappings").trouble()
-        end
+        end,
     },
+    -- {
+    --     "mfussenegger/nvim-dap",
+    -- },
 }
