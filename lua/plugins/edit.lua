@@ -1,6 +1,4 @@
----- File Related Plugins ----
-
-local plugins = {
+return {
     {
         -- Indentation line
         -- NOTE: Underline fix discussion
@@ -60,12 +58,10 @@ local plugins = {
             enabled = true,
             execution_message = {
                 message = function()
-                    return "Autosave " .. require("custom.path").current_buffer()
+                    return "Autosave " .. vim.fn.expand("%")
                 end,
                 cleaning_interval = 3000,
             },
         },
     },
 }
-
-return plugins

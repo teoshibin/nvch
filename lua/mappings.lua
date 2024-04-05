@@ -250,8 +250,7 @@ function M.harpoon()
 
     map("n", "<leader>ha", function()
         require("harpoon.mark").add_file()
-        local file = require("custom.path").current_buffer()
-        print("Harpoon " .. file)
+        print("Harpoon " .. vim.fn.expand("%"))
     end, { desc = "Harpoon Add current buffer" })
 
     map("n", "<leader>hl", function()
