@@ -81,7 +81,16 @@ return {
         -- extra ui, file rename, select option
         "stevearc/dressing.nvim",
         lazy = false,
-        opts = {},
+        opts = {
+            input = {
+                mappings = {
+                    i = {
+                        ["<C-p>"] = "HistoryPrev",
+                        ["<C-n>"] = "HistoryNext",
+                    },
+                },
+            },
+        },
     },
     {
         "folke/zen-mode.nvim",
@@ -90,6 +99,6 @@ return {
         config = function(opts)
             require("zen-mode").setup(opts)
             require("mappings").zenMode()
-        end
+        end,
     },
 }

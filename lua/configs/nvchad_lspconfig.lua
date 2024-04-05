@@ -24,11 +24,13 @@ M.on_attach = function(client, bufnr)
 
   map("n", "<leader>D", vim.lsp.buf.type_definition, opts "Lsp Go to type definition")
 
-  map("n", "<leader>rn", function()
+  map("n", "<leader>r", function()
     require "nvchad.lsp.renamer"()
   end, opts "Lsp NvRenamer")
 
-  map({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts "Lsp Code action")
+  map({ "n", "v" }, "<leader>a", vim.lsp.buf.code_action, opts "Lsp Code action")
+  map({ "n", "v" }, "<A-CR>", vim.lsp.buf.code_action, opts "Lsp Code action")
+
   map("n", "gr", vim.lsp.buf.references, opts "Lsp Show references")
 
   -- setup signature popup
