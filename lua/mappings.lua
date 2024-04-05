@@ -293,6 +293,7 @@ function M.diffview()
     map("n", "<leader>gd", function()
         local lib = require("diffview.lib")
         local view = lib.get_current_view()
+        vim.cmd("wa")
         if view then
             vim.cmd.DiffviewClose()
         else
