@@ -3,10 +3,10 @@
 
 ## TODOs
 
-- [kotlin lsp](https://github.com/lervag/dotnvim/blob/73c7659074b9210dd812bcc3600da68d466d83f5/plugin/lsp.lua#L260C7-L266C21)
-- git octo (PR)
 - [better quick fix](https://github.com/kevinhwang91/nvim-bqf?tab=readme-ov-file)
+- [no neck pain](https://github.com/shortcuts/no-neck-pain.nvim)
 - auto resize ui, beauwilliams/focus.nvim
+- git octo (PR)
 
 ## Nvhcad UI Plugins
 
