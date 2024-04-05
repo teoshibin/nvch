@@ -51,43 +51,37 @@ return {
             local defaults = require("nvchad.configs.cmp")
             local cmp = require("cmp")
             local luasnip = require("luasnip")
-
-            -- NOTE: Overriding insertion behavior (insert when accepted)
-            defaults.completion = {
-                completeopt = "menu,menuone,noinsert",
+            local mods = {
+                completion = {
+                    completeopt = "menu,menuone,noinsert",
+                },
+                mapping = {
+                    -- all enter, tab and C-y accept completion
+                    ["<C-y>"] = cmp.mapping.confirm({
+                        behavior = cmp.ConfirmBehavior.Insert,
+                        select = true,
+                    }),
+                    ["<Tab>"] = cmp.mapping.confirm({
+                        behavior = cmp.ConfirmBehavior.Insert,
+                        select = true,
+                    }),
+                    -- disable select previous completion defined by nvchad
+                    ["<S-Tab>"] = nil,
+                    -- Jump to next placeholder location of the snippet
+                    ["<C-l>"] = cmp.mapping(function()
+                        if luasnip.expand_or_locally_jumpable() then
+                            luasnip.expand_or_jump()
+                        end
+                    end, { "i", "s" }),
+                    -- Jump to previous placeholder location of the snippet
+                    ["<C-h>"] = cmp.mapping(function()
+                        if luasnip.locally_jumpable(-1) then
+                            luasnip.jump(-1)
+                        end
+                    end, { "i", "s" }),
+                },
             }
-
-            -- NOTE: Overriding code completion keybinds
-
-            -- Accept snippet (tab or C-y)
-            -- local accept = {
-            --   behavior = cmp.ConfirmBehavior.Insert,
-            --   select = true,
-            -- }
-            defaults.mapping["<C-y>"] = cmp.mapping.confirm({
-                behavior = cmp.ConfirmBehavior.Insert,
-                select = true,
-            })
-            defaults.mapping["<Tab>"] = cmp.mapping.confirm({
-                behavior = cmp.ConfirmBehavior.Insert,
-                select = true,
-            })
-            defaults.mapping["<S-Tab>"] = nil
-
-            -- Jump to different placeholder location of the snippet
-            defaults.mapping["<C-l>"] = cmp.mapping(function()
-                if luasnip.expand_or_locally_jumpable() then
-                    luasnip.expand_or_jump()
-                end
-            end, { "i", "s" })
-
-            defaults.mapping["<C-h>"] = cmp.mapping(function()
-                if luasnip.locally_jumpable(-1) then
-                    luasnip.jump(-1)
-                end
-            end, { "i", "s" })
-
-            return defaults
+            return vim.tbl_deep_extend("force", defaults, mods)
         end,
     },
     {
