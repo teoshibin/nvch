@@ -23,8 +23,9 @@ return {
                         end
 
                         -- lsp
-                        lspconfig.on_attach()
-                        map({ "n", "v" }, "<leader>ca", vim.cmd.RustLsp("codeAction"), opts("Lsp Code action"))
+                        lspconfig.on_attach() -- invoke default on_attach
+                        map({ "n", "v" }, "<leader>a", vim.cmd.RustLsp("codeAction"), opts("Lsp Code action"))
+                        map({ "n", "v" }, "<A-CR>", vim.cmd.RustLsp("codeAction"), opts("Lsp Code action"))
 
                         -- tools
                         map("n", "J", vim.cmd.RustLsp("joinLines"), opts("General join line"))
