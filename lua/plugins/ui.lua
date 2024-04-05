@@ -101,4 +101,9 @@ return {
             require("mappings").zenMode()
         end,
     },
+    {
+        -- inspect panel for quickfix list
+        "kevinhwang91/nvim-bqf",
+        ft = "qf",
+    },
 }

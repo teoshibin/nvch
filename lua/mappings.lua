@@ -67,6 +67,11 @@ function M.general()
         require("nvchad.tabufline").prev()
     end, { desc = "Buffer Goto prev" })
 
+    ---- Quickfix List ----
+
+    map("n", "[q", "<cmd>cprevious<CR>", { desc = "Quickfix Previous quickfix" })
+    map("n", "]q", "<cmd>cnext<CR>", { desc = "Quickfix Next quickfix" })
+
     ---- Custom ----
 
     -- Specials
