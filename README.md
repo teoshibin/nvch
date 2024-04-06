@@ -17,9 +17,9 @@ git clone git@github.com/teoshibin/nvch.git
 nv
 ```
 
-Linux / WSL
+Unix shell
 
-```ps1
+```sh
 cd ~/.config
 git clone git@github.com/teoshibin/nvch.git
 nv
@@ -27,8 +27,7 @@ nv
 
 ## Aliases
 
-In order to preserve instances of neovim configurations.
-One for heavy wordload and another for lighweight workload or serve as a backup.
+Windows powershell
 
 ```ps1
 function Get-Nvim-Config {
@@ -44,6 +43,8 @@ function Get-Nvim-Config {
 function Get-Nvim-Chad { Get-Nvim-Config -ConfigName "nvch" $args  }
 New-Alias -Name nv -Value Get-Nvim-Chad -Force -Option AllScope
 ```
+
+Unix fish
 
 ```fish
 function nvim_config -a config_name
