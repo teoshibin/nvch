@@ -1,3 +1,5 @@
+-- NOTE: :help conform-formatters
+-- :Mason for installing formatters
 return {
     lsp_fallback = true,
 

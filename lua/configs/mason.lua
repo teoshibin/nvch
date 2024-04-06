@@ -1,6 +1,4 @@
--- NOTE: See :Mason to check for server name
--- lSP server name and mason package name mapping
--- https://github.com/williamboman/mason-lspconfig.nvim/blob/main/doc/server-mapping.md
+-- NOTE: https://github.com/williamboman/mason-lspconfig.nvim/blob/main/doc/server-mapping.md 
 return {
     ensure_installed = {
 

@@ -40,7 +40,7 @@ return {
         config = function()
             -- disabled nvchad default config
             -- require("nvchad.configs.lspconfig").defaults()
-            require("configs.nvchad_lspconfig").defaults()
+            require("configs.nvlspconfig").defaults()
             require("configs.lspconfig")
         end,
     },

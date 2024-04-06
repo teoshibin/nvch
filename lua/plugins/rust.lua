@@ -12,7 +12,7 @@ return {
         ft = { "rust" },
         lazy = false,
         config = function()
-            local lspconfig = require("configs.nvchad_lspconfig")
+            local lspconfig = require("configs.nvlspconfig")
             local map = vim.keymap.set
             vim.g.rustaceanvim = {
                 tools = {},

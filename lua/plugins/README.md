@@ -40,6 +40,12 @@ numToStr/Comment.nvim           commenting
 nvim-telescope/telescope.nvim   fuzzy finder             ./ui.lua
 ```
 
+## Custom Plugins
+
+```txt
+
+```
+
 ## Configuration
 
 To make a plugin not be loaded
