@@ -3,8 +3,8 @@
 
 ## TODOs
 
-- [better quick fix](https://github.com/kevinhwang91/nvim-bqf?tab=readme-ov-file)
-- [no neck pain](https://github.com/shortcuts/no-neck-pain.nvim)
+- dap
+- auto session
 - auto resize ui, beauwilliams/focus.nvim
 - git octo (PR)
 
@@ -43,7 +43,32 @@ nvim-telescope/telescope.nvim   fuzzy finder             ./ui.lua
 ## Custom Plugins
 
 ```txt
+kylechui/nvim-surround          surround motion          ./edit.lua
+NMAC427/guess-indent.nvim       update indentation       ./edit.lua
+folke/todo-comments.nvim        highlight comments       ./edit.lua
+max397574/better-escape.nvim    better jj & jk           ./edit.lua
+Pocco81/auto-save.nvim          autosave :ASToggle       ./edit.lua
 
+NeogitOrg/neogit                git general              ./vcs.lua
+sindrets/diffview.nvim          git diff & merge         ./vcs.lua
+
+folke/trouble.nvim              error quickfix           ./lsp.lua
+mfussenegger/nvim-dap           (WIP) debugger           ./lsp.lua
+mrcjkb/rustaceanvim             rust lsp bundle          ./rust.lua
+
+antosha417/nvim-lsp-file-operations     workspace rename ./ui.lua   
+nvim-treesitter/nvim-treesitter-context sticky scope     ./ui.lua
+ThePrimeagen/harpoon                    file bookmark    ./ui.lua
+dstein64/nvim-scrollview                scrollbar        ./ui.lua
+stevearc/dressing.nvim                  rename select ui ./ui.lua 
+folke/zen-mode.nvim                     zen mode         ./ui.lua
+kevinhwang91/nvim-bqf                   quickfix preview ./ui.lua
+
+chrishrb/gx.nvim                netrw gx open url        ./misc.lua        
+ThePrimeagen/vim-be-good        game :VimBeGood          ./misc.lua
+eandrju/cellular-automaton.nvim game :CellularAutomaton  ./misc.lua
+nacro90/numb.nvim               peek line :<number>      ./misc.lua
+rmagatti/auto-session           (WIP) save session       ./misc.lua 
 ```
 
 ## Configuration
@@ -70,4 +95,3 @@ for example
 ```
 
 Refer to source code of nvchad to see api that shouldn't be overwritten
-
