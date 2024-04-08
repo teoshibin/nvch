@@ -25,13 +25,11 @@ M.ui = {
             "╚═╝  ╚═══╝╚══════╝ ╚═════╝   ╚═══╝  ╚═╝╚═╝     ╚═╝",
         },
         buttons = {
-            { "󰈭  Search Word", "Spc s w", "Telescope live_grep" },
             { "  Search File", "Spc s f", "Telescope find_files" },
             { "  Search Keymaps", "Spc s k", "Telescope keymaps" },
             { "  Harpoon", "Spc h l", 'require("harpoon.ui").toggle_quick_menu()' },
-            { "  Bookmarks", "Spc s a", "Telescope marks" },
-            { "  Cheetsheet", "Spc c h", "NvCheatsheet" },
             { "  Themes", "Spc t h", "Telescope themes" },
+            { "  Cheetsheet", "Spc c h", "NvCheatsheet" },
         },
     },
 }
