@@ -33,5 +33,8 @@ return {
         -- rust
         -- "rust-analyzer", (see ../plugins/rust.lua)
         "codelldbl", -- debugger
+
+        -- perl
+        "perlnavigator",
     },
 }

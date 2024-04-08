@@ -69,3 +69,68 @@ lspconfig.kotlin_language_server.setup(defaults({
         configurationSection = { "html", "css", "javascript" },
     },
 }))
+
+--[[
+    1. perlpls
+    https://github.com/FractalBoy/perl-language-server
+    https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#perlpls
+
+    2. perlls Perl::LangugageServer
+    https://github.com/richterger/Perl-LanguageServer/tree/master/clients/vscode/perl
+    https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#perlls
+
+    3. PerlNavigator
+    https://github.com/bscan/PerlNavigator
+    https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#perlnavigator
+--]]
+lspconfig.perlnavigator.setup({
+    -- perlpls
+    --[[
+        cpanm PLS
+        # or
+        perl -MCPAN -e shell
+        install PLS
+    --]]
+    -- {
+    --     perl = {
+    --         perlcritic = {
+    --             enabled = true
+    --         },
+    --         syntax = {
+    --             enabled = true
+    --         }
+    --     }
+    -- }
+
+    -- Perl::LanguageServer
+    --[[
+        sudo apt install libanyevent-perl libclass-refresh-perl libcompiler-lexer-perl \
+        libdata-dump-perl libio-aio-perl libjson-perl libmoose-perl libpadwalker-perl \
+        libscalar-list-utils-perl libcoro-perl
+        sudo cpan Perl::LanguageServer
+
+        there are some more remote related configurationSection
+        https://github.com/richterger/Perl-LanguageServer/tree/master/clients/vscode/perl#remote-syntax-check--debugging
+
+        this might be useful for vscode
+        https://github.com/richterger/Perl-LanguageServer/tree/master/clients/vscode/perl#syntax-check--debugging-inside-a-container
+    --]]
+    -- cmd = { "perl", "-MPerl::LanguageServer", "-e", "Perl::LanguageServer::run", "--", "--port 13603", "--nostdio 0" },
+    -- {
+    --     perl = {
+    --         fileFilter = { ".pm", ".pl", ".cgi" },
+    --         ignoreDirs = ".git",
+    --         perlCmd = "perl",
+    --         perlInc = " "
+    --     }
+    -- }
+
+    -- PerlNavigator
+    -- installation: sudo npm install -g perlnavigator-server
+    cmd = { "perlnavigator", "--stdio" },
+    settings = {
+        perlnavigator = {
+            perlPath = "/xxx/bin/perl", --  TODO: replace placeholder    
+        },
+    },
+})

@@ -21,6 +21,8 @@ return {
         "kotlin",
         -- rust
         "rust",
+        -- perl
+        "perl",
         -- powershell (not supported)
     },
     auto_install = true,
