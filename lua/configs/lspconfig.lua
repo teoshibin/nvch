@@ -1,12 +1,10 @@
 -- NOTE: https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
 
 -- Copied from nvchad to customize keymaps
--- local target_config = "nvchad.configs.lspconfig"
-local target_config = "configs.nvlspconfig"
-
-local on_attach = require(target_config).on_attach
-local on_init = require(target_config).on_init
-local capabilities = require(target_config).capabilities
+local nvlsp = require("configs.nvlspconfig")
+local on_attach = nvlsp.on_attach
+local on_init = nvlsp.on_init
+local capabilities = nvlsp.capabilities
 
 local lspconfig = require("lspconfig")
 
@@ -20,10 +18,12 @@ end
 
 -- Auto Server Configuration
 local servers = {
-    "marksman",
-    "pyright",
-    "jdtls",
+    "marksman", -- markdown
+    "jdtls", -- java
+    "basedpyright", -- python
+    -- "pylyzer",
 }
+
 for _, lsp in ipairs(servers) do
     lspconfig[lsp].setup(defaults({}))
 end
@@ -33,6 +33,16 @@ end
     - Powershell
     - Kotlin
 --]]
+
+-- -- Globally configure all LSP floating preview popups (like hover, signature help, etc)
+-- local open_floating_preview = vim.lsp.util.open_floating_preview
+-- function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
+--   opts = opts or {}
+--   opts.border = opts.border or "rounded" -- Set border to rounded
+--   return open_floating_preview(contents, syntax, opts, ...)
+-- end
+
+-- python
 
 -- powershell --
 lspconfig.powershell_es.setup(defaults({
@@ -130,7 +140,15 @@ lspconfig.perlnavigator.setup({
     cmd = { "perlnavigator", "--stdio" },
     settings = {
         perlnavigator = {
-            perlPath = "/xxx/bin/perl", --  TODO: replace placeholder    
+            perlPath = "/xxx/bin/perl", --  TODO: replace placeholder
         },
     },
 })
+
+-- Globally configure all LSP floating preview popups (like hover, signature help, etc)
+-- local open_floating_preview = vim.lsp.util.open_floating_preview
+-- function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
+--     opts = opts or {}
+--     opts.border = opts.border or "rounded" -- Set border to rounded
+--     return open_floating_preview(contents, syntax, opts, ...)
+-- end

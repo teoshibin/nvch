@@ -14,7 +14,7 @@ return {
         "markdownlint", -- linter
 
         -- python
-        "pyright", -- lsp server
+        "basedpyright", -- lsp server
         -- "debugpy", -- debugger
         -- "black",   -- formatter
         "ruff", -- linter, formatter

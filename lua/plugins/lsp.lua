@@ -37,6 +37,10 @@ return {
     },
     {
         "neovim/nvim-lspconfig",
+        -- dependencies = {
+        --     "williamboman/mason.nvim",
+        --     "williamboman/mason-lspconfig.nvim",
+        -- },
         config = function()
             -- disabled nvchad default config
             -- require("nvchad.configs.lspconfig").defaults()

@@ -15,6 +15,7 @@ return {
         "html",
         -- python
         "python",
+        "toml",
         -- java
         "java",
         -- kotlin
@@ -28,10 +29,10 @@ return {
     auto_install = true,
     indent = {
         enable = true,
-        disable = {
-            "c",
-            "cpp",
-            "python",
-        },
+        -- disable = {
+        -- "c",
+        -- "cpp",
+        -- "python",
+        -- },
     },
 }

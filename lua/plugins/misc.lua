@@ -29,6 +29,9 @@ return {
         opts = {},
         event = "BufReadPost",
     },
+    {
+        "mbbill/undotree",
+    },
     -- FIX: auto session
     -- {
     --  "rmagatti/auto-session",
