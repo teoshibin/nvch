@@ -28,28 +28,14 @@ for _, lsp in ipairs(servers) do
     lspconfig[lsp].setup(defaults({}))
 end
 
---[[
-    Custom Server Configuration
-    - Powershell
-    - Kotlin
---]]
-
--- -- Globally configure all LSP floating preview popups (like hover, signature help, etc)
--- local open_floating_preview = vim.lsp.util.open_floating_preview
--- function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
---   opts = opts or {}
---   opts.border = opts.border or "rounded" -- Set border to rounded
---   return open_floating_preview(contents, syntax, opts, ...)
--- end
-
--- python
-
 -- powershell --
+
 lspconfig.powershell_es.setup(defaults({
     bundle_path = vim.fn.stdpath("data") .. "/mason/packages/powershell-editor-services/",
 }))
 
 -- kotlin --
+
 -- https://github.com/fwcd/kotlin-language-server
 -- https://github.com/neovim/nvim-lspconfig/blob/master/lua/lspconfig/server_configurations/kotlin_language_server.lua
 -- Doesn't update immediately after escape, sometimes require to escape multiple times for it to detect the changes
@@ -80,6 +66,8 @@ lspconfig.kotlin_language_server.setup(defaults({
     },
 }))
 
+-- perl --
+
 --[[
     1. perlpls
     https://github.com/FractalBoy/perl-language-server
@@ -93,62 +81,3 @@ lspconfig.kotlin_language_server.setup(defaults({
     https://github.com/bscan/PerlNavigator
     https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#perlnavigator
 --]]
-lspconfig.perlnavigator.setup({
-    -- perlpls
-    --[[
-        cpanm PLS
-        # or
-        perl -MCPAN -e shell
-        install PLS
-    --]]
-    -- {
-    --     perl = {
-    --         perlcritic = {
-    --             enabled = true
-    --         },
-    --         syntax = {
-    --             enabled = true
-    --         }
-    --     }
-    -- }
-
-    -- Perl::LanguageServer
-    --[[
-        sudo apt install libanyevent-perl libclass-refresh-perl libcompiler-lexer-perl \
-        libdata-dump-perl libio-aio-perl libjson-perl libmoose-perl libpadwalker-perl \
-        libscalar-list-utils-perl libcoro-perl
-        sudo cpan Perl::LanguageServer
-
-        there are some more remote related configurationSection
-        https://github.com/richterger/Perl-LanguageServer/tree/master/clients/vscode/perl#remote-syntax-check--debugging
-
-        this might be useful for vscode
-        https://github.com/richterger/Perl-LanguageServer/tree/master/clients/vscode/perl#syntax-check--debugging-inside-a-container
-    --]]
-    -- cmd = { "perl", "-MPerl::LanguageServer", "-e", "Perl::LanguageServer::run", "--", "--port 13603", "--nostdio 0" },
-    -- {
-    --     perl = {
-    --         fileFilter = { ".pm", ".pl", ".cgi" },
-    --         ignoreDirs = ".git",
-    --         perlCmd = "perl",
-    --         perlInc = " "
-    --     }
-    -- }
-
-    -- PerlNavigator
-    -- installation: sudo npm install -g perlnavigator-server
-    cmd = { "perlnavigator", "--stdio" },
-    settings = {
-        perlnavigator = {
-            perlPath = "/xxx/bin/perl", --  TODO: replace placeholder
-        },
-    },
-})
-
--- Globally configure all LSP floating preview popups (like hover, signature help, etc)
--- local open_floating_preview = vim.lsp.util.open_floating_preview
--- function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
---     opts = opts or {}
---     opts.border = opts.border or "rounded" -- Set border to rounded
---     return open_floating_preview(contents, syntax, opts, ...)
--- end
