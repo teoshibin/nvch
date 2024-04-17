@@ -1,12 +1,15 @@
 local M = {}
 
-local nomap = vim.keymap.del
-local function map(modes, lhs, rhs, opts)
+M.nomap = vim.keymap.del
+function M.map(modes, lhs, rhs, opts)
     opts = opts or {}
     local default_opts = { noremap = false }
     opts = vim.tbl_deep_extend("force", default_opts, opts)
     vim.keymap.set(modes, lhs, rhs, opts)
 end
+
+local map = M.map
+local nomap = M.nomap
 
 function M.auto_session()
     map("n", "<leader>sl", function()

@@ -97,7 +97,4 @@ return {
             require("mappings").trouble()
         end,
     },
-    -- {
-    --     "mfussenegger/nvim-dap",
-    -- },
 }

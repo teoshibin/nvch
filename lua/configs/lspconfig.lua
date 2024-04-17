@@ -21,7 +21,6 @@ local servers = {
     "marksman", -- markdown
     "jdtls", -- java
     "basedpyright", -- python
-    -- "pylyzer",
 }
 
 for _, lsp in ipairs(servers) do

@@ -23,7 +23,7 @@ return {
         -- rust
         "rust",
         -- perl
-        "perl",
+        -- "perl",
         -- powershell (not supported)
     },
     auto_install = true,
