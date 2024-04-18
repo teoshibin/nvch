@@ -15,8 +15,7 @@ return {
 
         -- python
         "basedpyright", -- lsp server
-        -- "debugpy", -- debugger
-        -- "black",   -- formatter
+        "debugpy", -- debugger
         "ruff", -- linter, formatter
 
         -- kotlin
