@@ -3,7 +3,10 @@
 
 ## TODOs
 
-- dap
+- dap (WIP)
+  - [ ] an external terminal showed up when debugging
+  - [ ] kotlin
+  - [ ] rust
 - auto session
 - auto resize ui, beauwilliams/focus.nvim
 - git octo (PR)
