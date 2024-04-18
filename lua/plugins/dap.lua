@@ -55,7 +55,6 @@ return {
             local dap = require("dap")
             local mappings = require("mappings")
             local map = mappings.map
-            local nomap = mappings.nomap
 
             dofile(vim.g.base46_cache .. "dap")
             dapui.setup()

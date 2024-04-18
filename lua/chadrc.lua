@@ -32,6 +32,13 @@ M.ui = {
             { "  Cheetsheet", "Spc c h", "NvCheatsheet" },
         },
     },
+
+}
+
+M.base46 = {
+    integrations = {
+        "dap",
+    },
 }
 
 return M
