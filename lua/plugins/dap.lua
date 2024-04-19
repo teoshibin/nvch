@@ -146,13 +146,13 @@ return {
         },
         config = function()
             local oslib = require("custom.os")
-            local pypath = ""
+            local pypath = vim.fn.stdpath("data") .. "/mason/packages/debugpy/venv"
             if oslib.isWindows() then
-                pypath = vim.fs.normalize(vim.fn.stdpath("data") .. "/mason/packages/debugpy/venv/Scripts/python")
+                pypath = pypath .. "/Scripts/python"
             else
-                error("debugpy venv python path not specified!")
+                pypath = pypath .. "/bin/python"
             end
-            require("dap-python").setup(pypath)
+            require("dap-python").setup(vim.fs.normalize(pypath))
         end,
     },
 }
