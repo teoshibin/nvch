@@ -1,22 +1,4 @@
 return {
-    -- {
-    --     -- see :DapInstall :DapUninstall
-    --     "jay-babu/mason-nvim-dap.nvim",
-    --     lazy = false,
-    --     dependencies = {
-    --         "williamboman/mason.nvim",
-    --         "mfussenegger/nvim-dap",
-    --     },
-    --     config = function()
-    --         require("mason").setup()
-    --         require("mason-nvim-dap").setup({
-    --             automatic_installtion = true,
-    --             ensure_installed = {
-    --                 "python",
-    --             }
-    --         })
-    --     end
-    -- },
     {
         "theHamsta/nvim-dap-virtual-text",
         lazy = false,
@@ -29,7 +11,6 @@ return {
     {
         "rcarriga/nvim-dap-ui",
         lazy = false,
-        -- keys = { "<F5>", "<leader>b", "<leader>B" },
         dependencies = {
             "mfussenegger/nvim-dap",
             "nvim-neotest/nvim-nio",
@@ -77,68 +58,113 @@ return {
             end
 
             -- dap
-            map("n", "<F5>", function()
+
+            -- map("n", "<F5>", function()
+            --     dap.continue()
+            -- end, { desc = "debugger continue" })
+            map("n", "<leader>dc", function()
                 dap.continue()
             end, { desc = "debugger continue" })
 
+            -- map("n", "<F6>", function()
+            --     dap.terminate()
+            -- end, { desc = "debugger stop" })
             map("n", "<leader>dx", function()
                 dap.terminate()
             end, { desc = "debugger stop" })
 
-            map("n", "<F7>", function()
+            -- map("n", "<F7>", function()
+            --     dap.step_over()
+            -- end, { desc = "debugger step over" })
+            map("n", "<leader>do", function()
                 dap.step_over()
             end, { desc = "debugger step over" })
 
-            map("n", "<F8>", function()
+            -- map("n", "<F8>", function()
+            --     dap.step_into()
+            -- end, { desc = "debugger step into" })
+            map("n", "<leader>di", function()
                 dap.step_into()
             end, { desc = "debugger step into" })
 
-            map("n", "<F9>", function()
+            -- map("n", "<F9>", function()
+            --     dap.step_out()
+            -- end, { desc = "debugger step out" })
+            map("n", "<leader>du", function()
                 dap.step_out()
             end, { desc = "debugger step out" })
 
-            map("n", "<Leader>b", function()
+            -- map("n", "<F10>", function()
+            --     dap.toggle_breakpoint()
+            -- end, { desc = "debugger toggle breakpoint" })
+            map("n", "<Leader>bb", function()
                 dap.toggle_breakpoint()
             end, { desc = "debugger toggle breakpoint" })
 
-            map("n", "<Leader>B", function()
-                dap.set_breakpoint()
-            end, { desc = "debugger set breakpoint" })
+            -- map("n", "<Leader>B", function()
+            --     dap.set_breakpoint()
+            -- end, { desc = "debugger set breakpoint" })
 
-            map("n", "<Leader>lp", function()
-                dap.set_breakpoint(nil, nil, vim.fn.input("Log point message: "))
+            -- break and message
+            map("n", "<Leader>bm", function()
+                local message = vim.fn.input("Break message (str): ")
+                dap.set_breakpoint(nil, nil, message)
             end, { desc = "debugger set logpoint" })
 
-            map("n", "<Leader>dr", function()
-                dap.repl.open()
-            end, { desc = "debugger repl open" })
+            -- break on condition
+            map("n", "<Leader>bc", function()
+                local condition = vim.fn.input("Break condition (expr): ")
+                dap.set_breakpoint(condition, nil, nil)
+            end, { desc = "debugger set logpoint" })
 
-            map("n", "<Leader>dl", function()
+            -- break on N hits
+            map("n", "<Leader>bh", function()
+                local occurrence = vim.fn.input("Break hit (int): ")
+                dap.set_breakpoint(nil, occurrence, nil)
+            end, { desc = "debugger set logpoint" })
+
+            -- clear all breakpoints
+            map("n", "<leader>bx", function()
+                dap.clear_breakpoints()
+            end, { desc = "debugger clear all breakpoints" })
+
+            -- quick fix list of breakpoints
+            map("n", "<leader>bq", function()
+                dap.list_breakpoints()
+            end, { desc = "debugger quickfix list breakpoints" })
+
+            -- map("n", "<Leader>dr", function()
+            --     dap.repl.open()
+            -- end, { desc = "debugger repl open" })
+
+            map("n", "<Leader>dr", function()
                 dap.run_last()
             end, { desc = "debugger run last debug adapter" })
 
-            map({ "n", "v" }, "<Leader>dh", function()
-                require("dap.ui.widgets").hover()
-            end, { desc = "debugger hover" })
+            -- map({ "n", "v" }, "<Leader>dh", function()
+            --     require("dap.ui.widgets").hover()
+            -- end, { desc = "debugger hover" })
+            --
+            -- vim.keymap.set({ "n", "v" }, "<Leader>dp", function()
+            --     require("dap.ui.widgets").preview()
+            -- end, { desc = "debugger preview" })
+            --
+            -- vim.keymap.set("n", "<Leader>df", function()
+            --     local widgets = require("dap.ui.widgets")
+            --     widgets.centered_float(widgets.frames)
+            -- end, { desc = "debugger preview frames" })
+            --
+            -- vim.keymap.set("n", "<Leader>ds", function()
+            --     local widgets = require("dap.ui.widgets")
+            --     widgets.centered_float(widgets.scopes)
+            -- end, { desc = "debugger preview scopes" })
 
-            vim.keymap.set({ "n", "v" }, "<Leader>dp", function()
-                require("dap.ui.widgets").preview()
-            end, { desc = "debugger preview" })
-
-            vim.keymap.set("n", "<Leader>df", function()
-                local widgets = require("dap.ui.widgets")
-                widgets.centered_float(widgets.frames)
-            end, { desc = "debugger preview frames" })
-
-            vim.keymap.set("n", "<Leader>ds", function()
-                local widgets = require("dap.ui.widgets")
-                widgets.centered_float(widgets.scopes)
-            end, { desc = "debugger preview scopes" })
+            map("n", "<Leader>dh", function()
+                dapui.eval()
+            end, { desc = "debugger evaluate under cursor" })
         end,
     },
     {
-        -- NOTE: it is recommended to use system debugpy
-        -- :!pip install debugpy
         "mfussenegger/nvim-dap-python",
         lazy = false,
         dependencies = {
@@ -148,7 +174,7 @@ return {
             local oslib = require("custom.os")
             local pypath = vim.fn.stdpath("data") .. "/mason/packages/debugpy/venv"
             if oslib.isWindows() then
-                pypath = pypath .. "/Scripts/python"
+                pypath = pypath .. "/Scripts/python.exe"
             else
                 pypath = pypath .. "/bin/python"
             end

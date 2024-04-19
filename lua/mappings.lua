@@ -30,11 +30,7 @@ function M.general()
     nomap("n", "<leader>e")
 
     -- unmap for dap
-    -- TODO: clean this up
     nomap("n", "<leader>b")
-    map("n", "<Leader>b", function()
-        require("dap").toggle_breakpoint()
-    end, { desc = "debugger toggle breakpoint" })
 
     ---- Terminals ----
 
