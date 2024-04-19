@@ -2,8 +2,8 @@ local M = {}
 
 M.ui = {
 
-    theme_toggle = { "tokyodark", "one_light" },
-    theme = "tokyodark",
+    theme_toggle = { "kanagawa", "one_light" },
+    theme = "kanagawa",
     transparency = false,
     telescope = { style = "bordered" }, -- borderless / bordered
 
