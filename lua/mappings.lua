@@ -377,13 +377,16 @@ function M.telescope()
     map("n", "<leader>sd", "<cmd> Telescope git_status <CR>", { desc = "Telescope Search git diffs" })
 
     -- search marks
-    map("n", "<leader>sm", "<cmd> Telescope marks <CR>", { desc = "telescope bookmarks" })
+    map("n", "<leader>sm", "<cmd> Telescope marks <CR>", { desc = "Telescope bookmarks" })
 
     -- search neovim config
     map("n", "<leader>sn", function()
         local builtin = require("telescope.builtin")
         builtin.find_files({ cwd = vim.fn.stdpath("config") })
     end, { desc = "Telescope Search neovim configs" })
+
+    -- search sessions
+    map("n", "<leader>ss", "<cmd> Telescope session-lens <CR>", { desc = "Telescope sessions" })
 end
 
 function M.trouble()

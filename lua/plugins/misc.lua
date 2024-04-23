@@ -32,17 +32,15 @@ return {
     {
         "mbbill/undotree",
     },
-    -- FIX: auto session
-    -- {
-    --  "rmagatti/auto-session",
-    --  lazy = false,
-    --  config = function()
-    --   require("auto-session").setup({
-    --    log_level = "error",
-    --    auto_session_suppress_dirs = { "~/", "~/Projects", "~/Downloads", "/" },
-    --   })
-    --  end,
-    -- },
+    {
+        "rmagatti/auto-session",
+        lazy = false,
+        opts = {
+            log_level = "error",
+            auto_session_suppress_dirs = { "~/", "~/Projects", "~/Downloads", "/" },
+            pre_save_cmds = { "NvimTreeClose" },
+        },
+    },
     -- {
     --   -- TODO: https://github.com/smoka7/multicursors.nvim?tab=readme-ov-file
     --

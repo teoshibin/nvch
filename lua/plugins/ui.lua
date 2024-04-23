@@ -47,7 +47,7 @@ return {
         opts = function()
             local defaults = require("nvchad.configs.telescope")
             local configs = {
-                extensions_list = { "harpoon" },
+                extensions_list = { "harpoon", "session-lens" },
             }
             return vim.tbl_deep_extend("force", defaults, configs)
         end,
