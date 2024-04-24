@@ -47,7 +47,7 @@ return {
         opts = function()
             local defaults = require("nvchad.configs.telescope")
             local configs = {
-                extensions_list = { "harpoon", "session-lens", "heading" },
+                extensions_list = { "harpoon", "session-lens", "heading", "aerial" },
                 extensions = {
                     heading = {
                         treesitter = true,

@@ -358,12 +358,7 @@ function M.telescope()
 
     -- search word in current buffer
     nomap("n", "<leader>fz")
-    map(
-        "n",
-        "<leader>sz",
-        "<cmd> Telescope current_buffer_fuzzy_find <CR>",
-        { desc = "Telescope Search word in current buffer" }
-    )
+    map( "n", "<leader>sz", "<cmd> Telescope current_buffer_fuzzy_find <CR>", { desc = "Telescope Search word in current buffer" })
 
     -- search keymaps
     map("n", "<leader>sk", "<cmd> Telescope keymaps <CR>", { desc = "Telescope Search keymaps" })
@@ -389,7 +384,7 @@ function M.telescope()
     map("n", "<leader>ss", "<cmd> Telescope session-lens <CR>", { desc = "Telescope sessions" })
 
     -- markdown headers
-    map("n", "<leader>ss", "<cmd>Telescope heading<CR>", { desc = "Telescope markdown or docs headings" })
+    map("n", "<leader>mh", "<cmd>Telescope heading<CR>", { desc = "Telescope markdown or docs headings" })
 end
 
 function M.trouble()
