@@ -4,7 +4,7 @@ return {
         -- Instal rust-analyzer:
         -- `rustup component add rust-analyzer`
         -- doc: https://rust-analyzer.github.io/manual.html#rustup
-        -- 
+        --
         -- NOTE: to use mason we could do the following (currently not configured)
         -- issue: https://github.com/mrcjkb/rustaceanvim/issues/258
         "mrcjkb/rustaceanvim",
@@ -37,6 +37,15 @@ return {
                 },
                 dap = {},
             }
+        end,
+    },
+    {
+        "teoshibin/markdown-preview.nvim",
+        cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+        ft = { "markdown" },
+        branch = "powershell-install-cmd-fix",
+        build = function()
+            vim.fn["mkdp#util#install"]()
         end,
     },
 }
