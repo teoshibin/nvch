@@ -47,10 +47,19 @@ return {
         opts = function()
             local defaults = require("nvchad.configs.telescope")
             local configs = {
-                extensions_list = { "harpoon", "session-lens" },
+                extensions_list = { "harpoon", "session-lens", "heading" },
+                extensions = {
+                    heading = {
+                        treesitter = true,
+                    },
+                },
             }
             return vim.tbl_deep_extend("force", defaults, configs)
         end,
+    },
+    {
+        "crispgm/telescope-heading.nvim",
+        dependencies = { "nvim-telescope/telescope.nvim" },
     },
     {
         -- Sticky line on top of the editor

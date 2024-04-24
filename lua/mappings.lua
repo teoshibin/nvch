@@ -94,8 +94,8 @@ function M.general()
     map("n", "<leader>v", "^vg_", { desc = "General Select current line" })
 
     -- Marks
-    map("n", "<leader>m", ":marks<Cr>", { desc = "General Show marks" })
-    map("n", "<leader>dm", ":delmarks a-zA-Z0-9<Cr>", { desc = "General Clear all marks" })
+    map("n", "<leader>mm", ":marks<Cr>", { desc = "General Show marks" })
+    map("n", "<leader>md", ":delmarks a-zA-Z0-9<Cr>", { desc = "General Clear all marks" })
 
     -- Move Lines
     map("n", "<A-j>", ":m .+1<CR>==", { desc = "General Move line down" })
@@ -387,6 +387,9 @@ function M.telescope()
 
     -- search sessions
     map("n", "<leader>ss", "<cmd> Telescope session-lens <CR>", { desc = "Telescope sessions" })
+
+    -- markdown headers
+    map("n", "<leader>ss", "<cmd>Telescope heading<CR>", { desc = "Telescope markdown or docs headings" })
 end
 
 function M.trouble()
