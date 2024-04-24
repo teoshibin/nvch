@@ -48,29 +48,10 @@ autocmd("FileType", {
 
 -- refresh nvim-tree after neogit action
 autocmd("User", {
-  pattern = "NeogitStatusRefreshed",
+    pattern = "NeogitStatusRefreshed",
     callback = function()
         if vim.fn.exists(":NvimTreeRefresh") ~= 0 then
             vim.cmd("NvimTreeRefresh")
         end
-    end
+    end,
 })
-
--- autocmd('User', {
---   pattern = 'NeogitPushComplete',
---   group = vim.api.nvim_create_augroup('MyCustomNeogitEvents', { clear = true }),
---   callback = require('neogit').close,
--- })
-
--- -- NOTE: fix nvimtree buffer layout for auto-session
--- -- https://github.com/NvChad/ui/issues/132
--- autocmd({ "BufEnter" }, {
---   pattern = "NvimTree*",
---   callback = function()
---     local api = require "nvim-tree.api"
---     local view = require "nvim-tree.view"
---     if not view.is_visible() then
---       api.tree.open()
---     end
---   end,
--- })
