@@ -35,28 +35,33 @@ function M.general()
     ---- Terminals ----
 
     -- resize terminals
-    nomap({ "n", "t" }, "<A-v>")
     nomap({ "n", "t" }, "<A-h>")
+    nomap({ "n", "t" }, "<A-v>")
 
-    map({ "n", "t" }, "<A-V>", function()
+    map({ "n", "t" }, "<A-s>", function()
+        require("nvchad.term").toggle({ pos = "sp", id = "htoggleTerm", size = 0.3 })
+    end, { desc = "Terminal Toggle horizontal term" })
+
+    map({ "n", "t" }, "<A-v>", function()
         require("nvchad.term").toggle({ pos = "vsp", id = "vtoggleTerm", size = 0.4 })
     end, { desc = "Terminal Toggle vertical term" })
 
-    map({ "n", "t" }, "<A-H>", function()
-        require("nvchad.term").toggle({ pos = "sp", id = "htoggleTerm", size = 0.4 })
-    end, { desc = "Terminal Toggle horizontal term" })
-
     -- new horizontal terminals
     nomap("n", "<leader>h")
-    map("n", "<leader>H", function()
+    map("n", "<leader><A-s>", function()
         require("nvchad.term").new({ pos = "sp", size = 0.4 })
     end, { desc = "Terminal New horizontal term" })
 
     -- new vertical terminal
     nomap("n", "<leader>v")
-    map("n", "<leader>V", function()
-        require("nvchad.term").new({ pos = "vsp", size = 0.4 })
+    map("n", "<leader><A-v>", function()
+        require("nvchad.term").new({ pos = "vsp", size = 0.5 })
     end, { desc = "Terminal New vertical term" })
+
+    map("t", "<C-l>", "<C-\\><C-n><C-w><C-l>")
+    map("t", "<C-h>", "<C-\\><C-n><C-w><C-h>")
+    map("t", "<C-k>", "<C-\\><C-n><C-w><C-k>")
+    map("t", "<C-j>", "<C-\\><C-n><C-w><C-j>")
 
     ---- UI ----
 

@@ -33,6 +33,15 @@ M.ui = {
         },
     },
 
+    term = {
+        sizes = { sp = 0.3, vsp = 0.4 },
+        float = {
+            row = 0.07,
+            col = 0.095,
+            width = 0.8,
+            height = 0.75,
+        },
+    },
 }
 
 M.base46 = {
