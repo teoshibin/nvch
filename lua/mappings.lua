@@ -32,6 +32,9 @@ function M.general()
     -- unmap for dap
     nomap("n", "<leader>b")
 
+    -- unmap for obisidian
+    nomap("n", "<leader>n")
+
     ---- Terminals ----
 
     -- resize terminals
@@ -88,8 +91,6 @@ function M.general()
     -- Specials
     map("n", "<leader>.", "@@", { desc = "General Repeat last marco" })
 
-    nomap("n", "<leader>n")
-    map("n", "<leader>n", "<cmd>nohl<CR>", { desc = "General Clear highlights" })
     map("n", "<leader>tln", "<cmd>set nu!<CR>", { desc = "Toggle Line number" })
 
     nomap("n", "<leader>rn")
