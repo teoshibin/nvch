@@ -100,7 +100,6 @@ return {
             "ObsidianToday",
             "ObsidianTomorrow",
             "ObsidianYesterday",
-            "ObsidianDailies",
             "ObsidianTags",
         },
         dependencies = {

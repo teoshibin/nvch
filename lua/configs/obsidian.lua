@@ -13,8 +13,8 @@ M.opts = {
     daily_notes = {
         folder = "notes/daily",
         date_format = "%Y-%m-%d",
-        -- alias_format = "%B %-d, %Y",
-        template = "daily",
+        alias_format = "%B %-d, %Y",
+        template = "templates/daily.md",
     },
     disable_frontmatter = true,
     attachments = {
@@ -30,13 +30,13 @@ M.opts = {
             end,
             opts = { noremap = false, expr = true, buffer = true },
         },
-        ["<leader>ic"] = {
+        ["<leader>nc"] = {
             action = function()
                 return require("obsidian").util.toggle_checkbox()
             end,
             opts = { buffer = true },
         },
-        ["<leader>ia"] = {
+        ["<leader>na"] = {
             action = function()
                 return require("obsidian").util.smart_action()
             end,
@@ -73,8 +73,62 @@ M.setup = function()
     require("obsidian").setup(M.opts)
     local map = require("mappings").map
 
-    map("n", "<leader>nc", "<cmd>ObsidianNew<CR>", { desc = "Obsidian New note" })
+    --[[
+        ObsidianOpen           done
+        ObsidianQuickSwitch    done
+        ObsidianNew            done
+        ObsidianFollowLink     
+        ObsidianWorkspace      done
+        ObsidianBacklinks      done
+        ObsidianDailies        done
+        ObsidianLink           
+        ObsidianLinkNew        
+        ObsidianLinks          done
+        ObsidianSearch         done
+        ObsidianPasteImg       done
+        ObsidianRename         done
+        ObsidianTemplate       done
+        ObsidianToday          
+        ObsidianTomorrow       
+        ObsidianYesterday      
+        ObsidianTags           done
+    --]]
+    local cdBrain = "cd " .. vim.fs.normalize(vim.fn.expand("~") .. "/brain<CR>")
+    map("n", "<leader>Nt", "<cmd>tabnew | " .. cdBrain, { desc = "Obsidian Open notes in new tab" })
+    map("n", "<leader>Nc", "<cmd>" .. cdBrain, { desc = "Obsidian cd to notes" })
+
+    map("n", "<leader>no", "<cmd>ObsidianOpen<CR>", { desc = "Obsidian Open obsidian" })
+    map("n", "<leader>nc", "<cmd>ObsidianNew<CR>", { desc = "Obsidian Create new note" })
     map("n", "<leader>nt", "<cmd>ObsidianTemplate<CR>", { desc = "Obsidian Note template" })
+    map("n", "<leader>nw", "<cmd>ObsidianWorkspace<CR>", { desc = "Obsidian Search workspaces" })
+    map("n", "<leader>ns", "<cmd>ObsidianQuickSwitch<CR>", { desc = "Obsidian Search notes" })
+    map("n", "<leader>ng", "<cmd>ObsidianSearch<CR>", { desc = "Obsidian Grep notes" })
+    map("n", "<leader>nh", "<cmd>ObsidianTags<CR>", { desc = "Obsidian List hashtags" })
+    map("n", "<leader>nd", "<cmd>ObsidianDailies<CR>", { desc = "Obsidian List dailies" })
+    map("n", "<leader>nl", "<cmd>ObsidianLinks<CR>", { desc = "Obsidian List links" })
+    map("n", "<leader>nb", "<cmd>ObsidianBacklinks<CR>", { desc = "Obsidian Show backlinks" })
+    map("n", "<leader>ni", "<cmd>ObsidianPasteImg<CR>", { desc = "Obsidian Paste image" })
+    map("n", "<leader>nr", function()
+        local name = vim.fn.input("Rename note: ")
+        local wet = vim.fn.input("Wet run (y/n): ")
+        local dryOption = ""
+        if name == "" then
+            print("no name given")
+            return
+        elseif wet == "" or wet == "n" then
+            dryOption = " --dry-run"
+            return
+        end
+        vim.cmd("ObisidianRename " .. name .. dryOption)
+    end, { desc = "Obisidian Rename file link" })
+    map("v", "<leader>ne", function()
+        local title = vim.fn.input("Extract note title: ")
+        if title == "" then
+            print("no title given")
+            return
+        end
+        vim.cmd("ObsidianExtractNote " .. title)
+    end, { desc = "Obisidan Extract to new note" })
     map("n", "<leader>nn", function()
         local title = vim.fn.input("Note title: ")
         if title == "" then
@@ -86,7 +140,7 @@ M.setup = function()
             vim.cmd("ObsidianTemplate note")
             vim.api.nvim_feedkeys('gg"_dd', "n", true)
         end)
-    end)
+    end, { desc = "Obsidian New templated note" })
 end
 
 return M
