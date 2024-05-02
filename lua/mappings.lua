@@ -38,7 +38,7 @@ function M.general()
     -- tabs
 
     map("n", "<leader>tn", "<cmd>tabnew<CR>", { desc = "General new tab" })
-    map("n", "<leader>tx", "<cmd>tabclose<CR>", { desc = "General close tab"})
+    map("n", "<leader>tx", "<cmd>tabclose<CR>", { desc = "General close tab" })
     map("n", "[t", "<cmd>tabp<CR>", { desc = "General previous tab" })
     map("n", "]t", "<cmd>tabn<CR>", { desc = "General next tab" })
     map("n", "<leader>ts", "<cmd>tab split<CR>", { desc = "general current buffer in new tab" })
@@ -372,7 +372,12 @@ function M.telescope()
 
     -- search word in current buffer
     nomap("n", "<leader>fz")
-    map( "n", "<leader>sz", "<cmd> Telescope current_buffer_fuzzy_find <CR>", { desc = "Telescope Search word in current buffer" })
+    map(
+        "n",
+        "<leader>sz",
+        "<cmd> Telescope current_buffer_fuzzy_find <CR>",
+        { desc = "Telescope Search word in current buffer" }
+    )
 
     -- search keymaps
     map("n", "<leader>sk", "<cmd> Telescope keymaps <CR>", { desc = "Telescope Search keymaps" })
@@ -423,7 +428,6 @@ function M.trouble()
 end
 
 function M.obisidan()
-
     local newNotes = function()
         local title = vim.fn.input("Note title: ")
         if title == "" then
@@ -436,10 +440,9 @@ function M.obisidan()
             vim.api.nvim_feedkeys('gg"_dd', "n", true)
         end)
     end
-    
+
     -- workflow
     local cdBrain = "cd " .. vim.fs.normalize(vim.fn.expand("~") .. "/brain")
-    -- map("n", "<leader>nD", "<cmd>tabnew | " .. cdBrain .. " | :lua <CR>", { desc = "Obsidian Create new notes in new tab" })
     map("n", "<leader>nD", function()
         vim.cmd("tabnew")
         vim.cmd(cdBrain)
