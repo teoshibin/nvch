@@ -423,18 +423,8 @@ function M.trouble()
 end
 
 function M.obisidan()
-    -- workflow
-    local cdBrain = "cd " .. vim.fs.normalize(vim.fn.expand("~") .. "/brain")
-    map("n", "<leader>nN", "<cmd>tabnew | " .. cdBrain .. " | :Obsidiandailies <CR>", { desc = "Obsidian Create new notes in new tab" })
-    map("n", "<leader>np", "<cmd>" .. cdBrain .. "<CR>", { desc = "Obsidian cd to notes" })
 
-    -- general
-    map("n", "<leader>nc", "<cmd>ObsidianNew<CR>", { desc = "Obsidian Create new note" })
-    map("n", "<leader>nw", "<cmd>ObsidianWorkspace<CR>", { desc = "Obsidian Search workspaces" })
-    map("n", "<leader>ns", "<cmd>ObsidianQuickSwitch<CR>", { desc = "Obsidian Search notes" })
-    map("n", "<leader>ng", "<cmd>ObsidianSearch<CR>", { desc = "Obsidian Grep notes" })
-    map("n", "<leader>nd", "<cmd>ObsidianDailies<CR>", { desc = "Obsidian List dailies" })
-    map("n", "<leader>nn", function()
+    local newNotes = function()
         local title = vim.fn.input("Note title: ")
         if title == "" then
             print("no title given")
@@ -445,7 +435,30 @@ function M.obisidan()
             vim.cmd("ObsidianTemplate note")
             vim.api.nvim_feedkeys('gg"_dd', "n", true)
         end)
-    end, { desc = "Obsidian New templated note" })
+    end
+    
+    -- workflow
+    local cdBrain = "cd " .. vim.fs.normalize(vim.fn.expand("~") .. "/brain")
+    -- map("n", "<leader>nD", "<cmd>tabnew | " .. cdBrain .. " | :lua <CR>", { desc = "Obsidian Create new notes in new tab" })
+    map("n", "<leader>nD", function()
+        vim.cmd("tabnew")
+        vim.cmd(cdBrain)
+        vim.cmd("ObsidianDailies")
+    end, { desc = "Obsidian Create new daily note in new tab" })
+    map("n", "<leader>nN", function()
+        vim.cmd("tabnew")
+        vim.cmd(cdBrain)
+        newNotes()
+    end, { desc = "Obsidian Create new note in new tab" })
+    map("n", "<leader>np", "<cmd>" .. cdBrain .. "<CR>", { desc = "Obsidian cd to notes" })
+
+    -- general
+    map("n", "<leader>nc", "<cmd>ObsidianNew<CR>", { desc = "Obsidian Create new note" })
+    map("n", "<leader>nw", "<cmd>ObsidianWorkspace<CR>", { desc = "Obsidian Search workspaces" })
+    map("n", "<leader>ns", "<cmd>ObsidianQuickSwitch<CR>", { desc = "Obsidian Search notes" })
+    map("n", "<leader>ng", "<cmd>ObsidianSearch<CR>", { desc = "Obsidian Grep notes" })
+    map("n", "<leader>nd", "<cmd>ObsidianDailies<CR>", { desc = "Obsidian List dailies" })
+    map("n", "<leader>nn", newNotes, { desc = "Obsidian New templated note" })
 end
 
 function M.zenMode()

@@ -14,7 +14,7 @@ M.opts = {
         folder = "notes/daily",
         date_format = "%Y-%m-%d",
         alias_format = "%B %-d, %Y",
-        template = "templates/daily.md",
+        template = "daily.md",
     },
     disable_frontmatter = true,
     attachments = {

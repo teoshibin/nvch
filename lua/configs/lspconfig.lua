@@ -19,6 +19,7 @@ end
 -- Auto Server Configuration
 local servers = {
     "marksman", -- markdown
+    "ltex", -- grammar check
     "jdtls", -- java
     "basedpyright", -- python
 }
@@ -26,6 +27,15 @@ local servers = {
 for _, lsp in ipairs(servers) do
     lspconfig[lsp].setup(defaults({}))
 end
+
+lspconfig.ltex.setup(defaults({
+    cmd = { vim.fn.stdpath("data") .. "/mason/bin/ltex-ls" },
+    settings = {
+        ltex = {
+            language = "en-GB",
+        },
+    },
+}))
 
 -- powershell --
 

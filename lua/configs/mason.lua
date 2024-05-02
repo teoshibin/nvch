@@ -12,6 +12,7 @@ return {
         -- markdown
         "marksman", -- lsp
         "markdownlint", -- linter
+        "ltex-ls", -- grammar checker
 
         -- python
         "basedpyright", -- lsp server
