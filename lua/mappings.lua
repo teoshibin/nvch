@@ -35,6 +35,14 @@ function M.general()
     -- unmap for obisidian
     nomap("n", "<leader>n")
 
+    -- tabs
+
+    map("n", "<leader>tn", "<cmd>tabnew<CR>", { desc = "General new tab" })
+    map("n", "<leader>tx", "<cmd>tabclose<CR>", { desc = "General close tab"})
+    map("n", "[t", "<cmd>tabp<CR>", { desc = "General previous tab" })
+    map("n", "]t", "<cmd>tabn<CR>", { desc = "General next tab" })
+    map("n", "<leader>ts", "<cmd>tab split<CR>", { desc = "general current buffer in new tab" })
+
     ---- Terminals ----
 
     -- resize terminals
@@ -414,6 +422,32 @@ function M.trouble()
     end, { desc = "Lsp Toggle trouble lsp references" })
 end
 
+function M.obisidan()
+    -- workflow
+    local cdBrain = "cd " .. vim.fs.normalize(vim.fn.expand("~") .. "/brain")
+    map("n", "<leader>nN", "<cmd>tabnew | " .. cdBrain .. " | :Obsidiandailies <CR>", { desc = "Obsidian Create new notes in new tab" })
+    map("n", "<leader>np", "<cmd>" .. cdBrain .. "<CR>", { desc = "Obsidian cd to notes" })
+
+    -- general
+    map("n", "<leader>nc", "<cmd>ObsidianNew<CR>", { desc = "Obsidian Create new note" })
+    map("n", "<leader>nw", "<cmd>ObsidianWorkspace<CR>", { desc = "Obsidian Search workspaces" })
+    map("n", "<leader>ns", "<cmd>ObsidianQuickSwitch<CR>", { desc = "Obsidian Search notes" })
+    map("n", "<leader>ng", "<cmd>ObsidianSearch<CR>", { desc = "Obsidian Grep notes" })
+    map("n", "<leader>nd", "<cmd>ObsidianDailies<CR>", { desc = "Obsidian List dailies" })
+    map("n", "<leader>nn", function()
+        local title = vim.fn.input("Note title: ")
+        if title == "" then
+            print("no title given")
+            return
+        end
+        vim.cmd("ObsidianNew " .. title)
+        vim.schedule(function()
+            vim.cmd("ObsidianTemplate note")
+            vim.api.nvim_feedkeys('gg"_dd', "n", true)
+        end)
+    end, { desc = "Obsidian New templated note" })
+end
+
 function M.zenMode()
     map("n", "<leader>z", "<cmd>ZenMode<CR>", { desc = "ZenMode Toggle zen mode" })
 end
@@ -421,6 +455,7 @@ end
 function M.setup()
     M.general()
     M.telescope()
+    M.obisidan()
 end
 
 return M

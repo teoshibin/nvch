@@ -30,7 +30,7 @@ M.opts = {
             end,
             opts = { noremap = false, expr = true, buffer = true },
         },
-        ["<leader>nc"] = {
+        ["<leader>n`"] = {
             action = function()
                 return require("obsidian").util.toggle_checkbox()
             end,
@@ -93,18 +93,10 @@ M.setup = function()
         ObsidianYesterday      
         ObsidianTags           done
     --]]
-    local cdBrain = "cd " .. vim.fs.normalize(vim.fn.expand("~") .. "/brain<CR>")
-    map("n", "<leader>Nt", "<cmd>tabnew | " .. cdBrain, { desc = "Obsidian Open notes in new tab" })
-    map("n", "<leader>Nc", "<cmd>" .. cdBrain, { desc = "Obsidian cd to notes" })
 
     map("n", "<leader>no", "<cmd>ObsidianOpen<CR>", { desc = "Obsidian Open obsidian" })
-    map("n", "<leader>nc", "<cmd>ObsidianNew<CR>", { desc = "Obsidian Create new note" })
     map("n", "<leader>nt", "<cmd>ObsidianTemplate<CR>", { desc = "Obsidian Note template" })
-    map("n", "<leader>nw", "<cmd>ObsidianWorkspace<CR>", { desc = "Obsidian Search workspaces" })
-    map("n", "<leader>ns", "<cmd>ObsidianQuickSwitch<CR>", { desc = "Obsidian Search notes" })
-    map("n", "<leader>ng", "<cmd>ObsidianSearch<CR>", { desc = "Obsidian Grep notes" })
     map("n", "<leader>nh", "<cmd>ObsidianTags<CR>", { desc = "Obsidian List hashtags" })
-    map("n", "<leader>nd", "<cmd>ObsidianDailies<CR>", { desc = "Obsidian List dailies" })
     map("n", "<leader>nl", "<cmd>ObsidianLinks<CR>", { desc = "Obsidian List links" })
     map("n", "<leader>nb", "<cmd>ObsidianBacklinks<CR>", { desc = "Obsidian Show backlinks" })
     map("n", "<leader>ni", "<cmd>ObsidianPasteImg<CR>", { desc = "Obsidian Paste image" })
@@ -129,18 +121,6 @@ M.setup = function()
         end
         vim.cmd("ObsidianExtractNote " .. title)
     end, { desc = "Obisidan Extract to new note" })
-    map("n", "<leader>nn", function()
-        local title = vim.fn.input("Note title: ")
-        if title == "" then
-            print("no title given")
-            return
-        end
-        vim.cmd("ObsidianNew " .. title)
-        vim.schedule(function()
-            vim.cmd("ObsidianTemplate note")
-            vim.api.nvim_feedkeys('gg"_dd', "n", true)
-        end)
-    end, { desc = "Obsidian New templated note" })
 end
 
 return M
