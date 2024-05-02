@@ -450,7 +450,7 @@ function M.obisidan()
         vim.cmd(cdBrain)
         newNotes()
     end, { desc = "Obsidian Create new note in new tab" })
-    map("n", "<leader>np", "<cmd>" .. cdBrain .. "<CR>", { desc = "Obsidian cd to notes" })
+    map("n", "<leader>nz", "<cmd>" .. cdBrain .. "<CR>", { desc = "Obsidian cd to notes" })
 
     -- general
     map("n", "<leader>nc", "<cmd>ObsidianNew<CR>", { desc = "Obsidian Create new note" })
