@@ -22,6 +22,7 @@ local servers = {
     "ltex", -- grammar check
     "jdtls", -- java
     "basedpyright", -- python
+    "gdshader_lsp", -- TODO
 }
 
 for _, lsp in ipairs(servers) do
@@ -73,6 +74,13 @@ lspconfig.kotlin_language_server.setup(defaults({
         embeddedLanguages = { css = true, javascript = true },
         configurationSection = { "html", "css", "javascript" },
     },
+}))
+
+local port = os.getenv("GDScript_Port") or "6005"
+local nc_ex = require("custom.os").isWindows() and "ncat" or "nc"
+lspconfig.gdscript.setup(defaults({
+    -- Note: install windows netcat: https://nmap.org/download.html
+    cmd = { nc_ex, "localhost", port },
 }))
 
 -- perl --

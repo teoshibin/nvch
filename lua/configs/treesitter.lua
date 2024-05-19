@@ -25,6 +25,9 @@ return {
         -- perl
         -- "perl",
         -- powershell (not supported)
+        "gdscript",
+        "gdshader",
+        "godot_resource",
     },
     auto_install = true,
     indent = {
