@@ -4,6 +4,7 @@
 ## TODOs
 
 - auto resize ui, beauwilliams/focus.nvim
+- godot vim [plugin link](https://github.com/habamax/vim-godot)
 - git octo (PR)
 
 ## Nvhcad UI Plugins
