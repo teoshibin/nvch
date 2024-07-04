@@ -96,6 +96,11 @@ function M.general()
 
     ---- Custom ----
 
+    -- Fix
+    if require("custom.os").isMac() and vim.fn.getenv("TERM_PROGRAM") == "iTerm.app" then
+        map("i", "<Esc><BS>", "<C-w>")
+    end
+
     -- Specials
     map("n", "<leader>.", "@@", { desc = "General Repeat last marco" })
 
