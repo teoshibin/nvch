@@ -31,6 +31,9 @@ M.on_attach = function(_, bufnr)
   -- MODIFIED
   map({ "n", "v" }, "<A-CR>", vim.lsp.buf.code_action, opts "Code action")
   map("n", "gr", vim.lsp.buf.references, opts "Show references")
+
+  -- custom
+  map("n", "<Leader>E", vim.diagnostic.open_float, opts "Show line diagnostic")
 end
 
 -- disable semanticTokens
