@@ -96,7 +96,7 @@ function M.general()
 
     ---- Custom ----
 
-    -- Fix
+    -- Fix for mac iterm backspacing a word
     if require("custom.os").isMac() and vim.fn.getenv("TERM_PROGRAM") == "iTerm.app" then
         map("i", "<Esc><BS>", "<C-w>")
     end
