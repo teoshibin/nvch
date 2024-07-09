@@ -25,6 +25,20 @@ git clone git@github.com/teoshibin/nvch.git
 nv
 ```
 
+## Terminals
+
+Add the following remap for Windows terminal for `<C-BS>`
+
+```json
+{
+    "keys": "ctrl+backspace",
+    "command": {
+        "action": "sendInput",
+        "input": "\u0017"
+    }
+},
+```
+
 ## Aliases
 
 Windows powershell
