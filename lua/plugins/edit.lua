@@ -47,6 +47,7 @@ return {
         -- Type j without delay due to jj or jk
         "max397574/better-escape.nvim",
         event = "InsertEnter",
+        enabled = false,
         opts = {},
     },
     {

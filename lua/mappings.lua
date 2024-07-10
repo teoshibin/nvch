@@ -102,6 +102,8 @@ function M.general()
     end
 
     -- Specials
+
+    map("i", "jj", "<Esc>", { desc = "Quick Escape" })
     map("n", "<leader>.", "@@", { desc = "General Repeat last marco" })
 
     map("n", "<leader>tln", "<cmd>set nu!<CR>", { desc = "Toggle Line number" })
