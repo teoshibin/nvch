@@ -80,8 +80,12 @@ return {
     {
         "epwalsh/obsidian.nvim",
         version = "*", -- recommended, use latest release instead of latest commit
+        enabled = false,
         lazy = true,
         ft = "markdown",
+        -- event = {
+        --     "BufReadPre " .. vim.fn.expand("~") .. "/home/obsidian/**.md"
+        -- }
         cmd = {
             "ObsidianOpen",
             "ObsidianQuickSwitch",
