@@ -83,23 +83,15 @@ opt.colorcolumn = { 80 }
 
 -- Change terminal shell, See :h shell-powershell
 if require("custom.os").isWindows() then
-    local shell = vim.fn.executable("pwsh") == 1 and "pwsh" or "powershell"
+    local shell = vim.fn.executable("pwsh") == 1 and "pwsh -nol" or "powershell -nol"
     vim.o.shell = shell
-    -- NOTE: this broke neogit for some reason
-    -- vim.o.shellcmdflag = "-NoLogo -ExecutionPolicy RemoteSigned -Command "
-    --     .. "[Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.UTF8Encoding]::new();"
-    --     .. "$PSDefaultParameterValues['Out-File:Encoding']='utf8';"
-    vim.o.shellcmdflag = "-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command "
-    vim.o.shellredir = '2>&1 | %{"$(_)" } | Out-File -Encoding UTF8 %s; exit $LastExitCode'
-    vim.o.shellpipe = '2>&1 | %{"$(_)" } | Tee-Object %s; exit $LastExitCode'
+    vim.o.shellcmdflag = "-ExecutionPolicy RemoteSigned -Command "
+        .. "[Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.UTF8Encoding]::new();"
+        .. "$PSDefaultParameterValues['Out-File:Encoding']='utf8';"
+        .. "Remove-Alias -Force -ErrorAction SilentlyContinue tee;"
+    vim.o.shellredir = "2>&1 | %%{ \"$_\" } | Out-File %s; exit $LastExitCode"
+    vim.o.shellpipe = "2>&1 | %%{ \"$_\" } | tee %s; exit $LastExitCode"
     vim.o.shellquote = ""
     vim.o.shellxquote = ""
-
-    -- Some random snippets I found online
-    -- shell=powershell.exe
-    -- set shellxquote=
-    -- let &shellcmdflag = '-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command '
-    -- let &shellquote   = ''
-    -- let &shellpipe    = '| Out-File -Encoding UTF8 %s'
-    -- let &shellredir   = '| Out-File -Encoding UTF8 %s'
 end
+
