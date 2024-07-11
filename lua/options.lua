@@ -95,3 +95,16 @@ if require("custom.os").isWindows() then
     vim.o.shellxquote = ""
 end
 
+-- generic quit command that will save and quit all
+-- including editors and terminals
+vim.api.nvim_create_user_command("Quit", function()
+    local success = pcall(function ()
+        vim.cmd("wa")
+    end)
+    if success then
+        vim.cmd("qa!")
+    else
+        print("Failed to write all")
+    end
+end, {})
+
