@@ -42,6 +42,42 @@ M.ui = {
             height = 0.75,
         },
     },
+
+    mason = {
+        pkgs = {
+            -- Lua
+            "lua-language-server", -- lsp
+            "stylua",              -- formatter
+
+            -- Powershell
+            "powershell-editor-services", -- lsp
+
+            -- Markdown
+            "marksman",     -- lsp
+            "markdownlint", -- linter
+            "ltex-ls",      -- grammar checker
+
+            -- Python
+            "basedpyright", -- lsp server
+            "debugpy",      -- debugger
+            "ruff",         -- linter, formatter
+
+            -- Kotlin
+            "kotlin-language-server", -- lsp
+            -- "kotlin-debug-adapter", -- debugger
+            "ktlint",                 -- linter, formatter
+
+            -- Java
+            "jdtls",                 -- lsp
+            -- "java-debug-adapter", -- debugger
+            "checkstyle",            -- linter
+            "google-java-format",    -- formatter
+
+            -- Rust
+            -- "rust-analyzer", -- lsp (use the one from rustup)
+            "codelldbl", -- debugger
+        }
+    }
 }
 
 M.base46 = {
@@ -51,3 +87,4 @@ M.base46 = {
 }
 
 return M
+

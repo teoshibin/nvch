@@ -28,14 +28,6 @@ return {
         end,
     },
     {
-        "williamboman/mason.nvim",
-        opts = function()
-            local defaults = require("nvchad.configs.mason")
-            local configs = require("configs.mason")
-            return vim.tbl_deep_extend("force", defaults, configs)
-        end,
-    },
-    {
         "neovim/nvim-lspconfig",
         -- dependencies = {
         --     "williamboman/mason.nvim",
