@@ -1,10 +1,62 @@
 local M = {}
 
+M.base46 = {
+    theme = "kanagawa",
+    theme_toggle = { "kanagawa", "one_light" },
+    transparency = false,
+    integrations = {
+        "dap",
+    },
+}
+
+M.term = {
+    sizes = { sp = 0.3, vsp = 0.4 },
+    float = {
+        row = 0.07,
+        col = 0.095,
+        width = 0.8,
+        height = 0.75,
+    },
+}
+
+M.mason = {
+    pkgs = {
+        -- Lua
+        "lua-language-server", -- lsp
+        "stylua",              -- formatter
+
+        -- Powershell
+        "powershell-editor-services", -- lsp
+
+        -- Markdown
+        "marksman",     -- lsp
+        "markdownlint", -- linter
+        "ltex-ls",      -- grammar checker
+
+        -- Python
+        "basedpyright", -- lsp server
+        "debugpy",      -- debugger
+        "ruff",         -- linter, formatter
+
+        -- Kotlin
+        "kotlin-language-server", -- lsp
+        -- "kotlin-debug-adapter", -- debugger
+        "ktlint",                 -- linter, formatter
+
+        -- Java
+        "jdtls",                 -- lsp
+        -- "java-debug-adapter", -- debugger
+        "checkstyle",            -- linter
+        "google-java-format",    -- formatter
+
+        -- Rust
+        -- "rust-analyzer", -- lsp (use the one from rustup)
+        "codelldbl", -- debugger
+    }
+}
+
 M.ui = {
 
-    theme_toggle = { "kanagawa", "one_light" },
-    theme = "kanagawa",
-    transparency = false,
     telescope = { style = "bordered" }, -- borderless / bordered
 
     statusline = {
@@ -31,58 +83,6 @@ M.ui = {
             { "  Themes", "Spc t h", "Telescope themes" },
             { "  Cheetsheet", "Spc c h", "NvCheatsheet" },
         },
-    },
-
-    term = {
-        sizes = { sp = 0.3, vsp = 0.4 },
-        float = {
-            row = 0.07,
-            col = 0.095,
-            width = 0.8,
-            height = 0.75,
-        },
-    },
-
-    mason = {
-        pkgs = {
-            -- Lua
-            "lua-language-server", -- lsp
-            "stylua",              -- formatter
-
-            -- Powershell
-            "powershell-editor-services", -- lsp
-
-            -- Markdown
-            "marksman",     -- lsp
-            "markdownlint", -- linter
-            "ltex-ls",      -- grammar checker
-
-            -- Python
-            "basedpyright", -- lsp server
-            "debugpy",      -- debugger
-            "ruff",         -- linter, formatter
-
-            -- Kotlin
-            "kotlin-language-server", -- lsp
-            -- "kotlin-debug-adapter", -- debugger
-            "ktlint",                 -- linter, formatter
-
-            -- Java
-            "jdtls",                 -- lsp
-            -- "java-debug-adapter", -- debugger
-            "checkstyle",            -- linter
-            "google-java-format",    -- formatter
-
-            -- Rust
-            -- "rust-analyzer", -- lsp (use the one from rustup)
-            "codelldbl", -- debugger
-        }
-    }
-}
-
-M.base46 = {
-    integrations = {
-        "dap",
     },
 }
 
