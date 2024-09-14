@@ -49,13 +49,14 @@ function M.general()
     nomap({ "n", "t" }, "<A-h>")
     nomap({ "n", "t" }, "<A-v>")
 
-    map({ "n", "t" }, "<A-s>", function()
-        require("nvchad.term").toggle({ pos = "sp", id = "htoggleTerm", size = 0.3 })
-    end, { desc = "Terminal Toggle horizontal term" })
-
-    map({ "n", "t" }, "<A-v>", function()
-        require("nvchad.term").toggle({ pos = "vsp", id = "vtoggleTerm", size = 0.4 })
-    end, { desc = "Terminal Toggle vertical term" })
+    map(
+        { "n", "t" },
+        "<A-s>",
+        require("custom.term").toggle_horizontal_term,
+        { desc = "Terminal Toggle horizontal term" }
+    )
+    map({ "n", "t" }, "<A-v>", require("custom.term").toggle_vertical_term, { desc = "Terminal Toggle vertical term" })
+    map({ "n", "t" }, "<A-i>", require("custom.term").toggle_floating_term, { desc = "Terminal toggle floating term" })
 
     -- new horizontal terminals
     nomap("n", "<leader>h")

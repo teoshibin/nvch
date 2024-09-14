@@ -83,9 +83,10 @@ opt.colorcolumn = { 80 }
 
 -- Change terminal shell, See :h shell-powershell
 if require("custom.os").isWindows() then
-    local shell = vim.fn.executable("pwsh") == 1 and "pwsh -nol" or "powershell -nol"
+    -- local shell = vim.fn.executable("pwsh") == 1 and "pwsh -nol" or "powershell -nol"
+    local shell = vim.fn.executable("pwsh") == 1 and "pwsh" or "powershell"
     vim.o.shell = shell
-    vim.o.shellcmdflag = "-ExecutionPolicy RemoteSigned -Command "
+    vim.o.shellcmdflag = "-NoLogo -ExecutionPolicy RemoteSigned -Command "
         .. "[Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.UTF8Encoding]::new();"
         .. "$PSDefaultParameterValues['Out-File:Encoding']='utf8';"
         .. "Remove-Alias -Force -ErrorAction SilentlyContinue tee;"
