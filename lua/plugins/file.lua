@@ -1,37 +1,43 @@
 return {
     {
-        -- NOTE: rustaceanvim does not use Mason's installation of rust-analyzer
-        -- Instal rust-analyzer:
-        -- `rustup component add rust-analyzer`
+        -- NOTE: Rustaceanvim does not use Mason's installation of rust-analyzer
+        -- Install rust-analyzer: `rustup component add rust-analyzer`
         -- doc: https://rust-analyzer.github.io/manual.html#rustup
-        --
+
         -- NOTE: to use mason we could do the following (currently not configured)
-        -- issue: https://github.com/mrcjkb/rustaceanvim/issues/258
+        -- docs: `:h rustaceanvim.mason`
+
         "mrcjkb/rustaceanvim",
-        version = "^4",
-        ft = { "rust" },
-        lazy = false,
+        version = "^5",
+        lazy = false, -- This plugin is already lazy
         config = function()
             local lspconfig = require("configs.nvlspconfig")
             local map = vim.keymap.set
             vim.g.rustaceanvim = {
                 tools = {},
                 server = {
-                    on_attach = function(client, bufnr)
+                    on_attach = function(_, bufnr)
                         local function opts(desc)
                             return { buffer = bufnr, desc = desc }
                         end
 
-                        -- lsp
-                        lspconfig.on_attach() -- invoke default on_attach
-                        map({ "n", "v" }, "<leader>a", vim.cmd.RustLsp("codeAction"), opts("Lsp Code action"))
-                        map({ "n", "v" }, "<A-CR>", vim.cmd.RustLsp("codeAction"), opts("Lsp Code action"))
+                        -- default lsp keymaps
+                        lspconfig.on_attach(_, bufnr)
 
-                        -- tools
-                        map("n", "J", vim.cmd.RustLsp("joinLines"), opts("General join line"))
+                        -- code action
+                        map({ "n", "v" }, "<leader>a", function()
+                            vim.cmd.RustLsp("codeAction")
+                        end, opts("Lsp Code action"))
+                        map({ "n", "v" }, "<A-CR>", function()
+                            vim.cmd.RustLsp("codeAction")
+                        end, opts("Lsp Code action"))
+
+                        -- join line
+                        map("n", "J", function()
+                            vim.cmd.RustLsp("joinLines")
+                        end, opts("Lsp Rust join line"))
                     end,
                     default_settings = {
-                        -- rust-analyzer language server configuration
                         ["rust-analyzer"] = {},
                     },
                 },
