@@ -36,6 +36,11 @@ return {
                         map("n", "J", function()
                             vim.cmd.RustLsp("joinLines")
                         end, opts("Lsp Rust join line"))
+
+                        -- show diagnostic pop up
+                        map("n", "<leader>ee", function()
+                            vim.cmd.RustLsp({ "renderDiagnostic", "current" })
+                        end, opts("Lsp Rust show diagnostic"))
                     end,
                     default_settings = {
                         ["rust-analyzer"] = {},
