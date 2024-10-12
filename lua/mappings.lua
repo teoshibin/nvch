@@ -102,6 +102,17 @@ function M.general()
         map("i", "<Esc><BS>", "<C-w>")
     end
 
+    -- Fix and prevent identation of empty lines for being deleted
+    map("n", "i", function()
+        local current_line = vim.fn.line '.'
+        local last_line = vim.fn.line '$'
+        local buftype = vim.bo.buftype
+        if #vim.api.nvim_get_current_line() == 0 and last_line ~= current_line and buftype ~= 'terminal' then
+            return '"_ddO'
+        end
+        return 'i'
+    end, { noremap = true, expr = true, desc = "Smart insert indentation" })
+
     -- Specials
 
     map("i", "jj", "<Esc>", { desc = "Quick Escape" })
