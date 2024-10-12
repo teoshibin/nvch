@@ -20,19 +20,16 @@ M.on_attach = function(_, bufnr)
   end, opts "List workspace folders")
 
   map("n", "<leader>D", vim.lsp.buf.type_definition, opts "Go to type definition")
-
-  -- MODIFIED
-  map("n", "<leader>r", function()
-    require "nvchad.lsp.renamer"()
-  end, opts "NvRenamer")
-
-  -- MODIFIED
-  map({ "n", "v" }, "<leader>a", vim.lsp.buf.code_action, opts "Code action")
-  -- MODIFIED
-  map({ "n", "v" }, "<A-CR>", vim.lsp.buf.code_action, opts "Code action")
   map("n", "gr", vim.lsp.buf.references, opts "Show references")
 
-  -- custom
+  -- MODIFIED
+  -- map("n", "<leader>ra", require "nvchad.lsp.renamer", opts "NvRenamer")
+  map("n", "<leader>r", require "nvchad.lsp.renamer", opts "NvRenamer")
+  map({ "n", "v" }, "<leader>a", vim.lsp.buf.code_action, opts "Code action")
+  -- map({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts "Code action")
+  map({ "n", "v" }, "<A-CR>", vim.lsp.buf.code_action, opts "Code action")
+
+  -- CUSTOM
   map("n", "<Leader>E", vim.diagnostic.open_float, opts "Show line diagnostic")
 end
 
@@ -65,7 +62,7 @@ M.capabilities.textDocument.completion.completionItem = {
 
 M.defaults = function()
   dofile(vim.g.base46_cache .. "lsp")
-  require "nvchad.lsp"
+  require("nvchad.lsp").diagnostic_config()
 
   require("lspconfig").lua_ls.setup {
     on_attach = M.on_attach,
@@ -83,6 +80,7 @@ M.defaults = function()
             vim.fn.expand "$VIMRUNTIME/lua/vim/lsp",
             vim.fn.stdpath "data" .. "/lazy/ui/nvchad_types",
             vim.fn.stdpath "data" .. "/lazy/lazy.nvim/lua/lazy",
+            "${3rd}/luv/library",
           },
           maxPreload = 100000,
           preloadFileSize = 10000,
