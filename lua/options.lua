@@ -79,7 +79,7 @@ opt.softtabstop = 4
 opt.jumpoptions = "view"
 
 -- Max char line (not transparent)
-opt.colorcolumn = { 80 }
+opt.colorcolumn = { 120 }
 
 -- Change terminal shell, See :h shell-powershell
 if require("custom.os").isWindows() then
