@@ -26,4 +26,12 @@ function M.split(inputString, sep)
     return fields
 end
 
+--- Check if path is directoy
+--- @param path string Directory path
+--- @return boolean true if path is directory
+function M.is_directory(path)
+    local info = vim.loop.fs_stat(path)
+    return info and info.type == "directory" or false
+end
+
 return M

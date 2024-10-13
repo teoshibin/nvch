@@ -104,13 +104,13 @@ function M.general()
 
     -- Fix and prevent identation of empty lines for being deleted
     map("n", "i", function()
-        local current_line = vim.fn.line '.'
-        local last_line = vim.fn.line '$'
+        local current_line = vim.fn.line(".")
+        local last_line = vim.fn.line("$")
         local buftype = vim.bo.buftype
-        if #vim.api.nvim_get_current_line() == 0 and last_line ~= current_line and buftype ~= 'terminal' then
+        if #vim.api.nvim_get_current_line() == 0 and last_line ~= current_line and buftype ~= "terminal" then
             return '"_ddO'
         end
-        return 'i'
+        return "i"
     end, { noremap = true, expr = true, desc = "Smart insert indentation" })
 
     -- Specials
@@ -461,20 +461,36 @@ function M.obisidan()
     end
 
     -- workflow
-    local cdBrain = "cd " .. vim.fs.normalize(vim.fn.expand("~") .. "/brain")
+    local obsidian_config = require("configs.obsidian")
+    local vault = obsidian_config.vault
+
     map("n", "<leader>nD", function()
+        if not obsidian_config.checkObsidian() then
+            return
+        end
         vim.cmd("tabnew")
-        vim.cmd(cdBrain)
+        vim.cmd(vault)
         vim.cmd("ObsidianDailies")
     end, { desc = "Obsidian Create new daily note in new tab" })
+
     map("n", "<leader>nN", function()
+        if not obsidian_config.checkObsidian() then
+            return
+        end
         vim.cmd("tabnew")
-        vim.cmd(cdBrain)
+        vim.cmd(vault)
         newNotes()
     end, { desc = "Obsidian Create new note in new tab" })
-    map("n", "<leader>nz", "<cmd>" .. cdBrain .. "<CR>", { desc = "Obsidian cd to notes" })
+
+    map("n", "<leader>nz", function()
+        if not obsidian_config.checkObsidian() then
+            return
+        end
+        return "<cmd>" .. vault .. "<CR>"
+    end, { desc = "Obsidian cd to notes" })
 
     -- general
+    -- TODO add obsidian directory check
     map("n", "<leader>nc", "<cmd>ObsidianNew<CR>", { desc = "Obsidian Create new note" })
     map("n", "<leader>nw", "<cmd>ObsidianWorkspace<CR>", { desc = "Obsidian Search workspaces" })
     map("n", "<leader>ns", "<cmd>ObsidianQuickSwitch<CR>", { desc = "Obsidian Search notes" })
