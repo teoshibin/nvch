@@ -1,8 +1,8 @@
 local M = {}
 
 M.base46 = {
-    theme = "kanagawa",
-    theme_toggle = { "kanagawa", "one_light" },
+    theme = "catppuccin",
+    theme_toggle = { "catppuccin", "aquarium" },
     transparency = false,
     integrations = {
         "dap",
