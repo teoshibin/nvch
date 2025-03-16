@@ -24,7 +24,7 @@ return {
 
             local defaults = require("nvchad.configs.treesitter")
             local configs = require("configs.treesitter")
-            return vim.tbl_deep_extend("force", defaults, configs)
+            return require("custom.table").merge(defaults, configs)
         end,
     },
     {

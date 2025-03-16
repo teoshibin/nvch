@@ -34,6 +34,7 @@ return {
     },
     {
         "lewis6991/gitsigns.nvim",
+        cmd = { "Gitsigns" },
         opts = function()
             local defaults = require("nvchad.configs.gitsigns")
             local configs = {
