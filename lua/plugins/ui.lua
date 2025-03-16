@@ -39,7 +39,7 @@ return {
                     },
                 },
             }
-            return vim.tbl_deep_extend("force", defaults, configs)
+            return require("custom.table").merge(defaults, configs)
         end,
     },
     {
@@ -96,7 +96,7 @@ return {
                     },
                 },
             }
-            return vim.tbl_deep_extend("force", defaults, configs)
+            return require("custom.table").merge(defaults, configs)
         end,
     },
     {

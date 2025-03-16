@@ -9,7 +9,7 @@ local capabilities = nvlsp.capabilities
 local lspconfig = require("lspconfig")
 
 local function defaults(mods)
-    return vim.tbl_deep_extend("force", {
+    return require("custom.table").merge({
         on_init = on_init,
         on_attach = on_attach,
         capabilities = capabilities,

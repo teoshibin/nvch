@@ -4,7 +4,7 @@ M.nomap = vim.keymap.del
 function M.map(modes, lhs, rhs, opts)
     opts = opts or {}
     local default_opts = { noremap = false }
-    opts = vim.tbl_deep_extend("force", default_opts, opts)
+    opts = require("custom.table").merge(default_opts, opts)
     vim.keymap.set(modes, lhs, rhs, opts)
 end
 
@@ -328,7 +328,7 @@ end
 
 function M.neogit()
     -- open neogit
-    map("n", "<leader>gs", "<cmd>:wa|Neogit<CR>", { desc = "Git Open neogit" })
+    map("n", "<leader>gs", "<cmd>:wa|Neogit<CR>", { desc = "Git open neogit" })
 end
 
 function M.diffview()
@@ -352,7 +352,7 @@ function M.diffview()
         else
             vim.cmd.DiffviewFileHistory()
         end
-    end, { desc = "Git Open diff history" })
+    end, { desc = "Git open diff history" })
 end
 
 function M.telescope()
@@ -392,10 +392,9 @@ function M.telescope()
     -- search word in current buffer
     nomap("n", "<leader>fz")
     map(
-        "n",
-        "<leader>sz",
+        "n", "<leader>sz",
         "<cmd> Telescope current_buffer_fuzzy_find <CR>",
-        { desc = "Telescope Search word in current buffer" }
+        { desc = "Telescope Search current buffer word" }
     )
 
     -- search keymaps

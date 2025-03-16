@@ -34,6 +34,7 @@ return {
     },
     {
         "lewis6991/gitsigns.nvim",
+        cmd = { "Gitsigns" },
         opts = function()
             local defaults = require("nvchad.configs.gitsigns")
             local configs = {
@@ -45,7 +46,7 @@ return {
                     require("mappings").gitsigns(buffer)
                 end,
             }
-            return vim.tbl_deep_extend("force", defaults, configs)
+            return require("custom.table").merge(defaults, configs)
         end,
     },
 }
