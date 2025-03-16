@@ -47,7 +47,7 @@ return {
             local defaults = require("nvchad.configs.cmp")
             local cmp = require("cmp")
             local luasnip = require("luasnip")
-            local mods = {
+            local modifications = {
                 completion = {
                     completeopt = "menu,menuone,noinsert",
                 },
@@ -77,32 +77,87 @@ return {
                     end, { "i", "s" }),
                 },
             }
-            return vim.tbl_deep_extend("force", defaults, mods)
+            return vim.tbl_deep_extend("force", defaults, modifications)
+        end,
+        config = function(_, opts)
+            local cmp = require("cmp")
+            cmp.setup(opts)
+            -- FIX: This is broken
+            -- cmp.setup.cmdline(":", {
+            --     mapping = cmp.mapping.preset.cmdline(),
+            --     sources = cmp.config.sources({
+            --         { name = "path" },
+            --     }, {
+            --         { name = "cmdline" },
+            --     }),
+            --     matching = { disallow_symbol_nonprefix_matching = false },
+            -- })
+            cmp.setup.cmdline({ "/", "?" }, {
+                mapping = cmp.mapping.preset.cmdline(),
+                sources = {
+                    { name = "buffer" },
+                },
+            })
         end,
     },
     {
         "folke/trouble.nvim",
-        lazy = false,
         dependencies = { "nvim-tree/nvim-web-devicons" },
-        config = function(_, opts)
-            require("trouble").setup(opts)
-            require("mappings").trouble()
-        end,
+        opts = {
+            warn_no_results = false,
+        },
+        cmd = "Trouble",
+        keys = {
+            {
+                "<leader>ee",
+                "<cmd>Trouble diagnostics toggle<cr>",
+                desc = "Trouble Diagnostics",
+            },
+            {
+                "<leader>eb",
+                "<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
+                desc = "Trouble Buffer Diagnostics",
+            },
+            {
+                "<leader>es",
+                "<cmd>Trouble symbols toggle focus=false<cr>",
+                desc = "Trouble Symbols",
+            },
+            {
+                "<leader>er",
+                "<cmd>Trouble lsp toggle focus=false win.position=right<cr>",
+                desc = "Trouble LSP Reference Sidebar",
+            },
+            {
+                "<leader>el",
+                "<cmd>Trouble loclist toggle<cr>",
+                desc = "Trouble Location List",
+            },
+            {
+                "<leader>eq",
+                "<cmd>Trouble qflist toggle<cr>",
+                desc = "Trouble Quickfix List",
+            },
+        },
     },
     {
         "stevearc/aerial.nvim",
         config = function()
             local map = require("mappings").map
             require("aerial").setup({
-                -- optionally use on_attach to set keymaps when aerial has attached to a buffer
                 on_attach = function(bufnr)
-                    -- Jump forwards/backwards with '{' and '}'
                     map("n", "[f", "<cmd>AerialPrev<CR>", { buffer = bufnr })
                     map("n", "]f", "<cmd>AerialNext<CR>", { buffer = bufnr })
                 end,
             })
-            -- You probably also want to set a keymap to toggle aerial
-            map("n", "<leader>ea", "<cmd>AerialToggle<CR>")
         end,
+        cmd = "AerialToggle",
+        keys = {
+            {
+                "<leader>ea",
+                "<cmd>AerialToggle<CR>",
+                desc = "Toggle Aerial",
+            },
+        },
     },
 }
