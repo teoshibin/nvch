@@ -14,7 +14,7 @@ return {
             local lspconfig = require("configs.nvlspconfig")
             local map = vim.keymap.set
             vim.g.rustaceanvim = {
-                tools = {},
+                -- tools = {},
                 server = {
                     on_attach = function(_, bufnr)
                         local function opts(desc)
@@ -38,15 +38,35 @@ return {
                         end, opts("Lsp Rust join line"))
 
                         -- show diagnostic pop up
-                        map("n", "<leader>ee", function()
+                        map("n", "<leader>eR", function()
                             vim.cmd.RustLsp({ "renderDiagnostic", "current" })
                         end, opts("Lsp Rust show diagnostic"))
                     end,
                     default_settings = {
-                        ["rust-analyzer"] = {},
+                        ["rust-analyzer"] = {
+                            imports = {
+                                granularity = {
+                                    group = "module",
+                                },
+                                prefix = "self",
+                            },
+                            cargo = {
+                                buildScripts = {
+                                    enable = true,
+                                },
+                            },
+                            procMacro = {
+                                enable = true,
+                            },
+                            diagnostics = {
+                                experimental = {
+                                    enable = true,
+                                },
+                            },
+                        },
                     },
                 },
-                dap = {},
+                -- dap = {},
             }
         end,
     },
